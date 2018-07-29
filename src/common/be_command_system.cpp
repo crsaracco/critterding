@@ -1,46 +1,38 @@
 #include "be_command_system.h"
 #include <boost/bind/bind.hpp>
 
-BeCommandSystem* BeCommandSystem::Instance () 
-{
+BeCommandSystem* BeCommandSystem::Instance () {
 	static BeCommandSystem t;
 	return &t;
 }
 
-BeCommandSystem::BeCommandSystem()
-{
+BeCommandSystem::BeCommandSystem() {
 	Settings* const	settings = Settings::Instance();
-	registerStringCommand("settings_saveprofile", boost::bind(&Settings::saveProfile, settings, _1));
-	registerStringCommand("settings_increase", boost::bind(&Settings::increaseCVar, settings, _1, 1));
-	registerStringCommand("settings_decrease", boost::bind(&Settings::decreaseCVar, settings, _1, 1));
+	//registerStringCommand("settings_saveprofile", boost::bind(&Settings::saveProfile, settings, _1));
+	//registerStringCommand("settings_increase", boost::bind(&Settings::increaseCVar, settings, _1, 1));
+	//registerStringCommand("settings_decrease", boost::bind(&Settings::decreaseCVar, settings, _1, 1));
 }
 
-void BeCommandSystem::registerVoidCommand(const std::string& name, FunctionVoid function)
-{
+void BeCommandSystem::registerVoidCommand(const std::string& name, FunctionVoid function) {
 	m_mapFunctionVoid[name]		= function;
 }
 
-void BeCommandSystem::registerIntCommand(const std::string& name, FunctionInt function)
-{
+void BeCommandSystem::registerIntCommand(const std::string& name, FunctionInt function) {
 	m_mapFunctionInt[name]		= function;
 }
 
-void BeCommandSystem::registerFloatCommand(const std::string& name, FunctionFloat function)
-{
+void BeCommandSystem::registerFloatCommand(const std::string& name, FunctionFloat function) {
 	m_mapFunctionFloat[name]	= function;
 }
 
-void BeCommandSystem::registerStringCommand(const std::string& name, FunctionString function)
-{
+void BeCommandSystem::registerStringCommand(const std::string& name, FunctionString function) {
 	m_mapFunctionString[name]	= function;
 }
 
-void BeCommandSystem::executeCommand(const BeCommand& cmds)
-{
+void BeCommandSystem::executeCommand(const BeCommand& cmds) {
 	const std::string& name=cmds.m_name;
 	const BeCommand::cmdargtype type=cmds.m_argtype;
-	switch(type)
-	{
+	switch(type) {
 	case BeCommand::A_NOARG:
 		{
 			const MapFunctionVoid::iterator iteratorVoid=m_mapFunctionVoid.find(name);
