@@ -20,6 +20,7 @@ For more information, check out the SourceForge page (which I eventually want to
 ```
 mkdir build
 cd build
+cp -r ../share .
 export CXXFLAGS="-march=native -Ofast"  # Optional, but recommended
 cmake ../ -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
 make [-j <threads>]
