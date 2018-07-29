@@ -17,17 +17,11 @@ For more information, check out the SourceForge page (which I eventually want to
 
 ## Building
 
-There's a script to build everything automatically:
-
 ```
-./compile-release.sh [threads]
-```
-
-You can also build it manually:
-
-```
+mkdir build
+cd build
 export CXXFLAGS="-march=native -Ofast"  # Optional, but recommended
-cmake . -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
+cmake ../ -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
 make [-j <threads>]
 sudo make install  # Optional, to install the binary on your system
 ```
