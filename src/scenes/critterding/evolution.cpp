@@ -28,7 +28,7 @@
 #include "evolution.h"
 
 #include <math.h>
-#include <boost/bind/bind.hpp>
+#include <boost/bind.hpp>
 
 #include "modes/race.h" // FIXME MOVE TO EVOLUTION
 #include "modes/roundworld.h"
@@ -148,7 +148,7 @@ Evolution::Evolution(BeFilesystem& filesystem)
 // 	}
 	
  	BeCommandSystem::Instance()->registerVoidCommand("quit", boost::bind(&Evolution::quit, this));
-	//BeCommandSystem::Instance()->registerIntCommand("cs_unregister", boost::bind(&Evolution::unregisterCritterVID, this, _1));
+	BeCommandSystem::Instance()->registerIntCommand("cs_unregister", boost::bind(&Evolution::unregisterCritterVID, this, _1));
 	BeCommandSystem::Instance()->registerVoidCommand("cs_clear", boost::bind(&Evolution::clear, this));
 
 	BeCommandSystem::Instance()->registerVoidCommand("decreaseenergy", boost::bind(&Evolution::decreaseenergy, this));
@@ -172,8 +172,8 @@ Evolution::Evolution(BeFilesystem& filesystem)
 	BeCommandSystem::Instance()->registerVoidCommand("camera_lookleft", boost::bind(&Evolution::camera_lookleft, this));
 	BeCommandSystem::Instance()->registerVoidCommand("camera_lookright", boost::bind(&Evolution::camera_lookright, this));
 
-	//BeCommandSystem::Instance()->registerFloatCommand("camera_lookleftright_mouse", boost::bind(&Evolution::camera_lookleftright_mouse, this, _1));
-	//BeCommandSystem::Instance()->registerFloatCommand("camera_lookupdown_mouse", boost::bind(&Evolution::camera_lookupdown_mouse, this, _1));
+	BeCommandSystem::Instance()->registerFloatCommand("camera_lookleftright_mouse", boost::bind(&Evolution::camera_lookleftright_mouse, this, _1));
+	BeCommandSystem::Instance()->registerFloatCommand("camera_lookupdown_mouse", boost::bind(&Evolution::camera_lookupdown_mouse, this, _1));
 		
 	
 	BeCommandSystem::Instance()->registerVoidCommand("camera_rollleft", boost::bind(&Evolution::camera_rollleft, this));
@@ -212,13 +212,13 @@ Evolution::Evolution(BeFilesystem& filesystem)
 	BeCommandSystem::Instance()->registerVoidCommand("cs_resetage", boost::bind(&WorldB::resetageSelectedCritter, world));
 	BeCommandSystem::Instance()->registerVoidCommand("cs_follow", boost::bind(&WorldB::followCritter, world));
 
-	//BeCommandSystem::Instance()->registerIntCommand("cs_select", boost::bind(&Evolution::gui_selectCritter, this, _1));
-	//BeCommandSystem::Instance()->registerIntCommand("cs_select_species", boost::bind(&Evolution::gui_selectSpecies, this, _1));
-	//BeCommandSystem::Instance()->registerStringCommand("gui_togglepanel", boost::bind(&Evolution::canvas_swapchild, this, _1));
+	BeCommandSystem::Instance()->registerIntCommand("cs_select", boost::bind(&Evolution::gui_selectCritter, this, _1));
+	BeCommandSystem::Instance()->registerIntCommand("cs_select_species", boost::bind(&Evolution::gui_selectSpecies, this, _1));
+	BeCommandSystem::Instance()->registerStringCommand("gui_togglepanel", boost::bind(&Evolution::canvas_swapchild, this, _1));
 	BeCommandSystem::Instance()->registerVoidCommand("gui_toggle", boost::bind(&Evolution::gui_swap, this));
 
-	//BeCommandSystem::Instance()->registerFloatCommand("movepickedbodyX", boost::bind(&Evolution::movePickedBodyX, this, _1));
-	//BeCommandSystem::Instance()->registerFloatCommand("movepickedbodyY", boost::bind(&Evolution::movePickedBodyY, this, _1));
+	BeCommandSystem::Instance()->registerFloatCommand("movepickedbodyX", boost::bind(&Evolution::movePickedBodyX, this, _1));
+	BeCommandSystem::Instance()->registerFloatCommand("movepickedbodyY", boost::bind(&Evolution::movePickedBodyY, this, _1));
 /*	BeCommandSystem::Instance()->registerVoidCommand("canvas_press", boost::bind(&Evolution::canvas_press, this));
 	BeCommandSystem::Instance()->registerVoidCommand("canvas_release", boost::bind(&Evolution::canvas_release, this));
 	BeCommandSystem::Instance()->registerVoidCommand("canvas_pressAlt", boost::bind(&Evolution::canvas_pressAlt, this));
