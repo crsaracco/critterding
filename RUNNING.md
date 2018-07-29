@@ -1,24 +1,23 @@
-COMPILING
- - Compiling instructions can be found in the INSTALL file
+# Running Critterding
 
-USAGE
-	start an ecosim
-	> ./src/critterding
+There are two main modes of critterding:
 
-	start a race
-	> ./src/critterding --profile profiles/race
+Running the petri dish simulation:
 
-TERMINOLOGY
+```
+./src/critterding
+```
 
- - Adam
-      : new (random) critter
+Running a "race" simulation where critters try to get as far as possible, as fast as possible:
 
- - Adam Distance (ad)
-      : generations with mutations since adam
+```
+./src/critterding --profile profiles/race
+```
 
-OPTIONS
+## Command-line arguments
 
-  option                                                    [default] [range]      [comment]
+```
+option                                                    [default] [range]      [comment]
 
   --autoload                                                  0         0-1          autoload critters from ~/.critterding/load
   --autoloadlastsaved                                         0         0-1          autoload critters from ~/.critterding/lastsaved
@@ -182,16 +181,10 @@ OPTIONS
   --worldsizeX                                                200       1-2147483647 size of the world along axis X
   --worldsizeY                                                100       1-2147483647 size of the world along axis Y
   --worldsizeZ                                                120       0-2147483647 size of the world along axis Z
+```
 
- To save the default settings to a profile, press "s" in the simulation.  
- It will be saved to "profiles/[timestamp]" and can be loaded by using "--profile profiles/[timestamp]"
+## In-game controls
 
- Press F1 in the simulation for more information about keys.
+To save the default settings to a profile, press "s" in the simulation. It will be saved to "profiles/[timestamp]" and can be loaded by using "--profile profiles/[timestamp]"
 
-
-
-Bob Winckelmans <bob.winckelmans@telenet.be>
-Sam Porter
-IRC:
-   channel: #critterding
-   server: irc.freenode.org
+Press F1 in the simulation for more information about keys.
