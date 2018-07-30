@@ -7,11 +7,11 @@ class BeTimer
 {
 	public:
 		BeTimer() :
-		 m_totalMilliSeconds(0), 
-		 m_elapsedMilliSeconds(0), 
+		 m_totalMilliSeconds(0),
+		 m_elapsedMilliSeconds(0),
 		 m_elapsedSeconds(0)
 		{
-			SDL_Init(0); 
+			SDL_Init(0);
 		};
 		~BeTimer() {};
 

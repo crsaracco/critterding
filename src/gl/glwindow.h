@@ -21,15 +21,15 @@ class GLWindow {
 		void process();
 
 		void setTitle(const std::string& title);
-		void setCanvas(boost::shared_ptr<Canvas> canvas) { m_canvas = canvas; }
+		void setCanvas(std::shared_ptr<Canvas> canvas) { m_canvas = canvas; }
 
         void dumpScreenShot();
-		
+
 		int width() { return w_width; }
 		int height() { return w_height; }
 
 		bool resized() const { return m_resized; }
-		
+
 	private:
 		//	Resize Window
 		BeEventSystem* m_eventsystem;
@@ -47,11 +47,11 @@ class GLWindow {
 		bool hwaccel;
 // 		const int* settingsfs;
 		const int* m_window_fullscreen_p;
-		
+
 		int mousex;
 		int mousey;
 		BeLogDebug m_logDebug;
-		boost::shared_ptr<Canvas> m_canvas;
+		std::shared_ptr<Canvas> m_canvas;
 		bool m_resized;
 		bool m_resizable;
 };

@@ -13,7 +13,7 @@ public:
 	//
 
 	void clear(const GLbitfield mask);
-	
+
 	void flush();
 
 	void enable(const GLenum cap);
@@ -110,7 +110,7 @@ public:
 	void linkProgram(const GLuint program);
 	void getProgramInfoLog(const GLuint program, const GLsizei bufSize, GLsizei *length, GLchar* const infoLog);
 	void useProgram(const GLuint program);
-	
+
 	void color( const BeColor& c );
 private:
 };

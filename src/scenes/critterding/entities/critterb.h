@@ -24,9 +24,9 @@ class CritterB : public Entity
 // 		void			draw(bool drawFaces);
 // 		void			draw( const bool do_color, const bool do_scale );
 		void			move();
-		
+
 		bool			eaten;
-		
+
 		unsigned long		critterID;
 
 // 		unsigned int		adamdist;
@@ -67,13 +67,13 @@ class CritterB : public Entity
 // 		void			releaseFBO();
 		void			calcFramePos(unsigned int pos);
 		void			printVision();
-		
+
 		float			fitness_index;
 
 // 		vector<unsigned int>	crittersWithinRange;
-		
+
 			const int*	colormode;
-	boost::shared_ptr<BeGraphicsModelResource> m_model;
+	std::shared_ptr<BeGraphicsModelResource> m_model;
 
 		btTransform m_render_offset;
 	private:
@@ -117,14 +117,14 @@ class CritterB : public Entity
 			const int*	brain_costhavingsynapse;
 			const int*	body_costhavingbodypart;
 			const int*	body_costtotalweight;
-			
+
 			const int*	setting_critter_mutate_minenergyproc;
 
 		const float m_zNear;
 		const float m_fovy;
 		const float m_frustumHalf;
 // 		float m_zFar;
-		
+
 
 };
 

@@ -43,7 +43,7 @@ void Genotype::registerBrainInputOutputs()
   // being touched
     brainzArch->registerInput( 10002 );
 
-  // being eaten 
+  // being eaten
     brainzArch->registerInput( 10003 );
 
 
@@ -70,7 +70,7 @@ std::string Genotype::saveGenotype()
 // 	buf << "color=" << color[0] << "," << color[1] << "," << color[2] << ";\n";
 	buf << "adamdist=" << adamdist << ";\n";
 
-	
+
 // 	buf << "retinasize=" << retinasize << ";\n";
 
 	std::string* bodyarch = bodyArch->getArch();

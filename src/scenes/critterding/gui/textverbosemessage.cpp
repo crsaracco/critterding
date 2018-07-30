@@ -5,21 +5,21 @@
 Textverbosemessage::Textverbosemessage() : Panel(false)
 {
 	m_localposition.set(2, 24);
-	
+
 	m_dimensions.set(520, 75);
 
 	col2 = (unsigned int)(((float)m_dimensions.m_x/16)*11);
-	
+
 // 	active = false;
 	isMovable = true;
-	
+
 	maxMessages = 5;
 	msgLifetime = 0;
 // 	longestLength = 0;
 
 	BeWidgetPtr w = addWidgetButton( "textverbosemessage_close", Vector2i(2, 2), Vector2i(12, 12), "x", BeCommand("gui_togglepanel", "textverbosemessage"), EVENT_NOREPEAT, 0 );
 		w->isAlignedRight = true;
-	
+
 }
 
 void Textverbosemessage::addBirth(std::stringstream& streamptr)
@@ -96,11 +96,11 @@ void Textverbosemessage::draw()
 
 					glVertex2i(m_absposition.m_x+m_dimensions.m_x, m_absposition.m_y+m_dimensions.m_y);
 					glVertex2i(m_absposition.m_x,         m_absposition.m_y+m_dimensions.m_y);
-					
-					
+
+
 			glVertex2f(getPosition().m_x+col2, getPosition().m_y);
 			glVertex2f(getPosition().m_x+col2, getPosition().m_y+getHeight());
-					
+
 				glEnd();
 				glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 			glPopMatrix();

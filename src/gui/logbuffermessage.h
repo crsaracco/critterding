@@ -47,7 +47,7 @@ class Logbuffer
 class Logbuffermessage : public Panel
 {
 	public:
-		Logbuffermessage( boost::shared_ptr<Logbuffer> logBuffer );
+		Logbuffermessage( std::shared_ptr<Logbuffer> logBuffer );
 		virtual ~Logbuffermessage() {};
 
 		void		draw();
@@ -55,7 +55,7 @@ class Logbuffermessage : public Panel
 
 		int		vpadding;
 		int		hpadding;
-		boost::shared_ptr<Logbuffer>	m_logBuffer;
+		std::shared_ptr<Logbuffer>	m_logBuffer;
 };
 
 #endif

@@ -8,7 +8,7 @@
 
 void BeLogDebug::log(const std::string& message)
 {
-	if ( 
+	if (
 		Settings::Instance()->getCVar(m_chapter) == 1
 		|| Settings::Instance()->getCVar("debug_ALL") == 1
 		|| m_chapter == "debug_ERROR"

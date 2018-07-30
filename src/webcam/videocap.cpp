@@ -1,6 +1,6 @@
 #include "videocap.h"
 
-Videocap* Videocap::Instance () 
+Videocap* Videocap::Instance ()
 {
 	static Videocap t;
 	return &t;
@@ -22,7 +22,7 @@ Videocap::Videocap()
 	video_hue = 0;
 	image_new = 0;
 	image_base = 0;
-	
+
 	vid_dev = -1;
 	vid_mmap = (char *)-1;
 	vid_alloc_map = 0;
@@ -41,7 +41,7 @@ void Videocap::grab()
 	if ( vid_dev>-1 )
 	{
 		image_new = v4l_DoCapture(vid_dev, video_width, video_height);
-		
+
 		// copy to image_current
 		for ( int i = 0; i < VIDEO_WIDTH * VIDEO_HEIGHT*3; i++ )
 		{
@@ -69,7 +69,7 @@ char* Videocap::v4l_SetDevice ( int dev,  int width,  int height,  int input,  i
 		fprintf(stderr, "ioctl (VIDIOCGCAP) failed\n");
 		return NULL;
 	}
- 
+
 /*	   if (input || norm) {
 	      vid_chnl.channel = -1;
 	      if (ioctl (dev, VIDIOCGCHAN, &vid_chnl) == -1) {
@@ -83,9 +83,9 @@ char* Videocap::v4l_SetDevice ( int dev,  int width,  int height,  int input,  i
 		}
 	      }
 	  }*/
- 
+
 	v4l_Settings();
- 
+
 	if (ioctl (dev, VIDIOCGMBUF, &vid_bufv4l) == -1)
 	{
 		fprintf(stderr, "No memory-mapping available.\n");
@@ -106,93 +106,93 @@ char* Videocap::v4l_SetDevice ( int dev,  int width,  int height,  int input,  i
 	else
 	{
 		vid_mmap=(char*)mmap(0, vid_bufv4l.size, PROT_READ|PROT_WRITE, MAP_SHARED, dev, 0);
-      
+
 		if ((unsigned char *)-1 == (unsigned char *) vid_mmap)
 			return NULL;
 		vid_mmap_size = vid_bufv4l.size;
-      
+
 		return vid_mmap;
 	}
 }
- 
+
 
 char* Videocap::v4l_DoCapture ( int dev, int width, int height )
 {
 	struct video_mmap t_mmap;
 	int frame = 0;
-      
+
 	if (vid_alloc_map)
 	{
 		if (read(dev, vid_alloc_map, vid_alloc_size) != vid_alloc_size)
 			return NULL;
-      
+
 		return vid_alloc_map;
 	}
 	else
 	{
 		t_mmap.format=VIDEO_PALETTE_RGB24;
 		t_mmap.frame=frame;
-	  
+
 		t_mmap.width=width;
 		t_mmap.height=height;
-	      
+
 		if (ioctl(dev, VIDIOCMCAPTURE, &t_mmap) == -1) {
 			return NULL;
 		}
-	  
+
 		if (ioctl(dev, VIDIOCSYNC, &t_mmap) == -1) {
 			fprintf(stderr, "Error with sync!\n");
 			return NULL;
 		}
-	  
+
 		return vid_mmap + vid_bufv4l.offsets[frame];
 	}
 }
- 
+
 
 int Videocap::v4l_Settings ( void )
 {
 	struct video_picture vp;
-      
+
 	if (vid_dev == -1)
 		return -1;
-      
+
 	if (ioctl (vid_dev, VIDIOCGPICT, &vp) == -1)
 	{
 		fprintf(stderr, "Error getting vp\n");
 		return 1;
 	}
-      
+
 	vp.contrast = video_contrast;
 	vp.brightness = video_brightness;
 	vp.colour = video_color;
 	vp.hue = video_hue;
       //  vp.whiteness = video_whiteness;
-      
+
 	if (ioctl(vid_dev, VIDIOCSPICT, &vp) == -1)
 	{
 		fprintf(stderr, "Error getting vp\n");
 		return 2;
 	}
-      
+
 	return 0;
 }
- 
+
 
 void Videocap::v4l_CloseDev( void )
 {
 	if (vid_mmap > 0)
 		munmap(vid_mmap, vid_mmap_size);
 	vid_mmap = 0;
-      
+
 	if (vid_alloc_map)
 		free(vid_alloc_map);
 	vid_alloc_map = 0;
-      
+
 	close(vid_dev);
 	vid_dev = -1;
 }
- 
+
 
 int Videocap::v4l_OpenDev( char *device )
 {
@@ -201,31 +201,31 @@ int Videocap::v4l_OpenDev( char *device )
 		v4l_CloseDev();
 // 		sleep(1);
 	}
-      
+
 	vid_dev=open(device, O_RDONLY);
-      
+
 	if (vid_dev < 0)
 	{
 		std::cout << "Open device error" << device << std::endl;
 		fprintf(stderr, "Open device error\n");
 		return -1;
 	}
-      
+
 	/* Allow videodevice to settle in */
 // 	sleep(1);
-      
+
 	image_base = v4l_SetDevice (vid_dev, video_width, video_height, video_input, video_norm);
-      
+
 	if (!image_base)
 		return -2;
-      
+
 	return vid_dev;
 }
- 
+
 Videocap::~Videocap()
 {
 	v4l_CloseDev();
 // 	free(image_current);
 }
- 
+
 /* End */

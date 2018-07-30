@@ -21,7 +21,7 @@ Settingsbodypanel::Settingsbodypanel()
 	addSettingmutator("body_maxconstraintangle", 0, 0);
 	addSettingmutator("body_maxconstraintlimit", 0, 0);
 	addSettingmutator("body_constraintpositionrange", 0, 0);
-	
+
 	row+=8;
 
 // 	addSettingmutator("body_percentmutateminenergyproc", 0, 0);
@@ -42,9 +42,9 @@ Settingsbodypanel::Settingsbodypanel()
 	addSettingmutator("body_percentmutateeffectresizehead", 0, 0);
 	addSettingmutator("body_percentmutateeffectresizehead_slightly", 0, 0);
 	addSettingmutator("body_percentmutateeffectrepositionhead", 0, 0);
-	
+
 	row+=8;
-	
+
 	addSettingmutator("body_costhavingbodypart", 0, 0);
 	addSettingmutator("body_costtotalweight", 0, 0);
 

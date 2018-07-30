@@ -21,8 +21,8 @@ class BePhysicsSystem
 // 			std::cerr << "exiting physics" << std::endl;
 		};
 
-		boost::shared_ptr<btDynamicsWorld> createWorld();
-		void debugDrawWorld(boost::shared_ptr<btDynamicsWorld> dynamicsWorld)
+		std::shared_ptr<btDynamicsWorld> createWorld();
+		void debugDrawWorld(std::shared_ptr<btDynamicsWorld> dynamicsWorld)
 		{
 			dynamicsWorld->setDebugDrawer(&physicsdebugrenderer);
 			dynamicsWorld->debugDrawWorld();

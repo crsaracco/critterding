@@ -87,7 +87,7 @@ void	BePhysicsDebugRenderer::drawTriangle(const btVector3& a,const btVector3& b,
 //	if (m_debugMode > 0)
 	{
 		const btVector3	n=btCross(b-a,c-a).normalized();
-		glBegin(GL_TRIANGLES);		
+		glBegin(GL_TRIANGLES);
 		glColor4f(color.getX(), color.getY(), color.getZ(),alpha);
 		glNormal3d(n.getX(),n.getY(),n.getZ());
 		glVertex3d(a.getX(),a.getY(),a.getZ());
@@ -116,7 +116,7 @@ void	BePhysicsDebugRenderer::reportErrorWarning(const char* warningString)
 
 void	BePhysicsDebugRenderer::drawContactPoint(const btVector3& pointOnB,const btVector3& normalOnB,btScalar distance,int lifeTime,const btVector3& color)
 {
-	
+
 	{
 		btVector3 to=pointOnB+normalOnB*distance;
 		const btVector3&from = pointOnB;
@@ -128,7 +128,7 @@ void	BePhysicsDebugRenderer::drawContactPoint(const btVector3& pointOnB,const bt
 		glVertex3d(to.getX(), to.getY(), to.getZ());
 		glEnd();
 
-		
+
 		glRasterPos3f(from.x(),  from.y(),  from.z());
 		char buf[12];
 		sprintf(buf," %d",lifeTime);

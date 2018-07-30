@@ -1,6 +1,6 @@
 #include "testworld1.h"
 
-TestWorld1::TestWorld1(  boost::shared_ptr<BeGraphicsSystem> system, boost::shared_ptr<Textverbosemessage> textverbosemessage )
+TestWorld1::TestWorld1(  std::shared_ptr<BeGraphicsSystem> system, std::shared_ptr<Textverbosemessage> textverbosemessage )
  : WorldB( system, textverbosemessage )
 {
 }
@@ -73,9 +73,9 @@ btVector3 TestWorld1::findPosition()
 	{
 		if ( (unsigned int)randgen->Instance()->get( i, elevations-1 ) == i )
 		{
-			return btVector3( 
+			return btVector3(
 				(float)settings->getCVar("worldsizeX")/2.0f - (float)settings->getCVar("worldsizeX")/(decSizeFactor*2*(i+2)) + ((float)randgen->Instance()->get( 0, (float)settings->getCVar("worldsizeX")/(decSizeFactor*(i+2))*100 ) / 100),
-				insertHight, 
+				insertHight,
 				(float)settings->getCVar("worldsizeY")/2.0f - (float)settings->getCVar("worldsizeY")/(decSizeFactor*2*(i+2)) + ((float)randgen->Instance()->get( 0, (float)settings->getCVar("worldsizeY")/(decSizeFactor*(i+2))*100 ) / 100)
 			);
 		}

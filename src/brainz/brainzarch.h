@@ -48,7 +48,7 @@ class BrainzArch
 
 			unsigned int m_maxmutations;
 			unsigned int m_mutationrate;
-				
+
 		// percent chance that when adding a new random neuron, it's inhibitory
 			unsigned int		percentChanceInhibitoryNeuron;
 				unsigned int			mutate_percentChanceInhibitoryNeuron;

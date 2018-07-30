@@ -44,7 +44,7 @@ void BeParser::trimWhitespaces(const std::string& line)
 	if(position_index!=std::string::npos)
 	{
 		char ch=0;
-		do 
+		do
 		{
 			ch=line[position_index];
 			if(isspace(ch))
@@ -55,7 +55,7 @@ void BeParser::trimWhitespaces(const std::string& line)
 			{
 				return;
 			}
-		} 
+		}
 		while (ch!=0);
 		position_index = std::string::npos;
 	}
@@ -214,7 +214,7 @@ bool BeParser::wrap(std::string& wrapin, const std::string& towrap, const std::s
 		std::string wrapped(insert_front);
 		wrapped.append(towrap);
 		wrapped.append(insert_behind);
-		
+
 		wrapin.replace( pos, towrap.size(), wrapped );
 		return true;
 	}
@@ -223,20 +223,20 @@ bool BeParser::wrap(std::string& wrapin, const std::string& towrap, const std::s
 
 // #include "be_parser.h"
 // #include <boost/lexical_cast.hpp>
-// 
+//
 // BeParser::BeParser() : position_index(0)
 // {
 // }
-// 
+//
 // BeParser::~BeParser()
 // {
 // }
-// 
+//
 // void BeParser::reset()
 // {
 // 	position_index = 0;
 // }
-// 
+//
 // bool BeParser::endMatches(const std::string& stop, std::string& line)
 // {
 // 	if ( line.size() >= stop.size() )
@@ -244,10 +244,10 @@ bool BeParser::wrap(std::string& wrapin, const std::string& towrap, const std::s
 // 		if ( line.substr( line.size()-stop.size(), stop.size() ) == stop )
 // 			return true;
 // 	}
-// 
+//
 // 	return false;
 // }
-// 
+//
 // bool BeParser::endMatchesStrip(const std::string& stop, std::string& line)
 // {
 // 	if ( line.size() >= stop.size() )
@@ -258,16 +258,16 @@ bool BeParser::wrap(std::string& wrapin, const std::string& towrap, const std::s
 // 			return true;
 // 		}
 // 	}
-// 
+//
 // 	return false;
 // }
-// 
+//
 // void BeParser::trimWhitespaces(const std::string& line)
 // {
 // 	if(position_index!=std::string::npos)
 // 	{
 // 		char ch=0;
-// 		do 
+// 		do
 // 		{
 // 			ch=line[position_index];
 // 			if(isspace(ch))
@@ -278,12 +278,12 @@ bool BeParser::wrap(std::string& wrapin, const std::string& towrap, const std::s
 // 			{
 // 				return;
 // 			}
-// 		} 
+// 		}
 // 		while (ch!=0);
 // 		position_index = std::string::npos;
 // 	}
 // }
-// 
+//
 // void BeParser::removeCommentlines(std::string& line)
 // {
 // 	if(position_index != std::string::npos)
@@ -299,15 +299,15 @@ bool BeParser::wrap(std::string& wrapin, const std::string& towrap, const std::s
 // 		}
 // 	}
 // }
-// 
-// 
+//
+//
 // bool BeParser::beginMatches(const std::string& stop, const std::string& line)
 // {
 // 	if ( line.substr( position_index, stop.size() ) == stop )
 // 		return true;
 // 	return false;
 // }
-// 
+//
 // bool BeParser::beginMatchesStrip(const std::string& stop, const std::string& line)
 // {
 // 	if ( line.substr( position_index, stop.size() ) == stop )
@@ -317,7 +317,7 @@ bool BeParser::wrap(std::string& wrapin, const std::string& towrap, const std::s
 // 	}
 // 	return false;
 // }
-// 
+//
 // std::string BeParser::returnUntillStrip(const char stop, const std::string& line)
 // {
 // 	std::string result;
@@ -327,7 +327,7 @@ bool BeParser::wrap(std::string& wrapin, const std::string& towrap, const std::s
 // 		if ( pos != std::string::npos )
 // 		{
 // 			result = line.substr( position_index, pos-position_index );
-// 
+//
 // 			// increase positionindex
 // 			position_index = pos+1;
 // 		}
@@ -339,7 +339,7 @@ bool BeParser::wrap(std::string& wrapin, const std::string& towrap, const std::s
 // 	}
 // 	return result;
 // }
-// 
+//
 // std::string BeParser::returnUntillStrip(const std::string& stop, const std::string& line)
 // {
 // 	std::string result;
@@ -349,7 +349,7 @@ bool BeParser::wrap(std::string& wrapin, const std::string& towrap, const std::s
 // 		if ( pos != std::string::npos )
 // 		{
 // 			result = line.substr( position_index, pos-position_index );
-// 
+//
 // 			// increase positionindex
 // 			position_index = pos+stop.size();
 // 		}
@@ -361,7 +361,7 @@ bool BeParser::wrap(std::string& wrapin, const std::string& towrap, const std::s
 // 	}
 // 	return result;
 // }
-// 
+//
 // std::string BeParser::returnRemainder(const std::string& line)
 // {
 // 	std::string result;
@@ -371,7 +371,7 @@ bool BeParser::wrap(std::string& wrapin, const std::string& towrap, const std::s
 // 		if ( position_index != std::string::npos )
 // 		{
 // 			result = line.substr( position_index, line.size() );
-// 
+//
 // 			// increase positionindex
 // 			position_index = std::string::npos;
 // 		}
@@ -383,7 +383,7 @@ bool BeParser::wrap(std::string& wrapin, const std::string& towrap, const std::s
 // 	}
 // 	return result;
 // }
-// 
+//
 // bool BeParser::parseUnsignedInt( std::string& string, unsigned int& value )
 // {
 // 	const std::string str=returnUntillStrip(' ', string);
@@ -394,7 +394,7 @@ bool BeParser::wrap(std::string& wrapin, const std::string& towrap, const std::s
 // 	}
 // 	return false;
 // }
-// 
+//
 // bool BeParser::parseFloat( std::string& string, float& value )
 // {
 // 	const std::string str = returnUntillStrip(' ', string);
@@ -405,7 +405,7 @@ bool BeParser::wrap(std::string& wrapin, const std::string& towrap, const std::s
 // 	}
 // 	return false;
 // }
-// 
+//
 // bool BeParser::parseVector3( std::string& string, btVector3& value )
 // {
 // 	float x(0),y(0),z(0);
@@ -422,13 +422,13 @@ bool BeParser::wrap(std::string& wrapin, const std::string& towrap, const std::s
 // 	}
 // 	return false;
 // }
-// 
+//
 // bool BeParser::parseString( std::string& string, std::string& value )
 // {
 //     value = returnUntillStrip( ' ', string );
 //     return true;
 // }
-// 
+//
 // bool BeParser::wrap(std::string& wrapin, const std::string& towrap, const std::string& insert_front, const std::string& insert_behind )
 // {
 // 	size_t pos = wrapin.find( towrap );
@@ -437,7 +437,7 @@ bool BeParser::wrap(std::string& wrapin, const std::string& towrap, const std::s
 // 		std::string wrapped(insert_front);
 // 		wrapped.append(towrap);
 // 		wrapped.append(insert_behind);
-// 		
+//
 // 		wrapin.replace( pos, towrap.size(), wrapped );
 // 		return true;
 // 	}

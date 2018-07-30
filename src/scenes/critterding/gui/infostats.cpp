@@ -11,9 +11,9 @@ Infostats::Infostats() : Panel(false)
 
 // 	active = true;
 	isMovable = true;
-	
+
 	m_localposition.set(2, 24);
-	
+
 	m_dimensions.set(520, 75);
 	BeWidgetPtr w = addWidgetButton( "infostats_close", Vector2i(2, 2), Vector2i(12, 12), "x", BeCommand("gui_togglepanel", "infostats"), EVENT_NOREPEAT, 0 );
 		w->isAlignedRight = true;
@@ -35,7 +35,7 @@ void Infostats::draw()
 
 		float linespacer = 0.0f;
 
-		
+
 		//	drawBorders();
 		{
 			glPushMatrix();
@@ -52,11 +52,11 @@ void Infostats::draw()
 
 					glVertex2i(m_absposition.m_x+m_dimensions.m_x, m_absposition.m_y+m_dimensions.m_y);
 					glVertex2i(m_absposition.m_x,         m_absposition.m_y+m_dimensions.m_y);
-					
-					
+
+
  			glVertex2f(col2, getPosition().m_y + linespacer);
  			glVertex2f(col2, (getPosition().m_y+getHeight()) - linespacer);
-					
+
 				glEnd();
 				glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 			glPopMatrix();
@@ -104,7 +104,7 @@ void Infostats::draw()
 
 	// COLUMN 2
 		rc = 1;
-		
+
 		Textprinter::Instance()->print(col2+hsp,	getPosition().m_y+vsp*rc,	"body");
 
 		rc++;

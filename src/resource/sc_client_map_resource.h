@@ -18,20 +18,20 @@ public:
 // 		eStatusReady
 // 	};
 
-	ScClientMapResource(BeFilesystem& filesystem, const std::string& path, boost::shared_ptr<BeGraphicsSystem> graphicsSystem, boost::shared_ptr<BeGraphicsModelSystem> modelSystem)
+	ScClientMapResource(BeFilesystem& filesystem, const std::string& path, std::shared_ptr<BeGraphicsSystem> graphicsSystem, std::shared_ptr<BeGraphicsModelSystem> modelSystem)
 	{
-// 		m_future=threadPool->schedule< boost::shared_ptr<ClientMap> >(boost::bind(&ScClientMapResource::load, this, filesystem, path));
+// 		m_future=threadPool->schedule< std::shared_ptr<ClientMap> >(boost::bind(&ScClientMapResource::load, this, filesystem, path));
 // 		std::cout << "upload " << path << std::endl;
 // 		load(filesystem, path);
-		m_map.reset(new ClientMap(filesystem, path));		
+		m_map.reset(new ClientMap(filesystem, path));
 		m_map->upload(graphicsSystem, modelSystem);
 // 		m_status=eStatusReady;
 // 		std::cout << "  ok" << std::endl;
 	}
 
-	boost::shared_ptr<ClientMap> get()
+	std::shared_ptr<ClientMap> get()
 	{
-		return isReady() ? m_map : boost::shared_ptr<ClientMap>();
+		return isReady() ? m_map : std::shared_ptr<ClientMap>();
 	}
 
 	bool isReady()
@@ -46,17 +46,17 @@ public:
 
 private:
 
-// 	boost::shared_ptr<ClientMap> load(BeFilesystem& filesystem, const std::string& path)
+// 	std::shared_ptr<ClientMap> load(BeFilesystem& filesystem, const std::string& path)
 // 	{
 // 		m_map.reset(new ClientMap(filesystem, path));
 // 		return m_map;
 // 	}
 
 // 	Status m_status;
-// 	boost::shared_future< boost::shared_ptr<ClientMap> > m_future;
-	boost::shared_ptr<ClientMap> m_map;
-// 	boost::shared_ptr<BeGraphicsSystem> m_graphicsSystem; 
-// 	boost::shared_ptr<BeGraphicsModelSystem> m_modelSystem;
+// 	boost::shared_future< std::shared_ptr<ClientMap> > m_future;
+	std::shared_ptr<ClientMap> m_map;
+// 	std::shared_ptr<BeGraphicsSystem> m_graphicsSystem;
+// 	std::shared_ptr<BeGraphicsModelSystem> m_modelSystem;
 
 };
 

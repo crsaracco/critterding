@@ -1,7 +1,7 @@
 #include "critterselection.h"
 #include "scenes/critterding/entities/critterb.h"
 
-Critterselection* Critterselection::Instance () 
+Critterselection* Critterselection::Instance ()
 {
 	static Critterselection t;
 	return &t;

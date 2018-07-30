@@ -33,7 +33,7 @@ public:
 		m_depthTest=depthTest;
 		m_blend=blend;
 	}
-	int getSort() const 
+	int getSort() const
 	{
 		return m_sort;
 	}
@@ -113,7 +113,7 @@ public:
 		if(it!=m_graphicsMaterialMap.end())
 		{
 			return &it->second;
-		}	
+		}
 		return 0;
  	}
 
@@ -121,7 +121,7 @@ public:
 	void reset3D(const int offsetX, const int offsetY, const int width, const int height);
 
 	void flush();
-	
+
 	void viewport(const int x, const int y, const size_t width, const size_t height)
 	{
 		glViewport(x, y, width, height);
@@ -140,7 +140,7 @@ public:
 	void bindMultiTexture2D(const GLint index, BeTexture2D* const texture );
 	void useProgram(BeProgram* const program);
 	BeProgram* getActiveProgram() const { return m_program; }
-	
+
 	void drawMesh(const BeMesh* const mesh);
 
 	void matrixPush(const GLenum matrixMode);
@@ -199,26 +199,26 @@ public:
 	}
 	GLint getNormalMappingTexLoc() const { return m_tex1Loc; }
 	GLint getNormalMappingDo() const { return m_doNormalMapping; }
-	
+
 private:
 	BeGraphicsKernel m_graphicsKernel;
 	std::unordered_map<std::string, BeGraphicsMaterial > m_graphicsMaterialMap;
 
 	BeFilesystem& m_filesystem;
-	
+
 	// HACK NORMAL MAPPING ID'S
 	GLint m_tex1Loc;
 	GLint m_doNormalMapping;
-	
+
 // 	BeColor m_current_color;
-	
-	boost::shared_ptr<BeTexture2DResource> m_imageTexture2D;
-	
+
+	std::shared_ptr<BeTexture2DResource> m_imageTexture2D;
+
 	GLint m_pixel_handle;
 	bool m_pixel_load_attempt_done;
 
 	BeProgram* m_program;
-	
+
 };
 
 #endif

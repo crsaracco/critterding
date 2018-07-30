@@ -14,7 +14,7 @@ public:
 	btPairCachingGhostObject*	ghostObject;
 	btRigidBody* 			body;
 	btCollisionShape* 		shape;
-	
+
 	void				updateGhostObjectPosition();
 	void				connectMouthAndBody();
 

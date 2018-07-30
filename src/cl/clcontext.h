@@ -35,7 +35,7 @@ class CLContext
 		void finish( cl_command_queue& command_queue );
 		void enqueueReadBuffer( cl_command_queue& command_queue, cl_mem& buffer, cl_bool blocking_read, size_t offset, size_t cb, void *ptr, cl_uint num_events_in_wait_list, const cl_event *event_wait_list, cl_event *event );
 		void waitForEvents( cl_uint num_events, const cl_event *event_list );
-		
+
 
 		size_t groupSize;                   /**< Work-Group size */
 		cl_context context;                 /**< CL context */
@@ -51,7 +51,7 @@ class CLContext
 		template<typename T>
 		const char* getOpenCLErrorCodeStr(T input) const;
 
-		template<typename T> 
+		template<typename T>
 		int checkVal( T input, T reference, std::string message, bool isAPIerror = true) const;
 
 		cl_event events[1];

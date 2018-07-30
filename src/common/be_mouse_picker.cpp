@@ -51,8 +51,8 @@ void BeMousePicker::detach()
 // 		m_pickedBody->setDeactivationTime( 0.001 );
 
 		m_pickedBody->setActivationState(m_wants_reactivation);
-		
-		
+
+
 		// set the object that was picked back to false
 		*m_pickedBoolP = false;
 	}

@@ -19,7 +19,7 @@ enum BindKey_State
 
 struct Event
 {
-	Event( const BeCommand& command, EventProperty_Repeat repeat, unsigned int delay ) : 
+	Event( const BeCommand& command, EventProperty_Repeat repeat, unsigned int delay ) :
 		m_active(false),
 		m_command(command),
 		m_repeat(repeat),
@@ -58,7 +58,7 @@ struct Event
 
 struct VirtualAxis
 {
-	VirtualAxis( boost::shared_ptr<Event> event, int min, int max, float map_min, float map_max ) : 
+	VirtualAxis( std::shared_ptr<Event> event, int min, int max, float map_min, float map_max ) :
 		m_event(event),
 		m_min(min),
 		m_max(max),
@@ -71,7 +71,7 @@ struct VirtualAxis
 		if ( m_range != 0 )
 			m_range_ratio = m_map_range / m_range;
 	}
-	
+
 	bool valueInRange( int value ) const
 	{
 		if ( m_min <= m_max )
@@ -86,12 +86,12 @@ struct VirtualAxis
 		}
 		return true;
 	}
-	
+
 	float getMappedValue( int value ) const;
-	boost::shared_ptr<Event> getEvent( ) const { return m_event; }
+	std::shared_ptr<Event> getEvent( ) const { return m_event; }
 
 	private :
-		boost::shared_ptr<Event> m_event;
+		std::shared_ptr<Event> m_event;
 		int m_min;
 		int m_max;
 		int m_range;
@@ -104,7 +104,7 @@ struct VirtualAxis
 struct Axis
 {
 	Axis() {};
-	void registerVirtualAxis( boost::shared_ptr<VirtualAxis> virtualaxis ) { m_virtualaxisList.push_back( virtualaxis ); }
+	void registerVirtualAxis( std::shared_ptr<VirtualAxis> virtualaxis ) { m_virtualaxisList.push_back( virtualaxis ); }
 
 	VirtualAxis* getVirtualAxis( const int value ) const
 	{
@@ -114,7 +114,7 @@ struct Axis
 		return 0;
 	}
 	private:
-		std::vector<boost::shared_ptr<VirtualAxis> > m_virtualaxisList;
+		std::vector<std::shared_ptr<VirtualAxis> > m_virtualaxisList;
 };
 
 class BeEventSystem
@@ -124,23 +124,23 @@ class BeEventSystem
 		~BeEventSystem() {};
 
 		// int key
-		long unsigned int registerEvent( BindKey_State state, long unsigned int bindkey, boost::shared_ptr<Event> event );
+		long unsigned int registerEvent( BindKey_State state, long unsigned int bindkey, std::shared_ptr<Event> event );
 		void activateKeystate( const long unsigned int key );
 		void deactivateKeystate( const long unsigned int key );
 
 		// string key (maps to int key)
-		long unsigned int registerEvent( BindKey_State state, const std::string& name, boost::shared_ptr<Event> event );
+		long unsigned int registerEvent( BindKey_State state, const std::string& name, std::shared_ptr<Event> event );
 		void activateKeystate( const std::string& name );
 		void deactivateKeystate( const std::string& name );
 
 		// axis
-		long unsigned int registerEvent( long unsigned int axis, boost::shared_ptr<VirtualAxis> virtualaxis );
+		long unsigned int registerEvent( long unsigned int axis, std::shared_ptr<VirtualAxis> virtualaxis );
 		void setAxisstate( const long unsigned int bindaxis, int value );
-		
+
 		Event* getEvent( const long unsigned int key ) { return m_keystateMap[key].get(); }
 		void processEvents( unsigned int elapsed_ms );
 		BeCommandSystem* getCommandSystem() { return m_commandsystem; }
-		
+
 	protected:
 		BeEventSystem()
 		{
@@ -149,10 +149,10 @@ class BeEventSystem
 	private:
 
 		// int key
-// 		map<long unsigned int, boost::shared_ptr<Event> > m_modifierstatestateMap;
-		std::map<long unsigned int, boost::shared_ptr<Event> > m_keystateMap;
-		std::map<long unsigned int, boost::shared_ptr<Axis> > m_axisMap;
-		std::vector<boost::shared_ptr<Event> >	m_eventList;
+// 		map<long unsigned int, std::shared_ptr<Event> > m_modifierstatestateMap;
+		std::map<long unsigned int, std::shared_ptr<Event> > m_keystateMap;
+		std::map<long unsigned int, std::shared_ptr<Axis> > m_axisMap;
+		std::vector<std::shared_ptr<Event> >	m_eventList;
 
 		// string key (maps to int key)
 		std::map<std::string, long unsigned int> m_stringKeyLookupMap;

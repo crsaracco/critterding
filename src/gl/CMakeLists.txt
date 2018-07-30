@@ -17,7 +17,7 @@ TARGET_LINK_LIBRARIES ( gl utils kernel )
 
 #original Makefile.am contents follow:
 
-#INCLUDES = $(all_includes) -I../utils/bullet 
+#INCLUDES = $(all_includes) -I../utils/bullet
 #METASOURCES = AUTO
 #libgl_la_LDFLAGS = -avoid-version -no-undefined
 #noinst_LTLIBRARIES = libgl.la

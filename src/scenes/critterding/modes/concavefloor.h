@@ -6,22 +6,22 @@
 // class GlDrawcallback : public btTriangleCallback
 // {
 // public:
-// 
+//
 // 	bool	m_wireframe;
-// 
+//
 // 	GlDrawcallback()
 // 		:m_wireframe(false)
 // 	{
 // // 		cerr << "hello0" << endl;
 // 	}
-// 
+//
 // 	virtual void processTriangle(btVector3* triangle,int partId, int triangleIndex)
 // 	{
 // // 		cerr << "hello" << endl;
-// 
+//
 // 		(void)triangleIndex;
 // 		(void)partId;
-// 
+//
 // 		if (m_wireframe)
 // 		{
 // 			glBegin(GL_LINES);
@@ -39,12 +39,12 @@
 // 		{
 // 			glBegin(GL_TRIANGLES);
 // 			//glColor3f(1, 1, 1);
-// 			
-// 			
+//
+//
 // 			glVertex3d(triangle[0].getX(), triangle[0].getY(), triangle[0].getZ());
 // 			glVertex3d(triangle[1].getX(), triangle[1].getY(), triangle[1].getZ());
 // 			glVertex3d(triangle[2].getX(), triangle[2].getY(), triangle[2].getZ());
-// 
+//
 // 			glVertex3d(triangle[2].getX(), triangle[2].getY(), triangle[2].getZ());
 // 			glVertex3d(triangle[1].getX(), triangle[1].getY(), triangle[1].getZ());
 // 			glVertex3d(triangle[0].getX(), triangle[0].getY(), triangle[0].getZ());
@@ -57,7 +57,7 @@
 class Concavefloor : public WorldB {
 
 	public:
-		Concavefloor(  boost::shared_ptr<BeGraphicsSystem> system, boost::shared_ptr<Textverbosemessage> textverbosemessage );
+		Concavefloor(  std::shared_ptr<BeGraphicsSystem> system, std::shared_ptr<Textverbosemessage> textverbosemessage );
 		~Concavefloor();
 
 // 		void		process(const BeTimer& timer);

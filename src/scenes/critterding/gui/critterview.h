@@ -11,7 +11,7 @@ class CritterB;
 class Critterview : public Panel
 {
 	public:
-		Critterview(boost::shared_ptr<BeGraphicsSystem> graphicsSystem);
+		Critterview(std::shared_ptr<BeGraphicsSystem> graphicsSystem);
 		~Critterview();
 
 		void draw();
@@ -21,7 +21,7 @@ class Critterview : public Panel
 		BeWidgetPtr viewbutton;
 		btScalar viewposition[16];
 		CritterB* currentCritter;
-		boost::shared_ptr<BeGraphicsSystem> m_graphicsSystem;
+		std::shared_ptr<BeGraphicsSystem> m_graphicsSystem;
 
 		// drawing helpers
 		int v_spacer;

@@ -29,7 +29,7 @@ TARGET_LINK_LIBRARIES ( gui filesystem ftgl math )
 
 #original Makefile.am contents follow:
 
-#INCLUDES = $(all_includes) -I../utils/bullet 
+#INCLUDES = $(all_includes) -I../utils/bullet
 #METASOURCES = AUTO
 #noinst_LTLIBRARIES = libgui.la
 #noinst_HEADERS =	widget.h \

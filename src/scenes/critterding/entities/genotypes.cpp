@@ -1,6 +1,6 @@
 #include "genotypes.h"
 
-Genotypes* Genotypes::Instance () 
+Genotypes* Genotypes::Instance ()
 {
 	static Genotypes t;
 	return &t;
@@ -15,7 +15,7 @@ Genotype* Genotypes::newg( Settings* settings )
 // cerr << " gentotype start" << endl;
 	Genotype* gt = new Genotype();
 
-	
+
 	gt->bodyArch->retinasize = settings->getCVar("critter_retinasize");
 	gt->bodyArch->color = colorH.randomBeColorRGB();
 
@@ -134,7 +134,7 @@ Genotype* Genotypes::copy(Genotype* gt, bool brainmutant, unsigned int brruns, b
 		return gt;
 	}
 
-	
+
 // 	cerr << " copied genotype " << list.size() << endl;
 }
 
@@ -176,11 +176,11 @@ Genotype* Genotypes::loadGenotype(std::string& content)
 				//cerr << "AD: " << AD << endl;
 				if(EOF == sscanf(AD.c_str(), "%d", &gt->adamdist)) cerr << "ERROR INSERTING CRITTER" << endl;
 			}
-			
+
 		// the rest goes to the body or brain
 			else
 			{
-				if ( 
+				if (
 					parseH.beginMatches( "color=", line ) ||
 					parseH.beginMatches( "retinasize=", line ) ||
 					parseH.beginMatches( "b ", line ) ||
@@ -203,14 +203,14 @@ Genotype* Genotypes::loadGenotype(std::string& content)
 	}
 
 	gt->bodyArch->setArch(&passToBody);
-	
+
 	gt->registerBrainInputOutputs();
 	gt->brainzArch->setArch(passToBrain);
 
 	gt->count=1;
 	gt->speciescolor = colorH.randomBeColorRGB().getNormalized();
 	list.push_back(gt);
-	
+
 // 	genotype = genotypes->newg(passToBody, passToBrain, retinasize); // FIXME, with a speciesID
 
 // 	genotype->bodyArch->setArch(&passToBody);

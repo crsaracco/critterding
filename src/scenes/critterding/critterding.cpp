@@ -13,38 +13,38 @@ int main(int argc, char* argv[])
 
 	std::string home(filesystem.getHomedir("critterding"));
 	filesystem.getRootPaths().push(home);
-	
+
 	#if !defined(WIN32)
-		
+
 		// parse argv[0] for binary path
 		char buf3[1024];
 		readlink("/proc/self/exe", buf3, 1024);
-		
+
 		string path(buf3);
 		size_t pos = path.find_last_of("/", path.size());
 		std::stringstream buff;
 		if ( pos != string::npos )
 			buff << path.substr( 0, pos+1 );
-		
+
 		buff << "../share/critterding/";
 		filesystem.getRootPaths().push( buff.str() );
 // 		std::cout << "ROOTPATHS: " << buff.str() << std::endl;
 
 	#else
 		filesystem.getRootPaths().push( "critterding/" );
-	#endif		
-	
+	#endif
+
 	// settings belonging to Critterding
 	settings->registerCVar("threads",							new CVar(1, 1, 2147483647, false, "threads to use"));
 	settings->registerCVar("startseed",							new CVar(0, 0, 2147483647, true, "startseed for random number generation"));
-	
+
 // 	4294967296
 // 	2147483648
 // 	1112992850
 
 	settings->registerCVar("map",								new CVar(	"easy",			"map to load (directory)") );
 	settings->registerCVar("skybox",							new CVar(	"night-day/skydome3.obj",	"skybox to load (obj file)") );
-	
+
 	settings->registerCVar("benchmark",							new CVar(0, 0, 1, true, "run the critterding benchmark"));
 	settings->registerCVar("benchmark_frames",						new CVar(1000, 1, 2147483647, true, "length of benchmark in frames"));
 
@@ -90,13 +90,13 @@ int main(int argc, char* argv[])
 	settings->registerCVar("critter_autoexchangeinterval",					new CVar(0, 0, 2147483647, false, "save critters every n seconds"));
 	settings->registerCVar("critter_enableomnivores",					new CVar(0, 0, 1, true, "enables critters to eat each other"));
 // 	settings->registerCVar("critter_raycastvision",						new CVar(0, 0, 1, true, "use raycast vision instead of opengl"));
-	
+
 	// FIXME MOVE THESE TO BODY ARCH
 	settings->registerCVar("critter_mutate_minenergyproc",				new CVar(0, 0, 2147483647, false, "chance of mutating the energy a critters needs to procreate"));
 // 	settings->registerCVar("critter_mutate_sightrange",					new CVar(0, 0, 2147483647, false, "chance of mutating the distance a critter can see"));
 	settings->registerCVar("critter_mutate_maxlifetime",				new CVar(0, 0, 2147483647, false, "chance of mutating the maximum number of frames a critter lives"));
-	
-	
+
+
 	settings->registerCVar("food_maxlifetime",						new CVar(32000, 1, 2147483647, false, "maximum number of frames a food unit exists"));
 	settings->registerCVar("food_maxenergy",						new CVar(1500, 1, 2147483647, false, "maximum amount of energy a food unit has"));
 // 	settings->registerCVar("food_size",								new CVar(100, 1, 2147483647, false, "size of a food unit"));
@@ -108,7 +108,7 @@ int main(int argc, char* argv[])
 	settings->registerCVar("body_maxbodyparts",						new CVar(30, 0, 2147483647, false, "maximum body parts per critter"));
 	settings->registerCVar("body_minbodypartsatbuildtime",					new CVar(4, 1, 2147483647, false, "minimum body parts for a new critter"));
 	settings->registerCVar("body_maxbodypartsatbuildtime",					new CVar(8, 1, 2147483647, false, "maximum body parts for a new critter"));
-	
+
 	settings->registerCVar("body_maxconstraintangle",					new CVar(31415, 0, 2147483647, false, "maximum amount of rotation on a contraint"));
 	settings->registerCVar("body_maxconstraintlimit",					new CVar(14000, 0, 2147483647, false, "maximum limit of a contraint"));
 // 	settings->registerCVar("body_maxconstraintlimit",					new CVar(7853, 0, 2147483647, false, "maximum limit of a contraint"));
@@ -120,7 +120,7 @@ int main(int argc, char* argv[])
 	settings->registerCVar("body_minheadsize",						new CVar(15, 1, 2147483647, false, "minimum size of a critters head"));
 	settings->registerCVar("body_maxheadsize",						new CVar(50, 1, 2147483647, false, "maximum size of a critters head"));
 
-	
+
 	settings->registerCVar("body_percentmutateeffectchangecolor",						new CVar(2, 0, 100, false, "chance of changing body color"));
 	settings->registerCVar("body_percentmutateeffectchangecolor_slightly",				new CVar(5, 0, 100, false, "chance of slightly changing body color"));
 	settings->registerCVar("body_percentmutateeffectaddbodypart",						new CVar(2, 0, 100, false, "chance of adding a body part"));
@@ -139,13 +139,13 @@ int main(int argc, char* argv[])
 // 	settings->registerCVar("body_percentmutateeffectchangemutationrate",				new CVar(0, 0, 100, false, "chance of changing body mutationrate"));
 // 	settings->registerCVar("body_percentmutateeffectchangemaxmutations",				new CVar(0, 0, 100, false, "chance of changing max mutations on body"));
 
-	
+
 	settings->registerCVar("body_selfcollisions",						new CVar(0, 0, 1, true, "critters can exploit physics glitches"));
 
 	settings->registerCVar("body_costhavingbodypart",					new CVar(1000, 0, 2147483647, false, "cost of having a bodypart (1/100000 energy)"));
 	settings->registerCVar("body_costtotalweight",						new CVar(1000, 0, 2147483647, false, "cost multiplier of total body weight (1/100000 energy)"));
-	
-	
+
+
 	settings->registerCVar("brain_maxmutations",						new CVar(10, 1, 2147483647, false, "maximum mutations on a brain mutant"));
 	settings->registerCVar("brain_mutationrate",						new CVar(160, 0, 1000, false, "rate of brain mutation (permille)"));
 
@@ -204,7 +204,7 @@ int main(int argc, char* argv[])
 	settings->registerCVar("brain_costfiringmotorneuron",					new CVar(1000, 0, 2147483647, false, "cost of firing a motor neuron"));
 	settings->registerCVar("brain_costhavingsynapse",					new CVar(20, 0, 2147483647, false, "cost of having a synapse"));
 
-	
+
 	settings->registerCVar("population_eliminate_portion",						new CVar(160, 2, 2147483647, false, "eliminate a percentage of critters if population reaches n"));
 	settings->registerCVar("population_eliminate_portion_percent",					new CVar(35, 1, 100, false, "eliminate n% of critters if population reaches population_eliminate_portion"));
 	settings->registerCVar("population_eliminate_portion_decrenergy",					new CVar(2, 0, 100, false, "decrease energy by n when killhalfat triggers"));
@@ -219,8 +219,8 @@ int main(int argc, char* argv[])
 	settings->registerCVar("population_eliminate_portion_bodymutationratechange",				new CVar(0, 0, 1, true, "change mutationrate of brain between min and max"));
 	settings->registerCVar("population_eliminate_portion_bodymutationratemin",					new CVar(0, 0, 100, false, "minimum mutationrate of brain"));
 	settings->registerCVar("population_eliminate_portion_bodymutationratemax",					new CVar(0, 0, 100, false, "maximum mutationrate of brain"));
-	
-	
+
+
 	settings->registerCVar("population_limit_energy",							new CVar(150, 0, 2147483647, false, "population limit"));
 	settings->registerCVar("population_limit_energy_percent",		new CVar(100, 0, 100, false, "if population limit is exceeded drop energy to percentage"));
 
@@ -230,15 +230,15 @@ int main(int argc, char* argv[])
 	settings->registerCVar("light_ambient_modelR",					new CVar(8, 0, 255, false, "lighting setting"));
 	settings->registerCVar("light_ambient_modelG",					new CVar(8, 0, 255, false, "lighting setting"));
 	settings->registerCVar("light_ambient_modelB",					new CVar(8, 0, 255, false, "lighting setting"));
-	
+
 	settings->registerCVar("light_ambientR",						new CVar(8, 0, 255, false, "lighting setting"));
 	settings->registerCVar("light_ambientG",						new CVar(8, 0, 255, false, "lighting setting"));
 	settings->registerCVar("light_ambientB",						new CVar(8, 0, 255, false, "lighting setting"));
-	
+
 	settings->registerCVar("light_diffuseR",						new CVar(255, 0, 255, false, "lighting setting"));
 	settings->registerCVar("light_diffuseG",						new CVar(255, 0, 255, false, "lighting setting"));
 	settings->registerCVar("light_diffuseB",						new CVar(255, 0, 255, false, "lighting setting"));
-	
+
 	settings->registerCVar("light_specularR",						new CVar(255, 0, 255, false, "lighting setting"));
 	settings->registerCVar("light_specularG",						new CVar(255, 0, 255, false, "lighting setting"));
 	settings->registerCVar("light_specularB",						new CVar(255, 0, 255, false, "lighting setting"));
@@ -246,9 +246,9 @@ int main(int argc, char* argv[])
 	settings->registerCVar("light_attenuation_constant",			new CVar(200, 0, 2147483647, false, "lighting setting"));
 	settings->registerCVar("light_attenuation_linear",				new CVar(200, 0, 2147483647, false, "lighting setting"));
 	settings->registerCVar("light_attenuation_quadratic",			new CVar(200, 0, 2147483647, false, "lighting setting"));
-	
+
 	settings->checkCommandLineOptions(argc,argv );
-	
+
 	// MAIN LOOP
 	Evolution evolution(filesystem);
 	evolution.run();

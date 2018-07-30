@@ -86,15 +86,15 @@ class Evolution : public  BeScene {
 		BeFilesystem& m_filesystem;
 		void setLights();
 		inline void initGLSL();
-		
+
 		const int* m_glsl;
 		const int* m_hdr;
 		bool m_glsl_initialised;
-		boost::shared_ptr<ScGraphics> m_graphics;
-// 		boost::shared_ptr<BeGraphicsEffect> m_effect;
+		std::shared_ptr<ScGraphics> m_graphics;
+// 		std::shared_ptr<BeGraphicsEffect> m_effect;
 // 		GLint m_v_inv;
 
-		
+
 		BePhysicsDebugRenderer	debugDrawer;
 
 		unsigned int benchmark_start;
@@ -108,7 +108,7 @@ class Evolution : public  BeScene {
 
 		const int* m_mode_race;
 		const int* m_mode_round;
-		
+
 		const int* m_light_ambient_modelR;
 		const int* m_light_ambient_modelG;
 		const int* m_light_ambient_modelB;
@@ -127,9 +127,9 @@ class Evolution : public  BeScene {
 		const int*	m_light_attenuation_quadratic;
 
 		BeFrameLimiter		framelimiter;
-		
-		
-		boost::shared_ptr<Canvas> m_canvas;
+
+
+		std::shared_ptr<Canvas> m_canvas;
 
 		double m_cameraTranslateSpeed;
 		double m_cameraRotateSpeed;
@@ -137,17 +137,17 @@ class Evolution : public  BeScene {
 		// GL WINDOW
 		GLWindow*	m_glwindow;
 		BeTimer		m_timer;
-		boost::shared_ptr<BeGraphicsSystem> m_graphicsSystem;
-		
-		boost::shared_ptr<Logbuffer>	m_logBuffer;
+		std::shared_ptr<BeGraphicsSystem> m_graphicsSystem;
+
+		std::shared_ptr<Logbuffer>	m_logBuffer;
 		float cam_position[16];
-		
+
 		btTransform			m_select_up;
-		
+
 		unsigned int		m_currentFramesPerSecond;
 		unsigned int		m_averageFramesPerSecond;
-		
-		boost::shared_ptr<Infobar> m_infobar;
+
+		std::shared_ptr<Infobar> m_infobar;
 		void			selectBody();
 };
 #endif

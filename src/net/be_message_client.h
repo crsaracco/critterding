@@ -23,8 +23,8 @@ public:
 		BeMessageClient(BeMessageManager& messageManager) : m_messageManager(messageManager), m_socket(m_ioService), m_resolver(m_ioService) {};
 		~BeMessageClient() {};
 
-		bool connectTCP( const char* hostip, const std::uint16_t port ) 
-		{ 
+		bool connectTCP( const char* hostip, const std::uint16_t port )
+		{
 			/*IPaddress ipAddress;
 			if ( SDLNet_ResolveHost(&ipAddress, hostip, port) == -1 )
 			{
@@ -67,7 +67,7 @@ public:
 				// The connection was successful
 				m_connectHandler();
 
-				boost::asio::async_read(m_socket, boost::asio::buffer(&m_messageBuffer[0], 4), boost::asio::transfer_at_least(4), 
+				boost::asio::async_read(m_socket, boost::asio::buffer(&m_messageBuffer[0], 4), boost::asio::transfer_at_least(4),
 					boost::bind(&BeMessageClient::onReadHead, this,
 					boost::asio::placeholders::bytes_transferred, boost::asio::placeholders::error));
 
@@ -93,16 +93,16 @@ public:
 // 				size_t size=*(std::uint32_t*)(&m_messageBuffer[0]);
 // 				if ( size > 1000000000 )
 // 				{
-// 				  
+//
 // 					std::cout << "BeMessageClient error: message size > 1000Mb : " << size << std::endl;
 // 					exit(1);
 // // 					return;
 // 				}
 // 				resizeMessageBuffer(size);
-// 				
-// 				boost::asio::async_read(m_socket, boost::asio::buffer(&m_messageBuffer[0], size), boost::asio::transfer_at_least(size), 
+//
+// 				boost::asio::async_read(m_socket, boost::asio::buffer(&m_messageBuffer[0], size), boost::asio::transfer_at_least(size),
 // 					boost::bind(&BeMessageClient::onReadBody, this, size, boost::asio::placeholders::error));
-// 
+//
 // 				if(!err)
 // 				{
 // // 					net_message_t* message=(net_message_t*)&m_messageBuffer[0];
@@ -112,45 +112,45 @@ public:
 // // 						message->m_entity_history.m_history_string = new char[additional_size];
 // // 						memcpy( message->m_entity_history.m_history_string, &m_messageBuffer[0]+size-additional_size, additional_size );
 // // // 						std::cout << "client receive 2  " << additional_size << "   '" << message->getHistory().getStdString() << "'" << std::endl;
-// // 						
+// //
 // // // 						delete[] message->m_entity_history.m_history_string;
 // // 					}
 // 				}
 // 				else
 // 					std::cout << "Error: " << err.message() << "\n";
-// 
+//
 // 			}
 // 		}
-// 
+//
 // 		void onReadBody(const size_t size, const boost::system::error_code& err)
 // 		{
 // 			if(!err)
 // 			{
 // 				net_message_t* message=(net_message_t*)&m_messageBuffer[0];
-// 				
+//
 // // 				static unsigned int counter( 0 );
 // // 				std::cout << ++counter << " CLIENT " << message->type() << std::endl;
-// 				
-// 				
+//
+//
 // 				const unsigned int additional_size(message->getHistory().size());
 // 				if ( /*false &&*/ additional_size > 0 )
 // 				{
 // 					message->m_entity_history.m_history_string = new char[additional_size];
 // 					memcpy( message->m_entity_history.m_history_string, &m_messageBuffer[0]+size-additional_size, additional_size);
 // 				}
-// 				
+//
 // 				if(m_messageManager.handle(*message)==false)
 // 				{
 // 					std::cout << "::CLIENT unknown message from client" << " size: " << m_messageBuffer.size() << std::endl;
 // 					return;
 // 				}
-// 				
+//
 // 				// free additional
 // 					if ( /* false && */ additional_size > 0 )
 // 						delete[] message->m_entity_history.m_history_string;
-// 
+//
 // 				resizeMessageBuffer(4);
-// 				boost::asio::async_read(m_socket, boost::asio::buffer(&m_messageBuffer[0], 4), boost::asio::transfer_at_least(4), 
+// 				boost::asio::async_read(m_socket, boost::asio::buffer(&m_messageBuffer[0], 4), boost::asio::transfer_at_least(4),
 // 					boost::bind(&BeMessageClient::onReadHead, this,
 // 					boost::asio::placeholders::error));
 // 			}
@@ -170,21 +170,21 @@ public:
 					std::cout << "::BeMessageClient::onReadHead: Error: partial read" << std::endl;
 					// FIXME do disconnect/connect or something
 				}
-				else 
+				else
 				{
 					if(!err)
 					{
 						size_t size=*(std::uint32_t*)(&m_messageBuffer[0]);
 						resizeMessageBuffer(size);
-						
-						
+
+
 						boost::asio::async_read(
 							m_socket,
 							boost::asio::buffer(&m_messageBuffer[0], size),
-							boost::asio::transfer_at_least(size),  
+							boost::asio::transfer_at_least(size),
 							boost::bind(&BeMessageClient::onReadBody, this, boost::asio::placeholders::bytes_transferred, boost::asio::placeholders::error)
 						);
-						
+
 						if(!err)
 						{
 							net_message_t* message=(net_message_t*)&m_messageBuffer[0];
@@ -192,7 +192,7 @@ public:
 							if ( /* false && */ additional_size > 0 )
 							{
 		// 						size_t size=*(std::uint32_t*)(&m_messageBuffer[0]);
-								
+
 								message->m_entity_history.setHistoryString( new char[additional_size] );
 								memcpy( message->m_entity_history.getHistoryString(), &m_messageBuffer[0]+size-additional_size, additional_size );
 		// 						std::cout << "server receive 2  " << additional_size << "   '" << message->getHistory().getStdString() << "'" << std::endl;
@@ -214,7 +214,7 @@ public:
 			}
 // 			else
 // 				std::cout << "::BeEntityNetSocketTcpServer::onReadHead: socket: " << id << " , still receiving: " << "\n";
-			
+
 		}
 
 		void onReadBody(const std::size_t bytes_transferred, const boost::system::error_code& err)
@@ -229,9 +229,9 @@ public:
 				else if(!err)
 				{
 					// FIXME DO ADDITIONAL RIGHT HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-					
+
 					net_message_t* message=(net_message_t*)&m_messageBuffer[0];
-					
+
 					if ( message->type() != 0 )
 					{
 						if(m_messageManager.handle(*message)==false)
@@ -247,7 +247,7 @@ public:
 					{
 						std::cout << "::BeMessageClient::onReadBody: Error: unknown message 2: " << message->type() << " of size: " << m_messageBuffer.size() << std::endl;
 					}
-					
+
 					// free additional
 						const unsigned int additional_size(message->getHistory().size());
 						if ( /* false && */ additional_size > 0 )
@@ -257,7 +257,7 @@ public:
 					boost::asio::async_read(
 						m_socket,
 						boost::asio::buffer(&m_messageBuffer[0], 4),
-						boost::asio::transfer_at_least(4), 
+						boost::asio::transfer_at_least(4),
 						boost::bind(&BeMessageClient::onReadHead, this, boost::asio::placeholders::bytes_transferred, boost::asio::placeholders::error));
 				}
 				else
@@ -299,13 +299,13 @@ private:
 // 			}
 // 			else
 // 			{
-				
+
 				boost::asio::async_write(m_socket, boost::asio::buffer(buf, size+4),  boost::asio::transfer_at_least(size+4), boost::bind(&BeMessageClient::onWrite, this, buf, boost::asio::placeholders::error) );
-				
-				
-				
-				
-				
+
+
+
+
+
 // 				m_writeBuffer.push_back(buf);
 // 				boost::system::error_code err;
 // 				m_ioService.poll(err);
@@ -321,7 +321,7 @@ private:
 		{
 			free(const_cast<void*>(buf));
 			if (!err)
-			{	
+			{
 // 				if(m_writeBuffer.size())
 // 				{
 // 					const void* const buf=m_writeBuffer.front();
@@ -341,8 +341,8 @@ public:
         template<typename T>
         bool send(const T& data)
         {
-			
-			
+
+
 			// base size
 				const std::uint32_t base_size( sizeof(T) );
 
@@ -353,23 +353,23 @@ public:
 			{
 				// full size
 					const std::uint32_t full_size( base_size + additional_size );
-				
+
 				// create data_full
 					char data_full[full_size];
 	// 				char* data_full = new char[full_size];
-					
+
 				// copy base
 					memcpy( data_full, (void*)&data, base_size );
 
 				// get additional data
 					const char* data_additional = data.getHistory().getString();
-				
+
 				// copy additional
 					memcpy( data_full + base_size, data_additional, additional_size );
-				
+
 				// send
 					return send(&data_full, full_size );
-				
+
 	// 			// clear data_full;
 	// 				delete[] data_full;
 			}
@@ -378,10 +378,10 @@ public:
 			// send
 				return send(&data, sizeof(T) );
 			}
-			
-			
-			
-			
+
+
+
+
 //             return send( &data, sizeof(T) );
         }
 	public:
@@ -404,14 +404,14 @@ public:
 		void handleMessages()
 		{
 			boost::system::error_code err;
-			
+
 			m_ioService.poll(err);
 // 			bool polled(m_ioService.poll(err));
 // 			while ( polled && !err )
 // 			{
 // 				polled = m_ioService.poll(err);
 // 			}
-// 			
+//
 			if(err)
 			{
 				std::cout << "Client io_service::poll Error: " << err.message() << std::endl;

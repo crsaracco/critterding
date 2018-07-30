@@ -10,7 +10,7 @@ add_subdirectory(modes)
 
 set(sccritterding_STAT_SRCS evolution.cpp)
 
-# TARGET_LINK_LIBRARIES ( sccritterding cdentities cdgui modes ) 
+# TARGET_LINK_LIBRARIES ( sccritterding cdentities cdgui modes )
 add_library(sccritterding STATIC ${sccritterding_STAT_SRCS})
 
 target_link_libraries( sccritterding graphics filesystem cdentities cdgui modes common brainz )

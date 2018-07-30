@@ -39,19 +39,19 @@ class WorldB
 
 	public:
 
-		WorldB( boost::shared_ptr<BeGraphicsSystem> system, BeFilesystem& fileSystem, boost::shared_ptr<Textverbosemessage> textverbosemessage, const bool lock_axis=true );
+		WorldB( std::shared_ptr<BeGraphicsSystem> system, BeFilesystem& fileSystem, std::shared_ptr<Textverbosemessage> textverbosemessage, const bool lock_axis=true );
 
 		virtual			~WorldB();
 		virtual void		init();
 // 		void		initShared();
 		virtual void		process(const BeTimer& timer);
 		virtual btVector3	findPosition();
-		
-		void setGraphics( boost::shared_ptr<ScGraphics> graphics )
+
+		void setGraphics( std::shared_ptr<ScGraphics> graphics )
 		{
 			m_graphics = graphics;
 		};
-		
+
 		virtual			void makeFloor();
 		void			activateFood() const;
 		bool 			pause;
@@ -70,7 +70,7 @@ class WorldB
 		void			eat( CritterB* c );
 		void			procreate( CritterB* c );
 		void			makeDefaultFloor();
-		
+
 		Settings*		settings;
 		Critterselection	*critterselection;
 		Statsbuffer*		statsBuffer;
@@ -79,14 +79,14 @@ class WorldB
 		Dirlayout*		dirlayout;
 // 		BeCamera		camera;
 		BeCameraPerspective	m_camera;
-		
+
 // 		BeSceneNode&	m_currentSceneNode;
 		BeSceneNode		m_sceneNodeCamera;
 		BeSceneNode		m_sceneNodeCamera_follow1;
 		BeSceneNode		m_sceneNodeCamera_follow2;
 		BeSceneNode		m_sceneNodeCamera_follow3;
-		
-		
+
+
 		virtual void resetCamera();
 // 		unsigned int		findFoodIndex( const unsigned int number ) const;
 
@@ -94,7 +94,7 @@ class WorldB
 		btBroadphaseInterface*	m_broadphase;
 		btGhostPairCallback*	m_ghostpaircallback;
 		btDefaultCollisionConfiguration* m_collisionConfiguration;
-// 		boost::shared_ptr<btDynamicsWorld>	m_dynamicsWorldSPtr;
+// 		std::shared_ptr<btDynamicsWorld>	m_dynamicsWorldSPtr;
 		btDynamicsWorld*	m_dynamicsWorld;
 		btConstraintSolver*	m_solver;
 		btAlignedObjectArray<btCollisionShape*>	m_collisionShapes;
@@ -109,12 +109,12 @@ class WorldB
 		virtual void		drawWithGrid();
 // 		virtual void		drawWithoutFaces();
  		void			drawShadow(btScalar* m,const btVector3& extrusion,const btCollisionShape* shape, Bodypart* bp,const btVector3& worldBoundsMin,const btVector3& worldBoundsMax);
-		
+
 		void			drawWithinCritterSight(CritterB *c);
 // 		void			drawWithinCritterSight(unsigned int cid);
-		
+
 		virtual void	setLights();
-		
+
 
 		virtual void	drawfloor();
 		virtual void	childPositionOffset(btTransform* v);
@@ -142,7 +142,7 @@ class WorldB
 		void			resetageSelectedCritter();
 		void			followCritter();
 		void			followCritterRaycast();
-		
+
 		void			duplicateAllSelectedCritters();
 		void			spawnBrainMutantAllSelectedCritters();
 		void			spawnBodyMutantAllSelectedCritters();
@@ -185,7 +185,7 @@ class WorldB
 		const int*	m_camera_mode;
 		const int*	m_camera_smoothfactor;
 		int			m_threads_last;
-		
+
 		void			checkCollisions( CritterB* c );
 
 		void grabVision();
@@ -203,53 +203,53 @@ class WorldB
 
 		bool			mouseRayHit;
 		Entity*			mouseRayHitEntity;
-		
-		void setLogbuffer( boost::shared_ptr<Logbuffer> logBuffer ) { m_logBuffer = logBuffer; }
+
+		void setLogbuffer( std::shared_ptr<Logbuffer> logBuffer ) { m_logBuffer = logBuffer; }
 
 		// pointers to parents (evolution) mousepos
 		int mousex;
 		int mousey;
 // 		int relx;
 // 		int rely;
-		
+
 		// threading
 // 		omp_lock_t my_lock1;
 
-		boost::shared_ptr<BeGraphicsSystem> m_graphicsSystem;
-		boost::shared_ptr<ScGraphics> m_graphics;
-		
+		std::shared_ptr<BeGraphicsSystem> m_graphicsSystem;
+		std::shared_ptr<ScGraphics> m_graphics;
+
 // 		GLint m_v_inv; // HACK
 		const int* m_glsl; // HACK
 		const int* m_hdr;
-// 		boost::shared_ptr<BeGraphicsEffect> m_effect; // HACK
+// 		std::shared_ptr<BeGraphicsEffect> m_effect; // HACK
 
 		const int m_initial_worldsizeX;
 		const int m_initial_worldsizeY;
 		const int m_initial_worldsizeZ;
-		
+
 		CritterB* m_follow_critterP;
 // 		btTransform m_follow_critter_transform;
 		btTransform m_follow_critter_transform_prev;
 		const btTransform& getCameraTransform() const;
 		virtual void updateCameraTransform( const float timeDelta );
-		
+
 	protected:
 		void			makeSkybox();
-		boost::shared_ptr<Textverbosemessage> m_panel_textverbosemessage;
+		std::shared_ptr<Textverbosemessage> m_panel_textverbosemessage;
 		BeFilesystem& m_fileSystem;
-		boost::shared_ptr<BeGraphicsModel> m_model_food;
-		boost::shared_ptr<BeGraphicsModel> m_model_critter;
+		std::shared_ptr<BeGraphicsModel> m_model_food;
+		std::shared_ptr<BeGraphicsModel> m_model_critter;
 		void load(BeFilesystem& filesystem, const std::string& path);
-		boost::shared_ptr<BeGraphicsModelSystem> m_modelSystem;
+		std::shared_ptr<BeGraphicsModelSystem> m_modelSystem;
 		std::string m_path;
-		boost::shared_ptr<ScClientMapResource>	m_map;
-		boost::shared_ptr<ServerMap>	m_physics_map;
-		boost::shared_ptr<BeGraphicsModelResource>	m_skyBoxModel;
-		boost::shared_ptr<BeGraphicsModelResource>	m_monolithModel;
+		std::shared_ptr<ScClientMapResource>	m_map;
+		std::shared_ptr<ServerMap>	m_physics_map;
+		std::shared_ptr<BeGraphicsModelResource>	m_skyBoxModel;
+		std::shared_ptr<BeGraphicsModelResource>	m_monolithModel;
 		btTransform m_skyBoxTransform;
 // 		btTransform m_transform;
 		btVector3 m_skyBoxAngles;
-		boost::shared_ptr<BeGeometrySystem> m_geometryModelSystem;
+		std::shared_ptr<BeGeometrySystem> m_geometryModelSystem;
 		void updateSkyboxAngles();
 
 		btTransform		m_skyTransform;
@@ -259,7 +259,7 @@ class WorldB
 		btTransform sun_position;
 		btTransform static_sun_pos;
 // 		btTransform sun_offset;
-		
+
 		btTransform m_follow_critter_view3;
 		btTransform m_follow_critter_view3kink;
 		void reset_follow_location();
@@ -270,22 +270,22 @@ class WorldB
 	private:
 
 // 		BeAudioSystem m_snd_sys;
-		
+
 		const int* drawscene;
 		const int* drawdebug;
-		
+
 		Raycast*		raycast;
 
-// 		boost::shared_ptr<BeWorkerPool> m_workerPool;
-		
+// 		std::shared_ptr<BeWorkerPool> m_workerPool;
+
 		btVector3 m_scale;
 		btTransform m_transform;
-		
-		
+
+
 		btTransform m_render_offset2;
 		float m_sightrange;
 
-		
+
 #ifdef HAVE_OPENCL
 // 		CLNBody nbody;
 #endif
@@ -293,8 +293,8 @@ class WorldB
 		static void CollisionNearOverride(btBroadphasePair& collisionPair, btCollisionDispatcher& dispatcher, const btDispatcherInfo& dispatchInfo);
 		castResult		mouseRay;
 		btVector3		mouseRayTo;
-		
-		
+
+
 		unsigned int		insertCritterCounter;
 		unsigned int		foodIntervalCounter;
 		unsigned int		critterIntervalCounter;
@@ -328,27 +328,27 @@ class WorldB
 		const int*	population_eliminate_portion_bodymutationratemax;
 
 		const int*	population_double;
-		
+
 		const int*	food_maxlifetime;
 		const int*	energy;
 		const int*	insertcritterevery;
 
 		const int*	critter_startenergy;
 		const int*	setting_critter_mutate_maxlifetime;
-		
+
 // 		bool			m_extinctionmode;
 // 		unsigned int	m_extinctionmode_until;
-		
+
 // 		const unsigned int m_starttime;
 		std::string	m_starttime_s;
 // 		std::string	m_hostname;
-		
+
 
 
 		// vision opts
 		unsigned int picwidth;
 		btScalar drawposition[16];
-		
+
 		btManifoldArray   manifoldArray;
 
 		int			findSelectedCritterID();
@@ -357,8 +357,8 @@ class WorldB
 		GLuint color_tex;
 		GLuint fb;
 		GLuint depth_rb;
-		boost::shared_ptr<Logbuffer> m_logBuffer;
-		
+		std::shared_ptr<Logbuffer> m_logBuffer;
+
 // 		Videocap* videocap;
 
 	protected:
@@ -374,7 +374,7 @@ class WorldB
 // 		const BeColor m_color_wall;
 // 		const BeColor m_color_floor;
 // 		const BeColor m_color_default;
-		
+
 		btVector3 m_map_scale;
 		void slerp( const btTransform& source, btTransform& target, const double timeDelta );
 };

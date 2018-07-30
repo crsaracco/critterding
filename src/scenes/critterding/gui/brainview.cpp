@@ -92,12 +92,12 @@ void Brainview::draw()
 // 		brainview->getLocalPosition().m_x = m_dimensions.m_y+brainview_starty;
 // 		brainview->getLocalPosition().m_y = m_dimensions.m_y+getHeight() - brainview_height - 10;
 // 		Vector2i(10, m_dimensions.m_y+brainview_starty), Vector2i(brainview_width, brainview_height)
-		
+
 // 		m_dimensions.set(20 + brainview_width, 80 + brainview_height);
-		
+
 		brainview->setDimensions(Vector2i(m_dimensions.m_x-20, m_dimensions.m_y - 80));
-		
-		
+
+
 		if ( critterselection->selectedCritter != currentCritter )
 		{
 			currentCritter = critterselection->selectedCritter;
@@ -183,9 +183,9 @@ void Brainview::draw()
 				{
 					if ( start_of_vision_inputs == 0 )
 						start_of_vision_inputs = sensors.size();
-					
+
 					stop_of_vision_inputs = sensors.size();
-					
+
 					const int vinput = (*b_inputs_it).id-50000;
 					const int vcolmax = currentCritter->genotype->bodyArch->retinasize * 4;
 					const float vinput_ratio = vinput / vcolmax;
@@ -220,13 +220,13 @@ void Brainview::draw()
 // 				}
 // 				s.position = Vector2f(woffset, hoffset);
 // 				sensors.push_back(s);
-// 
+//
 // 				if ( ++column == rowlength ) { column = 0; row++; }
 // 			}
 
 			row = (currentCritter->brain.numberOfInputs/rowlength) + 1;
 			neurons.clear();
-			
+
 			// ADD NON MOTOR NEURONS, meanwhile count them
 			m_num_motors = 0;
 			const auto& b_neurons_it_end( currentCritter->brain.Neurons.end() );
@@ -243,7 +243,7 @@ void Brainview::draw()
 					n.m_num_motor = m_num_motors;
 					++m_num_motors;
 				}
-				
+
 				neurons.push_back(n);
 
 				if ( ++column == rowlength )
@@ -274,9 +274,9 @@ void Brainview::draw()
 					n.m_links_to_sensor_sums.push_back(nrlinks);
 				}
 			}
-			
+
 			// calculate links between each other
-			
+
 				// first clear & add all as 0
 				for ( unsigned int i=0; i < n_size; ++i )
 				{
@@ -294,9 +294,9 @@ void Brainview::draw()
 				{
 					auto& n(neurons[i]);
 					const auto& syn(currentCritter->genotype->brainzArch->ArchNeurons[i].ArchSynapses);
-					
+
 // 					n.m_links_to_neurons_sums.clear();
-					
+
 					for ( unsigned int j=i+1; j < n_size; ++j )
 					{
 						auto& n2(neurons[j]);
@@ -309,7 +309,7 @@ void Brainview::draw()
 							const auto& as = syn[k];
 							if ( !as.isSensorNeuron && as.neuronID == j )
 								nrlinks++;
-							
+
 							const auto& as2 = syn2[k];
 							if ( !as2.isSensorNeuron && as2.neuronID == i )
 								nrlinks++;
@@ -318,8 +318,8 @@ void Brainview::draw()
 						n2.m_links_to_neurons_sums[i] = nrlinks;
 					}
 				}
-			
-			
+
+
 		}
 
 		drawBackground();
@@ -331,12 +331,12 @@ void Brainview::draw()
 
 			const auto& n_size(neurons.size());
 			const auto& s_size(sensors.size());
-		
+
 			unsigned int i;
 			const unsigned int n_size_minus_one(n_size-1);
-		
+
 // 			#pragma omp parallel for private(i, j, k, nrlinks, xD, yD, dist, oneoverdistancesquared)
-			
+
 #ifdef HAVE_OPENMP
 		// adjust threads
 			if ( m_threads_last != *threads )
@@ -392,7 +392,7 @@ void Brainview::draw()
 					n_y -= t * yD;
 					n2_x += t * xD;
 					n2_y += t * yD;
-					
+
 #ifdef HAVE_OPENMP
 					#pragma omp critical
 #endif
@@ -406,7 +406,7 @@ void Brainview::draw()
 			}
 
 			// neuron vs sensor + APPLY && check borders
-			
+
 			const unsigned int t_spacing(20);
 			const double minx = v_radius+t_spacing;
 			const double maxx = brainview->getWidth()-v_radius - t_spacing;
@@ -415,7 +415,7 @@ void Brainview::draw()
 
 			m_motor_spacing = (float)brainview->getWidth( ) / m_num_motors;
 			m_half_motor_spacing = m_motor_spacing / 2;
-			
+
 #ifdef HAVE_OPENMP
 			#pragma omp parallel for private(i)
 #endif
@@ -432,7 +432,7 @@ void Brainview::draw()
 					const double yD = s.m_position_y - n.m_position_y;
 					const double dist = sqrt((xD*xD)+(yD*yD));
 
-					
+
 					const double oneoverdistance = 1.0/dist;
 					double oneoverdistancesquared = oneoverdistance/* * oneoverdistance*/;
 					if ( oneoverdistancesquared > 0.01 )
@@ -440,7 +440,7 @@ void Brainview::draw()
 
 
 
-					
+
 // 					double oneoverdistancesquared = 1.0/(dist*dist*dist);
 // 					if ( oneoverdistancesquared > 0.001 )
 // 						oneoverdistancesquared = 0.001;
@@ -451,9 +451,9 @@ void Brainview::draw()
 						const double t(oneoverdistancesquared * nrlinks * nrlinks * *attractor2 * 0.01);
 						n.m_newposition_x += t * xD;
 						n.m_newposition_y += t * yD;
-						
+
 						one_over_links = 1.0/nrlinks;
-						
+
 // 						n.m_newposition_x += xD * oneoverdistancesquared * *attractor2 * nrlinks * 10;
 // 						n.m_newposition_y += yD * oneoverdistancesquared * *attractor2 * nrlinks * 10;
 					}
@@ -467,7 +467,7 @@ void Brainview::draw()
 
 			// apply newpositions & check boundaries
 // 				auto& n(neurons[i]);
-				
+
 				if ( !n.nPointer->motor() )
 				{
 					n.m_position_x += n.m_newposition_x;
@@ -475,13 +475,13 @@ void Brainview::draw()
 
 					if ( n.m_position_x > maxx )
 						n.m_position_x = maxx;
-					
+
 					if ( n.m_position_x < minx )
 						n.m_position_x = minx;
-					
+
 					if ( n.m_position_y > maxy )
 						n.m_position_y = maxy;
-					
+
 					if ( n.m_position_y < miny )
 						n.m_position_y = miny;
 				}
@@ -499,7 +499,7 @@ void Brainview::draw()
 			}
 
 		// DRAW
-		
+
 			// connections
 			glBegin(GL_LINES);
 			float dimmed = 0.30f;
@@ -510,7 +510,7 @@ void Brainview::draw()
 			{
 				auto& n(neurons[i]);
 				const auto& syn(currentCritter->genotype->brainzArch->ArchNeurons[i].ArchSynapses);
-				
+
 				// sensors
 // 				glColor4f(dimmed/2, 0.0f, dimmed/2, 1.0f);
 				for ( unsigned int j=0; j < syn.size(); ++j )
@@ -523,7 +523,7 @@ void Brainview::draw()
 						const auto color(dimmed*braininput.output);
 
 						glColor4f(color, color, color, 1.0f);
-						
+
 						glVertex2f(n.m_position_x+brainview->getPosition().m_x,         n.m_position_y+brainview->getPosition().m_y);
 						glVertex2f(brainview->getPosition().m_x+s_as.m_position_x,         brainview->getPosition().m_y+s_as.m_position_y);
 					}
@@ -544,7 +544,7 @@ void Brainview::draw()
 						}
 					}
 				}
-				
+
 				// excitatory
 				glColor4f(0.0f, dimmed, 0.0f, 1.0f);
 				for ( unsigned int j=0; j < syn.size(); ++j )
@@ -560,11 +560,11 @@ void Brainview::draw()
 						}
 					}
 				}
-				
+
 // 				for ( unsigned int j=0; j < syn.size(); ++j )
 // 				{
 // 					const ArchSynapse& as = syn[j];
-// 					if ( 
+// 					if (
 // 							(!as.isSensorNeuron && currentCritter->brain.Neurons[as.neuronID]->fired())
 // 						|| ( as.isSensorNeuron && currentCritter->brain.Inputs[as.realneuronID].output) )
 // 					{
@@ -574,7 +574,7 @@ void Brainview::draw()
 // 							glColor4f(0.0f, dimmed, 0.0f, 1.0f);
 // 						else
 // 							glColor4f(dimmed, 0.0f, 0.0f, 1.0f);
-// 
+//
 // 						glVertex2f(n.m_position_x+brainview->getPosition().m_x,         n.m_position_y+brainview->getPosition().m_y);
 // 						if ( as.isSensorNeuron )
 // 						{
@@ -666,7 +666,7 @@ void Brainview::draw()
 					glVertex2f(n.m_position_x+brainview->getPosition().m_x+nv_radius, n.m_position_y+brainview->getPosition().m_y+nv_radius);
 				}
 			}
-			
+
 			// excitatory neurons
 			glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
 			for ( unsigned int i=0; i < n_size; ++i )
@@ -684,18 +684,18 @@ void Brainview::draw()
 					glVertex2f(n.m_position_x+brainview->getPosition().m_x+nv_radius, n.m_position_y+brainview->getPosition().m_y+nv_radius);
 				}
 			}
-			
+
 // 			for ( unsigned int i=0; i < n_size; ++i )
 // 			{
 // 				auto& n(neurons[i]);
-// 
+//
 // 				if ( n.nPointer->motor() )
 // 					glColor4f(0.3f, 0.3f, 1.0f, 1.0f);
 // 				else if ( n.nPointer->inhibitory() )
 // 					glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
 // 				else
 // 					glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
-// 
+//
 // 				float nv_radius = abs(n.nPointer->potential() * (v_diam / *brain_maxfiringthreshold));
 // 				// show minimum
 // 				if ( nv_radius < 0.5f )

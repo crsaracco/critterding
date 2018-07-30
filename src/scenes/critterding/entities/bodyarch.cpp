@@ -58,7 +58,7 @@ void BodyArch::buildArch()
 // 	original.append("b 1003 box 0 100 100 100\n");
 // 	original.append("b 1004 box 0 100 100 100\n");
 // 	original.append("m 99999 50, 50, 100\n");
-// 
+//
 // 	-x
 // 	original.append("c 1000 1001 1000 0.5707 1.3707 0.7707 -0.3 0 0 -0.7853 1001 1.1707 0.0707 0.5707 0.15 0 0 0.7853\n");
 // 	-z
@@ -85,7 +85,7 @@ void BodyArch::buildArch()
 	m_maxlifetime					= settings->getCVar("critter_maxlifetime");
 	m_maxmutations					= settings->getCVar("body_maxmutations");
 	m_mutationrate					= settings->getCVar("body_mutationrate");
-	
+
 	// add random more
 		const unsigned int runs = randgen->Instance()->get( settings->getCVar("body_minbodypartsatbuildtime"), settings->getCVar("body_maxbodypartsatbuildtime") ); // -1 -> central bodypart
 		for ( unsigned int i=0; i < runs; ++i )
@@ -96,7 +96,7 @@ void BodyArch::buildArch()
 
 bool BodyArch::faceIsTaken( const archBodypart& archbodypart, const unsigned int face ) const
 {
-	
+
 	for ( unsigned int i = 0; i < archConstraints.size(); ++i )
 	{
 		const archConstraint& c = archConstraints[i];
@@ -139,7 +139,7 @@ void BodyArch::removeBodypart(unsigned int id)
 				cout << "WARNING: removeBodypart:: c->id_1 == c->id_2" << endl;
 				exit(1);
 			}
-			
+
 			if ( c->isMouthConstraint )
 			{
 				removeMouth( findMouth(c->id_2) );
@@ -199,20 +199,20 @@ void BodyArch::addRandomBodypart()
 
 void BodyArch::addRandomConstraint(/*unsigned int connID1, */unsigned int connID2, bool isMouth)
 {
-	
+
 		unsigned int connect_to_bodypart(-1);
 		unsigned int connect_to_face(-1);
 
 		const bool found_open_face( findOpenFace( connect_to_bodypart, connect_to_face ) );
-	
+
 		if ( found_open_face )
 		{
 	// 			unsigned int connID1 = randgen->Instance()->get( 0, archBodyparts.size()-1 );
 	// 			unsigned int attempt(0);
 	// 			while ( (connID1 == connID2 || archBodyparts[connID1].numFreeFaces() == 0) && ++attempt < 300 )
 	// 				connID1 = randgen->Instance()->get( 0, archBodyparts.size()-1 );
-		
-		
+
+
 			archConstraints.push_back( archConstraint() );
 			archConstraint *co = &archConstraints[archConstraints.size()-1];
 
@@ -229,15 +229,15 @@ void BodyArch::addRandomConstraint(/*unsigned int connID1, */unsigned int connID
 				co->id_2		= archBodyparts[ connID2 ].id;
 
 			co->XYZ1 = connect_to_face;
-			
+
 	// 		co->rot_x_1		= ((float)randgen->Instance()->get( 0, 1571 ) - 0) / 1000;
 	// 		co->rot_y_1		= ((float)randgen->Instance()->get( 0, 1571 ) - 0) / 1000;
 	// 		co->rot_z_1		= ((float)randgen->Instance()->get( 0, 1571 ) - 0) / 1000;
-	// 
+	//
 	// 		co->rot_x_2		= ((float)randgen->Instance()->get( 0, 1571 ) - 0) / 1000;
 	// 		co->rot_y_2		= ((float)randgen->Instance()->get( 0, 1571 ) - 0) / 1000;
 	// 		co->rot_z_2		= ((float)randgen->Instance()->get( 0, 1571 ) - 0) / 1000;
-	// 
+	//
 	// 		co->limit_1		= (float)randgen->Instance()->get( 0, 7853 ) / -10000;
 	// 		co->limit_2		= -1.0f * co->limit_1;
 
@@ -247,7 +247,7 @@ void BodyArch::addRandomConstraint(/*unsigned int connID1, */unsigned int connID
 			co->pos_x_2		= 0.0f;
 			co->pos_y_2		= 0.0f;
 			co->pos_z_2		= 0.0f;
-			
+
 			co->rot_x_1		= 0.0f;
 			co->rot_y_1		= 0.0f;
 			co->rot_z_1		= 0.0f;
@@ -259,7 +259,7 @@ void BodyArch::addRandomConstraint(/*unsigned int connID1, */unsigned int connID
 			co->limit_1		= -0.0001f * randgen->Instance()->get( 0, settings->getCVar("body_maxconstraintlimit") );
 			co->limit_2		= 0.0001f * randgen->Instance()->get( 0, settings->getCVar("body_maxconstraintlimit") );
 // 			co->limit_2		= -1.0f * co->limit_1;
-			
+
 			randomConstraintPosition(co, 1, connect_to_bodypart);
 			randomConstraintPosition(co, 2, connID2);
 		}
@@ -307,16 +307,16 @@ void BodyArch::repositionConstraintAngle( archConstraint* co )
 	co->rot_x_1 = 0.0f;
 	co->rot_y_1 = 0.0f;
 	co->rot_z_1 = 0.0f;
-	
+
 	const int max_angle( settings->getCVar("body_maxconstraintangle") );
-	
+
 // 	const float angle( 0.0001f * randgen->Instance()->get( -1571, 1571 ) );
 // 	const float angle( 0.0001f * randgen->Instance()->get( -3141, 3141 ) );
 	const float angle( 0.0001f * randgen->Instance()->get( -max_angle, max_angle ) );
 // 	const float angle( 0.0f );
 
 // 	std::cout << angle << std::endl;
-	
+
 	if ( co->XYZ1 == 0 )
 		co->rot_x_1 = angle;
 	else if ( co->XYZ1 == 1 )
@@ -332,7 +332,7 @@ void BodyArch::repositionConstraintAngle( archConstraint* co )
 void BodyArch::repositionConstraint( archConstraint* co, const unsigned int OneOrTwo, const btVector3& position )
 {
 	const float ratio( 0.0001f *  settings->getCVar("body_constraintpositionrange"));
-	
+
 	if ( OneOrTwo == 1 )
 	{
 		co->pos_x_1 = 0.0f;
@@ -347,7 +347,7 @@ void BodyArch::repositionConstraint( archConstraint* co, const unsigned int OneO
 
 		const archBodypart& bp( archBodyparts[findBodypart(co->id_1)] );
 
-		
+
 		if ( co->XYZ1 == 0 ) // X
 		{
 			co->pos_x_1 = (position.x() / m_size_Factor) * bodypartspacer;
@@ -413,7 +413,7 @@ void BodyArch::repositionConstraint( archConstraint* co, const unsigned int OneO
 		{
 			const archMouth& bp( archMouths[findMouth(co->id_2)] );
 			co->pos_x_2 = (position.x() / m_size_Factor) * bodypartspacer;
-			
+
 // 			co->pos_y_2 = ((float)randgen->Instance()->get( 0, (bp.y)*2) - bp.y) / 100;
 // 			co->pos_z_2 = ((float)randgen->Instance()->get( 0, (bp.y)*2) - bp.y) / 100;
 			co->pos_y_2 = ratio * (randgen->Instance()->get( 0, (bp.y)*2) - bp.y);
@@ -429,8 +429,8 @@ void BodyArch::repositionConstraint( archConstraint* co, const unsigned int OneO
 			co->pos_y_2 = ratio * (randgen->Instance()->get( 0, (bp.y)*2) - bp.y);
 			co->pos_z_2 = ratio * (randgen->Instance()->get( 0, (bp.y)*2) - bp.y);
 		}
-			
-			
+
+
 // 		const int othersign(-1 * co->sign);
 		co->pos_x_2 = (position.x() / m_size_Factor) * bodypartspacer * -1;
 
@@ -442,7 +442,7 @@ void BodyArch::repositionConstraint( archConstraint* co, const unsigned int OneO
 // 		else if ( co->XYZ1 == 2 ) // Z
 // 			co->pos_z_2 = (position.z() / m_size_Factor) * othersign * bodypartspacer;
 	}
-		
+
 }
 
 
@@ -456,22 +456,22 @@ void BodyArch::repositionConstraint( archConstraint* co, const unsigned int OneO
 // // 		co->XYZ2 = 0;
 // // 		if ( co->XYZ1 == 1 )
 // // 			co->XYZ1 = 2;
-// 		
+//
 // 		co->sign = randgen->Instance()->get( 0, 1 );
 // // 		co->sign = 0;
 // 		if ( co->sign == 0 )
 // 			co->sign = -1;
-// 		
+//
 // 		const archBodypart& bp( archBodyparts[connID] );
-// 
+//
 // 	// now we know the plane to connect to, determine positions
 // 		if ( co->XYZ1 == 0 ) // X
 // 		{
-// 			// ((x / 1000.0f)  / 2)  * 1.5f * co->sign = 
+// 			// ((x / 1000.0f)  / 2)  * 1.5f * co->sign =
 // // 			co->pos_y_1 = ((float)randgen->Instance()->get( 0, (bp.y)*2) - bp.y) / 100;
 // // 			co->pos_z_1 = ((float)randgen->Instance()->get( 0, (bp.z)*2) - bp.z) / 100;
 // 			co->pos_x_1 = (bp.x / m_size_Factor) * co->sign * bodypartspacer;
-// 
+//
 // // 			// ROTARY
 // 				co->rot_x_1 = 0.0001f * randgen->Instance()->get( -3141, 3141 );
 // 		}
@@ -480,7 +480,7 @@ void BodyArch::repositionConstraint( archConstraint* co, const unsigned int OneO
 // // 			co->pos_x_1 = ((float)randgen->Instance()->get( 0, (bp.x)*2) - bp.x) / 100;
 // // 			co->pos_z_1 = ((float)randgen->Instance()->get( 0, (bp.z)*2) - bp.z) / 100;
 // 			co->pos_y_1 = (bp.y / m_size_Factor) * co->sign * bodypartspacer;
-// 
+//
 // // 			// ROTARY
 // 				co->rot_y_1 = 0.0001f * randgen->Instance()->get( -3141, 3141 );
 // 		}
@@ -489,7 +489,7 @@ void BodyArch::repositionConstraint( archConstraint* co, const unsigned int OneO
 // // 			co->pos_x_1 = ((float)randgen->Instance()->get( 0, (bp.x)*2) - bp.x) / 100;
 // // 			co->pos_y_1 = ((float)randgen->Instance()->get( 0, (bp.y)*2) - bp.y) / 100;
 // 			co->pos_z_1 = (bp.z / m_size_Factor) * co->sign * bodypartspacer;
-// 			
+//
 // // 			// ROTARY
 // 				co->rot_z_1 = 0.0001f * randgen->Instance()->get( -3141, 3141 );
 // 		}
@@ -497,7 +497,7 @@ void BodyArch::repositionConstraint( archConstraint* co, const unsigned int OneO
 // 	else
 // 	{
 // 		repositionConstraintAngle( co );
-// 
+//
 // 		const int othersign = -1 * co->sign;
 // 		if ( !co->isMouthConstraint )
 // 		{
@@ -588,9 +588,9 @@ void BodyArch::repositiontoConstraints( archMouth* bp )
 		if ( co->isMouthConstraint && co->id_2 == bp->id )
 		{
 // 			const int othersign = -1 * co->sign;
-			
+
 			repositionConstraint(co, 2, btVector3(bp->x, bp->y, bp->z));
-			
+
 // 			if ( co->XYZ1 == 0 ) // X
 // 				co->pos_x_2 = (bp->x / m_size_Factor) * othersign * bodypartspacer;
 // 			else if ( co->XYZ1 == 1 ) // Y
@@ -666,7 +666,7 @@ void BodyArch::mutate(unsigned int runs)
 					color.setG(color.g()+amount);
 				else if ( ncolor == 2 )
 					color.setB(color.b()+amount);
-				
+
 // 				if ( color.r() < 0.1f )
 // 				{
 // 					float diff = 0.1f - color.r();
@@ -703,7 +703,7 @@ void BodyArch::mutate(unsigned int runs)
 				{
 					color.setB(0.1f);
 				}
-			
+
 // 				if ( color.r() > 1.0f || color.g() > 1.0f || color.b() > 1.0f )
 // 					color.normalize();
 
@@ -754,7 +754,7 @@ void BodyArch::mutate(unsigned int runs)
 
 						removeBodypart( archBodyparts[bid].id );
 
-						
+
 // 						cerr << "removing obsolete constraints, expected errors:" << endl;
 						for ( int i = 0; i < (int)archConstraints.size(); ++i )
 						{
@@ -975,7 +975,7 @@ void BodyArch::mutate(unsigned int runs)
 // 				cerr << "done changing constraint limits" << endl;
 				continue;
 			}
-	
+
 		// CHANGE CONSTRAINT LIMITS SLIGHTLY
 			modesum += settings->getCVar("body_percentmutateeffectchangeconstraintlimits_slightly");
 			if ( mode <= modesum )
@@ -984,20 +984,20 @@ void BodyArch::mutate(unsigned int runs)
 
 				const unsigned int cid = randgen->Instance()->get( 0, archConstraints.size()-1 );
 				archConstraint* co = &archConstraints[cid];
-				
+
 				const int factor = randgen->Instance()->get(-100,100);
 				const int mode = randgen->Instance()->get(0,1);
-				
+
 				if ( mode == 0 )
 				{
 					co->limit_1 += 0.0001f * factor;
-					
+
 					const float limit( 0.0001f * settings->getCVar("body_maxconstraintlimit") );
 
 					if ( co->limit_1 > 0 )
 						co->limit_1 = -1.0f * co->limit_1;
-					
-					
+
+
 					if ( co->limit_1 < -limit )
 						co->limit_1 = -limit;
 					else if ( co->limit_1 > limit )
@@ -1007,13 +1007,13 @@ void BodyArch::mutate(unsigned int runs)
 				else
 				{
 					co->limit_2 += 0.0001f * factor;
-					
+
 					const float limit( 0.0001f * settings->getCVar("body_maxconstraintlimit") );
 
 					if ( co->limit_2 < 0 )
 						co->limit_2 = -1.0f * co->limit_2;
-					
-					
+
+
 					if ( co->limit_2 < -limit )
 						co->limit_2 = -limit;
 					else if ( co->limit_2 > limit )
@@ -1031,7 +1031,7 @@ void BodyArch::mutate(unsigned int runs)
 
 				const unsigned int cid = randgen->Instance()->get( 0, archConstraints.size()-1 );
 				archConstraint* co = &archConstraints[cid];
-				
+
 				repositionConstraintAngle( co );
 
 // 				co->rot_x_1		= ((float)randgen->Instance()->get( 0, 3141 ) - 1571) / 1000;
@@ -1056,14 +1056,14 @@ void BodyArch::mutate(unsigned int runs)
 				archConstraint* co = &archConstraints[cid];
 
 // 				unsigned int XYZ = randgen->Instance()->get(0,2);
-				
+
 				const int body_maxconstraintangle( settings->getCVar("body_maxconstraintangle") );
 				const float body_maxconstraintangle_float( 0.0001f * body_maxconstraintangle );
-				
+
 				const int factor( randgen->Instance()->get( -body_maxconstraintangle , body_maxconstraintangle ) );
 				const float factor_float( 0.0001f * factor );
 				const float factor_float_percent( 0.01f * factor_float );
-				
+
 				if ( co->XYZ1 == 0 )
 				{
 					co->rot_x_1 += factor_float_percent;
@@ -1084,7 +1084,7 @@ void BodyArch::mutate(unsigned int runs)
 				}
 
 
-				
+
 // 				unsigned int direction = randgen->Instance()->get(0,1);
 // 				if ( direction == 0 )
 // 				{
@@ -1177,23 +1177,23 @@ void BodyArch::mutate(unsigned int runs)
 			if ( mode <= modesum )
 			{
 // // 				cerr << "changing constraint position" << endl;
-// 
+//
 // 				const unsigned int cid = randgen->Instance()->get( 0, archConstraints.size()-1 );
 // 				archConstraint* co = &archConstraints[cid];
-// 
+//
 // 				const int connID1 = findBodypart(co->id_1);
 // 				int connID2;
-// 
+//
 // 				if ( co->isMouthConstraint )
 // 					connID2 = findMouth(co->id_2);
 // 				else
 // 					connID2 = findBodypart(co->id_2);
-// 
+//
 // 				// pick one of 2 bodies to reconnect
 // 				const unsigned int body1or2 = randgen->Instance()->get( 1, 2 );
 // 				const unsigned int direction = randgen->Instance()->get( 0, 1 );
 // 				const unsigned int axis1or2 = randgen->Instance()->get( 0, 1 );
-// 
+//
 // 				if ( body1or2 == 1 ) {
 // 					// now we know the plane to connect to, determine positions
 // 					if ( co->XYZ1 == 0 ) { // X
@@ -1321,7 +1321,7 @@ void BodyArch::mutate(unsigned int runs)
 // 							co->pos_z_2 = archMouths[connID2].z/2000;
 // 					}
 // 				}
-					
+
 // 					randomConstraintPosition(co, 2, connID2);
 
 // 				cerr << "done changing constraint position" << endl;
@@ -1333,7 +1333,7 @@ void BodyArch::mutate(unsigned int runs)
 			if ( mode <= modesum )
 			{
 // 				cerr << "remove and add mouth" << endl;
-				
+
 				for ( int i = 0; i < (int)archConstraints.size(); ++i )
 				{
 					archConstraint* c = &archConstraints[i];
@@ -1359,7 +1359,7 @@ void BodyArch::mutate(unsigned int runs)
 				const float pct = 0.01f * randgen->Instance()->get( 1, 90 );
 				int amount( m_minenergyproc * pct );
 				amount = max( amount, 1 );
-				
+
 				if ( randgen->Instance()->get( 0, 1000 ) < 500 || m_minenergyproc == settings->getCVar("critter_minenergyproc") )
 					m_minenergyproc -= amount;
 				else
@@ -1378,14 +1378,14 @@ void BodyArch::mutate(unsigned int runs)
 // 				const float pct = 0.01f * randgen->Instance()->get( 1, 20 );
 // 				int amount( m_sightrange * pct );
 // 				amount = std::max( amount, 1 );
-// 				
+//
 // 				if ( randgen->Instance()->get( 0, 1000 ) < 500 )
 // 					m_sightrange -= amount;
 // 				else
 // 					m_sightrange += amount;
 // 				continue;
 // 			}
-			
+
 		// ALTER MAXLIFETIME
 			modesum += settings->getCVar("critter_mutate_maxlifetime");
 			if ( mode <= modesum )
@@ -1393,7 +1393,7 @@ void BodyArch::mutate(unsigned int runs)
 				const float pct = 0.01f * randgen->Instance()->get( 1, 90 );
 				int amount( m_maxlifetime * pct );
 				amount = max( amount, 1 );
-				
+
 				if ( randgen->Instance()->get( 0, 1000 ) < 500 || m_maxlifetime == settings->getCVar("critter_maxlifetime") )
 					m_maxlifetime -= amount;
 				else
@@ -1402,11 +1402,11 @@ void BodyArch::mutate(unsigned int runs)
 					if ( m_maxlifetime > settings->getCVar("critter_maxlifetime") )
 						m_maxlifetime = settings->getCVar("critter_maxlifetime");
 				}
-				
-				
+
+
 				continue;
 			}
-			
+
 // 		// ALTER MUTATIONRATE
 // 			modesum += settings->getCVar("body_percentmutateeffectchangemutationrate");
 // 			if ( mode <= modesum )
@@ -1414,7 +1414,7 @@ void BodyArch::mutate(unsigned int runs)
 // 				const float pct = 0.01f * randgen->Instance()->get( 1, 90 );
 // 				int amount( m_mutationrate * pct );
 // 				amount = std::max( amount, 1 );
-// 				
+//
 // 				if ( randgen->Instance()->get( 0, 1000 ) < 500 || m_mutationrate == settings->getCVar("body_mutationrate") )
 // 					m_mutationrate -= amount;
 // 				else
@@ -1423,11 +1423,11 @@ void BodyArch::mutate(unsigned int runs)
 // 					if ( m_mutationrate > settings->getCVar("body_mutationrate") )
 // 						m_mutationrate = settings->getCVar("body_mutationrate");
 // 				}
-// 				
-// 				
+//
+//
 // 				continue;
 // 			}
-// 			
+//
 // 		// ALTER MAXMUTATIONS
 // 			modesum += settings->getCVar("body_percentmutateeffectchangemaxmutations");
 // 			if ( mode <= modesum )
@@ -1435,7 +1435,7 @@ void BodyArch::mutate(unsigned int runs)
 // 				const float pct = 0.01f * randgen->Instance()->get( 1, 90 );
 // 				int amount( m_maxmutations * pct );
 // 				amount = std::max( amount, 1 );
-// 				
+//
 // 				if ( randgen->Instance()->get( 0, 1000 ) < 500 || m_maxmutations == settings->getCVar("body_maxmutations") )
 // 					m_maxmutations -= amount;
 // 				else
@@ -1444,21 +1444,21 @@ void BodyArch::mutate(unsigned int runs)
 // 					if ( m_maxmutations > settings->getCVar("body_maxmutations") )
 // 						m_maxmutations = settings->getCVar("body_maxmutations");
 // 				}
-// 				
-// 				
+//
+//
 // 				continue;
 // 			}
-			
+
 // 					+ settings->getCVar("body_percentmutateeffectchangemutationrate")
 // 					+ settings->getCVar("body_percentmutateeffectchangemaxmutations")
-			
-			
+
+
 // 					+ settings->getCVar("")
 // 					+ settings->getCVar("critter_mutate_sightrange")
 // 					+ settings->getCVar("")
-			
-			
-			
+
+
+
 		// if we reach here, none were processed, decrease runs by 1 to make sure we get a hit
 			if ( modesum > 0 )
 				runs++;
@@ -1542,7 +1542,7 @@ void BodyArch::copyFrom(const BodyArch* otherBody)
 		const archBodypart *obp = &otherBody->archBodyparts[i];
 		archBodyparts.push_back( archBodypart() );
 		archBodypart *bp = &archBodyparts[archBodyparts.size()-1];
-		
+
 		bp->id		= obp->id;
 		bp->type	= obp->type;
 		bp->materialID	= obp->materialID;
@@ -1556,7 +1556,7 @@ void BodyArch::copyFrom(const BodyArch* otherBody)
 		const archMouth *omo = &otherBody->archMouths[i];
 		archMouths.push_back( archMouth() );
 		archMouth *mo = &archMouths[archMouths.size()-1];
-		
+
 		mo->id		= omo->id;
 		mo->x		= omo->x;
 		mo->y		= omo->y;
@@ -1568,7 +1568,7 @@ void BodyArch::copyFrom(const BodyArch* otherBody)
 		const archConstraint *oco = &otherBody->archConstraints[i];
 		archConstraints.push_back( archConstraint() );
 		archConstraint *co = &archConstraints[archConstraints.size()-1];
-		
+
 		co->isMouthConstraint	= oco->isMouthConstraint;
 		co->constraint_id1	= oco->constraint_id1;
 		co->constraint_id2	= oco->constraint_id2;
@@ -1612,12 +1612,12 @@ void BodyArch::setArch(string* content)
 			float r(0.0f);
 			float g(0.0f);
 			float b(0.0f);
-			
-			
+
+
 			if(EOF == sscanf(R.c_str(), "%f", &r)) cerr << "ERROR INSERTING CRITTER (colorR)" << endl;
 			if(EOF == sscanf(G.c_str(), "%f", &g)) cerr << "ERROR INSERTING CRITTER (colorG)" << endl;
 			if(EOF == sscanf(B.c_str(), "%f", &b)) cerr << "ERROR INSERTING CRITTER (colorB)" << endl;
-			
+
 			color.setR(r);
 			color.setG(g);
 			color.setB(b);
@@ -1644,21 +1644,21 @@ void BodyArch::setArch(string* content)
 			//cerr << "AD: " << AD << endl;
 			if(EOF == sscanf(AD.c_str(), "%d", &m_maxlifetime)) cerr << "ERROR INSERTING CRITTER" << endl;
 		}
-		
+
 		else if ( parseH.beginMatchesStrip( "body_maxmutations=", line ) )
 		{
 			string AD = parseH.returnUntillStrip( ';', line );
 			//cerr << "AD: " << AD << endl;
 			if(EOF == sscanf(AD.c_str(), "%d", &m_maxmutations)) cerr << "ERROR INSERTING CRITTER" << endl;
 		}
-		
+
 		else if ( parseH.beginMatchesStrip( "body_mutationrate=", line ) )
 		{
 			string AD = parseH.returnUntillStrip( ';', line );
 			//cerr << "AD: " << AD << endl;
 			if(EOF == sscanf(AD.c_str(), "%d", &m_mutationrate)) cerr << "ERROR INSERTING CRITTER" << endl;
 		}
-		
+
 		else if ( parseH.beginMatchesStrip( "retinasize=", line ) )
 		{
 			string RES = parseH.returnUntillStrip( ';', line );
@@ -1673,7 +1673,7 @@ void BodyArch::setArch(string* content)
 
 			archBodyparts.push_back( archBodypart() );
 			archBodypart *bp = &archBodyparts[archBodyparts.size()-1];
-			
+
 			string bodypartID = parseH.returnUntillStrip( ' ', line );
 			if(EOF == sscanf(bodypartID.c_str(), "%d", &bp->id)) cerr << "error in parsing body" << endl;
 			string bodypartShape = parseH.returnUntillStrip( ' ', line );
@@ -1713,11 +1713,11 @@ void BodyArch::setArch(string* content)
 			archConstraint CO;
 			archConstraints.push_back( CO );
 			archConstraint *co = &archConstraints[archConstraints.size()-1];
-			
+
 			// XYZ & sign
 				string XYZ = parseH.returnUntillStrip( ' ', line );
 				if(EOF == sscanf(XYZ.c_str(), "%d", &co->XYZ1)) cerr << "error in parsing body" << endl;
-				
+
 // 				string SIGN = parseH.returnUntillStrip( ' ', line );
 // 				if(EOF == sscanf(SIGN.c_str(), "%d", &co->sign)) cerr << "error in parsing body" << endl;
 
@@ -1730,7 +1730,7 @@ void BodyArch::setArch(string* content)
 			// CONNECTION TO BODYPART 1
 				string ID_1 = parseH.returnUntillStrip( ' ', line );
 				if(EOF == sscanf(ID_1.c_str(), "%d", &co->id_1)) cerr << "error in parsing body" << endl;
-				
+
 			// ROTATION
 				string ROT_X_1 = parseH.returnUntillStrip( ' ', line );
 				if(EOF == sscanf(ROT_X_1.c_str(), "%f", &co->rot_x_1)) cerr << "error in parsing body" << endl;
@@ -1847,9 +1847,9 @@ void BodyArch::setArch(string* content)
 			// LIMIT
 				string LIMIT_2 = parseH.returnUntillStrip( ' ', line );
 				if(EOF == sscanf(LIMIT_2.c_str(), "%f", &co->limit_2)) cerr << "error in parsing body" << endl;
-				
+
 // 				std::cout << LIMIT_1 << " vs " << LIMIT_2 << std::endl;
-				
+
 		}
 		else if ( parseH.beginMatchesStrip( "m ", line ) )
 		{
@@ -1889,8 +1889,8 @@ string* BodyArch::getArch()
 		buf << "maxlifetime=" << m_maxlifetime << ";\n";
 		buf << "body_maxmutations=" << m_maxmutations << ";\n";
 		buf << "body_mutationrate=" << m_mutationrate << ";\n";
-		
-		
+
+
 		for ( unsigned int i=0; i < archBodyparts.size(); ++i )
 		{
 			archBodypart *bp = &archBodyparts[i];

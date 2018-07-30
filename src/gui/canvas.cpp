@@ -33,7 +33,7 @@ void Canvas::setDefaultZAxis()
 	unsigned int panelc = 0;
 	for( childit = children.begin(); childit != children.end(); childit++ )
 	{
-		boost::static_pointer_cast<Panel>(childit->second)->zaxis = panelc;
+		std::static_pointer_cast<Panel>(childit->second)->zaxis = panelc;
 		// update sorted drawing/clicking vector
 		m_sortedindices.push_back(childit->first);
 		panelc++;
@@ -112,7 +112,7 @@ bool Canvas::keyPress(const SDL_KeyboardEvent& event)
 {
 	if ( m_pickedwidget && m_pickedwidget->isKeyboardGrabbing )
 	{
-		boost::static_pointer_cast<BeWidgetTextInput>(m_pickedwidget)->acceptKey(event);
+		std::static_pointer_cast<BeWidgetTextInput>(m_pickedwidget)->acceptKey(event);
 		return true;
 	}
 	return false;
@@ -139,7 +139,7 @@ void Canvas::raisePanel(BeWidget* w)
 		// the other lower zaxis values get ++
 		for( childit = children.begin(); childit != children.end(); childit++ )
 		{
-			BeWidgetPanelPtr p = boost::static_pointer_cast<Panel>(childit->second);
+			BeWidgetPanelPtr p = std::static_pointer_cast<Panel>(childit->second);
 			if ( p->zaxis < rp->zaxis )
 				p->zaxis++;
 /*			std::cout << "yeh" << std::endl;*/
@@ -150,7 +150,7 @@ void Canvas::raisePanel(BeWidget* w)
 		// resort m_sortedindices
 		for ( int i = m_sortedindices.size(); i>0; i--  )
 			for ( int j = 0; j < i-1; j++  )
-				if ( boost::static_pointer_cast<Panel>(children[m_sortedindices[j]])->zaxis < boost::static_pointer_cast<Panel>(children[m_sortedindices[j+1]])->zaxis )
+				if ( std::static_pointer_cast<Panel>(children[m_sortedindices[j]])->zaxis < std::static_pointer_cast<Panel>(children[m_sortedindices[j+1]])->zaxis )
 				{
 					std::string keepS	= m_sortedindices[j];
 					m_sortedindices[j]	= m_sortedindices[j+1];
@@ -164,14 +164,14 @@ void Canvas::drawChildren()
 	// draw the ordered panels
 	for( unsigned int i=0; i < m_sortedindices.size(); i++ )
 	{
-		boost::shared_ptr<Panel> p = boost::static_pointer_cast<Panel>(children[m_sortedindices[i]]);
+		std::shared_ptr<Panel> p = std::static_pointer_cast<Panel>(children[m_sortedindices[i]]);
 		if ( !p->isAlwaysOnTop )
 			p->draw();
 	}
 	// draw the ordered panels (on top)
 	for( unsigned int i=0; i < m_sortedindices.size(); i++ )
 	{
-		boost::shared_ptr<Panel> p = boost::static_pointer_cast<Panel>(children[m_sortedindices[i]]);
+		std::shared_ptr<Panel> p = std::static_pointer_cast<Panel>(children[m_sortedindices[i]]);
 		if ( p->isAlwaysOnTop )
 			p->draw();
 	}
@@ -187,7 +187,7 @@ bool Canvas::mouseOverChild(BeWidgetPtr* fWidget, int x, int y)
 			// RECURSIVE INTO CONTAINERS
 			if ( w->isContainer )
 			{
-				boost::shared_ptr<BeWidgetContainer> c = boost::static_pointer_cast<BeWidgetContainer>(w);
+				std::shared_ptr<BeWidgetContainer> c = std::static_pointer_cast<BeWidgetContainer>(w);
 				if ( c->mouseOverChild( fWidget, x, y ) )
 				{
 					return true;
@@ -211,7 +211,7 @@ bool Canvas::mouseOverChild(BeWidgetPtr* fWidget, int x, int y)
 void Canvas::swapChild(const std::string& child)
 {
 // 	cerr << "swapping child " << child << endl;
-	
+
 	BeWidgetPtr t = get( child );
 	if ( t )
 	{

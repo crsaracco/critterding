@@ -45,12 +45,12 @@ namespace boost {
 
     namespace stack_trace {
         #if defined(BOOST_HAVE_EXECINFO)
-        
+
         int trace(void **array,int n)
         {
             return :: backtrace(array,n);
         }
-        
+
         #elif defined(BOOST_MSVC)
 
         int trace(void **array,int n)
@@ -68,9 +68,9 @@ namespace boost {
         }
 
         #endif
-        
+
         #if defined(BOOST_HAVE_DLADDR) && defined(BOOST_HAVE_ABI_CXA_DEMANGLE)
-        
+
         std::string get_symbol(void *ptr)
         {
             if(!ptr)
@@ -147,7 +147,7 @@ namespace boost {
                 throw;
             }
         }
-        
+
         std::string get_symbols(void * const *address,int size)
         {
             char ** ptr = backtrace_symbols(address,size);
@@ -169,7 +169,7 @@ namespace boost {
             }
         }
 
-        
+
         void write_symbols(void *const *addresses,int size,std::ostream &out)
         {
             char ** ptr = backtrace_symbols(addresses,size);
@@ -187,12 +187,12 @@ namespace boost {
                 throw;
             }
         }
-        
+
         #elif defined(BOOST_MSVC)
 
 		#pragma comment( lib, "dbghelp.lib" )
-		#pragma comment( lib, "Psapi.lib" )	
-        
+		#pragma comment( lib, "Psapi.lib" )
+
         namespace {
             HANDLE hProcess = 0;
             bool syms_ready = false;
@@ -237,7 +237,7 @@ namespace boost {
 				return filename;
 			}
         }
-        
+
         std::string get_symbol(void *ptr)
         {
             if(ptr==0)
@@ -246,7 +246,7 @@ namespace boost {
             std::ostringstream ss;
 
 			ss << get_module_name((DWORD)ptr);
-			
+
             if(syms_ready) {
                 DWORD64  dwDisplacement = 0;
                 DWORD64  dwAddress = (DWORD64)ptr;
@@ -288,7 +288,7 @@ namespace boost {
             }
             out << std::flush;
         }
-        
+
         #else
 
         std::string get_symbol(void *ptr)

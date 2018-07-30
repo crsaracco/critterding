@@ -27,7 +27,7 @@ class Brainz
 	public:
 		Brainz();
 		virtual ~Brainz();
-		
+
 		// input / output accessor/mutators
 			std::vector<sensorNeuron>	Inputs;
 			std::vector<motorNeuron>	Outputs;

@@ -35,13 +35,13 @@ public:
 
 private:
 	inline void recalcActualTransform();
-	
+
 	btTransform m_transform;
-	
+
 	bool m_lock_x;
 	bool m_lock_y;
 	bool m_lock_z;
-	
+
 	btTransform m_null_transform;
 // 	btTransform m_follow_critter_view0;
 	btTransform m_transform_actual;

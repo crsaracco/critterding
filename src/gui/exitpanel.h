@@ -9,7 +9,7 @@ class Exitpanel : public Panel
 		Exitpanel();
 		virtual ~Exitpanel() {};
 	private:
-	  
+
 };
 
 #endif

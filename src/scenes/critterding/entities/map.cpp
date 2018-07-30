@@ -126,7 +126,7 @@ void ClientMap::draw(const btVector3& scale)
 
 
 
-ServerMap::ServerMap(BeFilesystem& filesystem, const std::string& path, boost::shared_ptr<BeGeometrySystem> modelSystem, btDynamicsWorld* dynamicsWorld/*, const btVector3& tscale*/) :
+ServerMap::ServerMap(BeFilesystem& filesystem, const std::string& path, std::shared_ptr<BeGeometrySystem> modelSystem, btDynamicsWorld* dynamicsWorld/*, const btVector3& tscale*/) :
 finish_width(0.1f),
 finish_height(0.1f),
 m_body(dynamicsWorld),
@@ -140,7 +140,7 @@ ServerMap::~ServerMap()
 // 	cerr << "exiting map" << endl;
 };
 
-void ServerMap::load(BeFilesystem& filesystem, const std::string& path, boost::shared_ptr<BeGeometrySystem> modelSystem/*, const btVector3& tscale*/)
+void ServerMap::load(BeFilesystem& filesystem, const std::string& path, std::shared_ptr<BeGeometrySystem> modelSystem/*, const btVector3& tscale*/)
 {
 // 	std::string mapfile = "maps/";
 	std::string mapfile;
@@ -224,7 +224,7 @@ void ServerMap::load(BeFilesystem& filesystem, const std::string& path, boost::s
 				if( !loadPhysicsMaterials(befileMap.getDirectory() + "physics_materials.xml") || m_physicsMaterialMap.size() == 0 )
 				{
 					m_logDebug << "::MAP warning: no or invalid physics_materials.xml, using default physics material for entire map\n";
-					boost::shared_ptr<BodypartRigidTrianglemesh> bodypart = m_body.addBodyPart_Rigid_Trianglemesh( m_model, transform, 0, 0, 0 );
+					std::shared_ptr<BodypartRigidTrianglemesh> bodypart = m_body.addBodyPart_Rigid_Trianglemesh( m_model, transform, 0, 0, 0 );
 
 					const BePhysicsMaterial mat;
 					bodypart->setMaterial(mat);
@@ -249,11 +249,11 @@ void ServerMap::load(BeFilesystem& filesystem, const std::string& path, boost::s
 							const BePhysicsMaterial mat = it1->second;
 							if(drawCall.m_count != 0 )
 							{
-								boost::shared_ptr<BodypartRigidTrianglemesh> bodypart = m_body.addBodyPart_Rigid_Trianglemesh((btVector3*)(vertices),numVertices,&indices[drawCall.m_first], drawCall.m_count, transform, 0, 0, 0 );
+								std::shared_ptr<BodypartRigidTrianglemesh> bodypart = m_body.addBodyPart_Rigid_Trianglemesh((btVector3*)(vertices),numVertices,&indices[drawCall.m_first], drawCall.m_count, transform, 0, 0, 0 );
 								bodypart->setMaterial(mat);
 							}
 						}
-						
+
 						++it;
 						++i;
 					}

@@ -50,7 +50,7 @@ NeuronInterz::NeuronInterz( const bool isInhibitory, const float firingThreshold
 		m_inhibitorySignSwitch = 1.0f;
 }
 
-void NeuronInterz::connec( const float& output, const float synapticWeight ) // unsigned int dendrm_iteBranch, 
+void NeuronInterz::connec( const float& output, const float synapticWeight ) // unsigned int dendrm_iteBranch,
 {
 	m_synapses.push_back( Synapse(output, synapticWeight) );
 // 	Synapse& s( (*m_synapses.rbegin()) );
@@ -60,7 +60,7 @@ void NeuronInterz::connec( const float& output, const float synapticWeight ) // 
 
 	m_synapses_begin = m_synapses.begin();
 	m_synapses_end = m_synapses.end();
-	
+
 // 	m_syn_beginP = &(*m_synapses.begin());
 // 	m_syn_endP = &(*m_synapses.end());
 }
@@ -94,13 +94,13 @@ void NeuronInterz::process()
 
 	// add connected neurons output (synapse) to m_potential
 // 		for ( m_syn = m_syn_beginP; m_syn != m_syn_endP; ++m_syn )
-// 			m_potential += m_syn->m_weight * m_syn->m_ref; // m_it->dendrm_iteBranch * 
+// 			m_potential += m_syn->m_weight * m_syn->m_ref; // m_it->dendrm_iteBranch *
 
 		for ( auto syn_it(m_synapses_begin); syn_it != m_synapses_end; ++syn_it )
 		{
-			m_potential += syn_it->getWeightedInfluence(); // m_it->dendrm_iteBranch * 
+			m_potential += syn_it->getWeightedInfluence(); // m_it->dendrm_iteBranch *
 		}
-		
+
 
 	// calc "signed" potential
 		const float signSwitchedPotential( m_inhibitorySignSwitch * m_potential );
@@ -152,13 +152,13 @@ void NeuronInterz_Plastic::process()
 				w = w * m_plasticityWeaken;
 
 			// add connected neurons output (synapse) to potential
-// 				m_potential += w * *m_syn->ref; // m_it->dendrm_iteBranch * 
-				m_potential += w * syn_it->m_ref; // m_it->dendrm_iteBranch * 
+// 				m_potential += w * *m_syn->ref; // m_it->dendrm_iteBranch *
+				m_potential += w * syn_it->m_ref; // m_it->dendrm_iteBranch *
 		}
 
 	// calc "signed" potential
 		const float signSwitchedPotential( m_inhibitorySignSwitch * m_potential );
-	
+
 	// neuron is firing
 		if ( signSwitchedPotential >= m_firingThreshold )
 		{
@@ -189,7 +189,7 @@ void NeuronInterz_Plastic::process()
 					}
 				}
 		}
-	
+
 	// neuron is not firing
 		else
 		{

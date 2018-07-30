@@ -1,6 +1,6 @@
 include_directories( ${bengine_INCLUDES} )
 
-set(gl_STAT_SRCS 
+set(gl_STAT_SRCS
 	be_graphics_kernel.cpp
 	be_texture.cpp
 	be_framebuffer.cpp

@@ -12,7 +12,7 @@ void Event::process( BeCommandSystem* commandsystem, unsigned int elapsed_ms )
 				m_currentdelay -= m_triggerdelay;
 				commandsystem->executeCommand( m_command );
 			}
-			
+
 			m_currentdelay += elapsed_ms;
 		}
 		else
@@ -33,7 +33,7 @@ float VirtualAxis::getMappedValue( int value ) const
 
 	if ( m_map_min == 0 && m_map_max == 0 )
 		return 1.0f*value;
-	
+
 	// adjust value to minimum
 		value -=  m_min;
 
@@ -72,14 +72,14 @@ float VirtualAxis::getMappedValue( int value ) const
 	return convertedValue;
 }
 
-BeEventSystem* BeEventSystem::Instance() 
+BeEventSystem* BeEventSystem::Instance()
 {
 	static BeEventSystem t;
 	return &t;
 }
 
 // int key
-long unsigned int BeEventSystem::registerEvent( BindKey_State state, long unsigned int bindkey, boost::shared_ptr<Event> event )
+long unsigned int BeEventSystem::registerEvent( BindKey_State state, long unsigned int bindkey, std::shared_ptr<Event> event )
 {
 	if ( state == UP )
 		bindkey += 1024;
@@ -116,7 +116,7 @@ void BeEventSystem::deactivateKeystate( const long unsigned int key )
 }
 
 // string key
-long unsigned int BeEventSystem::registerEvent( BindKey_State state, const std::string& name, boost::shared_ptr<Event> event )
+long unsigned int BeEventSystem::registerEvent( BindKey_State state, const std::string& name, std::shared_ptr<Event> event )
 {
 	if ( !m_stringKeyLookupMap[name] )
 	{
@@ -152,11 +152,11 @@ void BeEventSystem::deactivateKeystate( const std::string& name )
 }
 
 // Axis
-long unsigned int BeEventSystem::registerEvent( long unsigned int bindaxis, boost::shared_ptr<VirtualAxis> virtualaxis )
+long unsigned int BeEventSystem::registerEvent( long unsigned int bindaxis, std::shared_ptr<VirtualAxis> virtualaxis )
 {
 	// create axis if it doesn't exist
 		if ( !m_axisMap[ bindaxis ] )
-			m_axisMap[ bindaxis ] = boost::shared_ptr<Axis>(new Axis());
+			m_axisMap[ bindaxis ] = std::shared_ptr<Axis>(new Axis());
 
 	// register Virtual Axis
 		m_axisMap[ bindaxis ]->registerVirtualAxis( virtualaxis );
@@ -175,7 +175,7 @@ void BeEventSystem::setAxisstate( const long unsigned int key, int value )
 	{
 		// find correct VirtualAxis
 		VirtualAxis* virtualaxis = m_axisMap[key]->getVirtualAxis( value );
-		
+
 		if ( virtualaxis )
 		{
 			// map range

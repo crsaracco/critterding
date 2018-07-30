@@ -29,23 +29,23 @@ public:
     }
 	~BeGeometry() {}
 
-	  void setNumberVertices( unsigned int numberVertices ) 
-	  { 
+	  void setNumberVertices( unsigned int numberVertices )
+	  {
 		  m_numberVertices = numberVertices;
 		  vertices.reset(new btScalar[m_numberVertices]);
 	  }
 
 	  unsigned int		getNumberVertices() const { return m_numberVertices; }
 
-	  void setNumberVIndices( unsigned int numberVIndices ) 
-	  { 
+	  void setNumberVIndices( unsigned int numberVIndices )
+	  {
 		  m_numberVIndices = numberVIndices;
 		  indices.reset(new int[m_numberVIndices]);
 	  }
 	  unsigned int		getNumberVIndices() const { return m_numberVIndices; }
 
 	  boost::scoped_array<btScalar> vertices;
-	  boost::scoped_array<int> indices; 
+	  boost::scoped_array<int> indices;
 
 	  MaterialMap m_materialMap;
 	  std::vector<Facematerial> facematerials;
@@ -72,9 +72,9 @@ private:
 class BeGeometrySystem
 {
 public:
-	boost::shared_ptr<BeGeometry> load( BeFilesystem& filesystem, const std::string& filename, const btVector3& scale, const btTransform& transform);
+	std::shared_ptr<BeGeometry> load( BeFilesystem& filesystem, const std::string& filename, const btVector3& scale, const btTransform& transform);
 private:
-// 	typedef std::unordered_map<std::string, boost::shared_ptr<BeGeometry> > ResourceMap;
+// 	typedef std::unordered_map<std::string, std::shared_ptr<BeGeometry> > ResourceMap;
 // 	ResourceMap m_resources;
 };
 
@@ -84,38 +84,38 @@ class BeGraphicsModel
 	friend class BeGraphicsModelSystem;
 	friend class BeGraphicsModelResource;
 public:
-	BeGraphicsModel( boost::shared_ptr<BeGraphicsSystem> system, const std::string& filename );
-	
+	BeGraphicsModel( std::shared_ptr<BeGraphicsSystem> system, const std::string& filename );
+
 	~BeGraphicsModel() {}
 
 		const std::string&	getFilename() const { return m_filename; }
-		
-		void setNumberVertices( unsigned int numberVertices ) 
-		{ 
+
+		void setNumberVertices( unsigned int numberVertices )
+		{
 			m_numberVertices = numberVertices;
 			vertices.reset(new btScalar[m_numberVertices]);
 		}
 
 		unsigned int		getNumberVertices() const { return m_numberVertices; }
 
-		void setNumberNormals( unsigned int numberNormals ) 
-		{ 
+		void setNumberNormals( unsigned int numberNormals )
+		{
 			m_numberNormals = numberNormals;
 			normals.reset(new float[m_numberNormals]);
 		}
 
 		unsigned int		getNumberNormals() const { return m_numberNormals; }
 
-		void setNumberTexCoor( unsigned int numberTexCoor ) 
-		{ 
-			m_numberTexCoor = numberTexCoor; 
+		void setNumberTexCoor( unsigned int numberTexCoor )
+		{
+			m_numberTexCoor = numberTexCoor;
 			texcoor.reset(new float[m_numberTexCoor]);
 		}
 
 		unsigned int		getNumberTexCoor() const { return m_numberTexCoor; }
 
-		void setNumberVIndices( unsigned int numberVIndices ) 
-		{ 
+		void setNumberVIndices( unsigned int numberVIndices )
+		{
 			m_numberVIndices = numberVIndices;
 			indices.reset(new int[m_numberVIndices]);
 		}
@@ -124,7 +124,7 @@ public:
 		boost::scoped_array<btScalar> vertices;
 		boost::scoped_array<float> normals;
 		boost::scoped_array<float> texcoor;
-		boost::scoped_array<int> indices; 
+		boost::scoped_array<int> indices;
 
 		std::vector<GLint> elementArrayBuffer;
 
@@ -146,7 +146,7 @@ public:
 		void				drawToDepth();
 
 private:
-// 	boost::shared_ptr<BeTexture2DResource> m_imageTexture2D;
+// 	std::shared_ptr<BeTexture2DResource> m_imageTexture2D;
 	btScalar		m_matrix[16];
 	void			upload(Texturestore& textureStore);
 	void 			buildElementArrayBuffer();
@@ -156,7 +156,7 @@ private:
 		unsigned int m_numberNormals;
 		unsigned int m_numberTexCoor;
 		unsigned int m_numberVIndices;
-		
+
 		boost::scoped_ptr<BeArrayBuffer>	m_arrayBuffer;
 		boost::scoped_ptr<BeElementArrayBuffer>	m_elementArrayBuffer;
 		boost::scoped_ptr<BeVertexArray>	m_vertexArray;
@@ -175,7 +175,7 @@ public:
 
 		void loadMaterialfile( const std::string& mpath, const std::string& file );
 
-		boost::shared_ptr<BeGraphicsSystem> m_system;
+		std::shared_ptr<BeGraphicsSystem> m_system;
 private:
 		const unsigned int m_glint_size;
 		const int* m_glsl;
@@ -190,12 +190,12 @@ class BeGraphicsModelSystem
 		BeGraphicsModelSystem(BeFilesystem& filesystem) : m_filesystem(filesystem), m_textureStore()
 		{
 		}
-		boost::shared_ptr<BeGraphicsModelResource> load( const std::string& filename, boost::shared_ptr<BeGraphicsSystem> graphicsSystem, boost::shared_ptr<BeGraphicsModelSystem> instance, const btVector3& scale, const btTransform& transform );
+		std::shared_ptr<BeGraphicsModelResource> load( const std::string& filename, std::shared_ptr<BeGraphicsSystem> graphicsSystem, std::shared_ptr<BeGraphicsModelSystem> instance, const btVector3& scale, const btTransform& transform );
 	private:
 		BeFilesystem& m_filesystem;
-// 		boost::shared_ptr<BeWorkerPool> m_workerPool;
+// 		std::shared_ptr<BeWorkerPool> m_workerPool;
 		Texturestore m_textureStore;
-// 		typedef std::unordered_map<std::string, boost::shared_ptr<BeGraphicsModelResource> > ResourceMap;
+// 		typedef std::unordered_map<std::string, std::shared_ptr<BeGraphicsModelResource> > ResourceMap;
 // 		ResourceMap m_resources;
 };
 
@@ -204,12 +204,12 @@ class BeGraphicsEffect
 public:
 	BeGraphicsEffect(BeFilesystem& fileSystem) : m_fileSystem(fileSystem)
 	{
-		m_program = boost::shared_ptr<BeProgram>(new BeProgram);
+		m_program = std::shared_ptr<BeProgram>(new BeProgram);
 	}
 
 	BeGraphicsEffect(BeFilesystem& fileSystem, const std::string& vertexShaderPath, const std::string& fragmentShaderPath) : m_fileSystem(fileSystem)
 	{
-		m_program = boost::shared_ptr<BeProgram>(new BeProgram);
+		m_program = std::shared_ptr<BeProgram>(new BeProgram);
 		loadCompileAndAttachVertexShader(vertexShaderPath);
 		loadCompileAndAttachFragmentShader(fragmentShaderPath);
 		link();
@@ -254,7 +254,7 @@ public:
 		m_program->link();
 	}
 
-	boost::shared_ptr<BeProgram> m_program;
+	std::shared_ptr<BeProgram> m_program;
 	BeFilesystem& m_fileSystem;
 };
 

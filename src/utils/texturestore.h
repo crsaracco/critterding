@@ -12,9 +12,9 @@ class Texturestore
 	public:
 		Texturestore() {};
 		~Texturestore() {};
-		boost::shared_ptr<BeTexture2DResource> load(const std::string& filename);
-// 		boost::shared_ptr<BeWorkerPool> m_threadPool; 
-// 		std::map<std::string, boost::shared_ptr<BeTexture2DResource> > m_resources;
+		std::shared_ptr<BeTexture2DResource> load(const std::string& filename);
+// 		std::shared_ptr<BeWorkerPool> m_threadPool;
+// 		std::map<std::string, std::shared_ptr<BeTexture2DResource> > m_resources;
 };
 
 #endif

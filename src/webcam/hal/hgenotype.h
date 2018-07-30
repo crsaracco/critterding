@@ -25,11 +25,11 @@ class HGenotype
 		void registerBrainInputOutputs();
 
 		string saveHGenotype();
-		
+
 		unsigned int vinputs;
 	private:
 		Answers*	answers;
-		
+
 };
 
 #endif

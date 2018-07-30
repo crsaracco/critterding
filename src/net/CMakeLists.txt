@@ -1,6 +1,6 @@
 include_directories( ${bengine_INCLUDES} )
 
-set(net_STAT_SRCS 
+set(net_STAT_SRCS
 # 	be_net_system.cpp
 # 	be_socket_udp.cpp
 # 	be_socket_udp_client.cpp

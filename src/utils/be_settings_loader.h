@@ -14,7 +14,7 @@ struct AxisRange
 	AxisRange(float min, float max) : m_min(min), m_max(max)
 	{
 	}
-	
+
 	void setMin( float min ) { m_min = min; }
 	void setMax( float max ) { m_max = max; }
 
@@ -30,7 +30,7 @@ class BeSettingsLoader
 {
 	public:
 		bool load(BeEventSystem* eventsystem, const BeFile* befile);
-		std::map<std::string, boost::shared_ptr<AxisRange> > axisrangemap;
+		std::map<std::string, std::shared_ptr<AxisRange> > axisrangemap;
 	private:
 		void parseJoystick(BeEventSystem& eventsystem, const TiXmlElement& rootElement);
 

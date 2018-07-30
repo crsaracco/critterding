@@ -1,17 +1,17 @@
 
 // #include <cmath>
-// #define __NO_STD_VECTOR // Use cl::vector and cl::string and 
+// #define __NO_STD_VECTOR // Use cl::vector and cl::string and
 // #define __NO_STD_STRING  // not STL versions, more on this later
 
 #include "clcontext.h"
 
-CLContext* CLContext::Instance () 
+CLContext* CLContext::Instance ()
 {
 	static CLContext t;
 	return &t;
 }
 
-CLContext::CLContext() : 
+CLContext::CLContext() :
  devices(NULL),
  maxWorkItemSizes(NULL),
  groupSize(256),
@@ -77,7 +77,7 @@ void CLContext::checkWorkGroupsize( const cl_kernel& kernel )
 		std::cout << "Max Group Size supported on the kernel : " << kernelWorkGroupSize<<std::endl;
 		std::cout << "Falling back to " << kernelWorkGroupSize << std::endl;
 		groupSize = kernelWorkGroupSize;
-	}	
+	}
 }
 
 void CLContext::enqueueNDRangeKernel( cl_command_queue& command_queue, const cl_kernel& kernel, cl_uint work_dim, const size_t *global_work_offset, const size_t *global_work_size,
@@ -132,7 +132,7 @@ int CLContext::setupCL()
 
 	if(gpu == 0)
 		dType = CL_DEVICE_TYPE_CPU;
-	else //deviceType = "gpu" 
+	else //deviceType = "gpu"
 		dType = CL_DEVICE_TYPE_GPU;
 
 	/*
@@ -145,13 +145,13 @@ int CLContext::setupCL()
 	status = clGetPlatformIDs(0, NULL, &numPlatforms);
 	if(!checkVal(status, CL_SUCCESS, "clGetPlatformIDs failed."))
 		return CL_FAILURE;
-	if (0 < numPlatforms) 
+	if (0 < numPlatforms)
 	{
 		cl_platform_id* platforms = new cl_platform_id[numPlatforms];
 		status = clGetPlatformIDs(numPlatforms, platforms, NULL);
 		if(!checkVal(status, CL_SUCCESS, "clGetPlatformIDs failed."))
 			return CL_FAILURE;
-		for (unsigned i = 0; i < numPlatforms; ++i) 
+		for (unsigned i = 0; i < numPlatforms; ++i)
 		{
 			char pbuf[100];
 			status = clGetPlatformInfo(platforms[i], CL_PLATFORM_VENDOR, sizeof(pbuf), pbuf, NULL);
@@ -160,7 +160,7 @@ int CLContext::setupCL()
 				return CL_FAILURE;
 
 			platform = platforms[i];
-			if (!strcmp(pbuf, "Advanced Micro Devices, Inc.")) 
+			if (!strcmp(pbuf, "Advanced Micro Devices, Inc."))
 				break;
 		}
 		delete[] platforms;
@@ -232,7 +232,7 @@ int CLContext::setupCL()
 
 	/* create a CL program using the kernel source */
 	string content;
-	fileH.open( "critterding.cl", content ); 
+	fileH.open( "critterding.cl", content );
 
 	const char * source = content.c_str();
 	size_t sourceSize[] = { strlen(source) };
@@ -295,14 +295,14 @@ int CLContext::checkVal( T input, T reference, std::string message, bool isAPIer
 			cerr << getOpenCLErrorCodeStr(input) << endl;
 		}
 		else
-			cout << message << endl;   
+			cout << message << endl;
 		return 0;
 	}
 }
 
 const char* CLContext::getOpenCLErrorCodeStr(std::string input) const
 {
-    return "unknown error code"; 
+    return "unknown error code";
 }
 
 template<typename T>
@@ -312,51 +312,51 @@ const char*  CLContext::getOpenCLErrorCodeStr(T input) const
 	switch(errorCode)
 	{
 		case CL_DEVICE_NOT_FOUND:			return "CL_DEVICE_NOT_FOUND";
-		case CL_DEVICE_NOT_AVAILABLE:			return "CL_DEVICE_NOT_AVAILABLE";               
-		case CL_COMPILER_NOT_AVAILABLE:			return "CL_COMPILER_NOT_AVAILABLE";           
-		case CL_MEM_OBJECT_ALLOCATION_FAILURE:		return "CL_MEM_OBJECT_ALLOCATION_FAILURE";      
-		case CL_OUT_OF_RESOURCES:			return "CL_OUT_OF_RESOURCES";                    
-		case CL_OUT_OF_HOST_MEMORY:			return "CL_OUT_OF_HOST_MEMORY";                 
+		case CL_DEVICE_NOT_AVAILABLE:			return "CL_DEVICE_NOT_AVAILABLE";
+		case CL_COMPILER_NOT_AVAILABLE:			return "CL_COMPILER_NOT_AVAILABLE";
+		case CL_MEM_OBJECT_ALLOCATION_FAILURE:		return "CL_MEM_OBJECT_ALLOCATION_FAILURE";
+		case CL_OUT_OF_RESOURCES:			return "CL_OUT_OF_RESOURCES";
+		case CL_OUT_OF_HOST_MEMORY:			return "CL_OUT_OF_HOST_MEMORY";
 		case CL_PROFILING_INFO_NOT_AVAILABLE:		return "CL_PROFILING_INFO_NOT_AVAILABLE";
-		case CL_MEM_COPY_OVERLAP:			return "CL_MEM_COPY_OVERLAP";                    
-		case CL_IMAGE_FORMAT_MISMATCH:			return "CL_IMAGE_FORMAT_MISMATCH";               
-		case CL_IMAGE_FORMAT_NOT_SUPPORTED:		return "CL_IMAGE_FORMAT_NOT_SUPPORTED";         
-		case CL_BUILD_PROGRAM_FAILURE:			return "CL_BUILD_PROGRAM_FAILURE";              
-		case CL_MAP_FAILURE:				return "CL_MAP_FAILURE";                         
-		case CL_INVALID_VALUE:				return "CL_INVALID_VALUE";                      
-		case CL_INVALID_DEVICE_TYPE:			return "CL_INVALID_DEVICE_TYPE";               
-		case CL_INVALID_PLATFORM:			return "CL_INVALID_PLATFORM";                   
-		case CL_INVALID_DEVICE:				return "CL_INVALID_DEVICE";                    
-		case CL_INVALID_CONTEXT:			return "CL_INVALID_CONTEXT";                    
-		case CL_INVALID_QUEUE_PROPERTIES:		return "CL_INVALID_QUEUE_PROPERTIES";           
-		case CL_INVALID_COMMAND_QUEUE:			return "CL_INVALID_COMMAND_QUEUE";              
-		case CL_INVALID_HOST_PTR:			return "CL_INVALID_HOST_PTR";                   
-		case CL_INVALID_MEM_OBJECT:			return "CL_INVALID_MEM_OBJECT";                  
-		case CL_INVALID_IMAGE_FORMAT_DESCRIPTOR:	return "CL_INVALID_IMAGE_FORMAT_DESCRIPTOR";    
-		case CL_INVALID_IMAGE_SIZE:			return "CL_INVALID_IMAGE_SIZE";                 
-		case CL_INVALID_SAMPLER:			return "CL_INVALID_SAMPLER";                    
-		case CL_INVALID_BINARY:				return "CL_INVALID_BINARY";                     
-		case CL_INVALID_BUILD_OPTIONS:			return "CL_INVALID_BUILD_OPTIONS";              
-		case CL_INVALID_PROGRAM:			return "CL_INVALID_PROGRAM";                    
-		case CL_INVALID_PROGRAM_EXECUTABLE:		return "CL_INVALID_PROGRAM_EXECUTABLE";          
-		case CL_INVALID_KERNEL_NAME:			return "CL_INVALID_KERNEL_NAME";                
-		case CL_INVALID_KERNEL_DEFINITION:		return "CL_INVALID_KERNEL_DEFINITION";          
-		case CL_INVALID_KERNEL:				return "CL_INVALID_KERNEL";                     
-		case CL_INVALID_ARG_INDEX:			return "CL_INVALID_ARG_INDEX";                   
-		case CL_INVALID_ARG_VALUE:			return "CL_INVALID_ARG_VALUE";                   
-		case CL_INVALID_ARG_SIZE:			return "CL_INVALID_ARG_SIZE";                    
-		case CL_INVALID_KERNEL_ARGS:			return "CL_INVALID_KERNEL_ARGS";                
-		case CL_INVALID_WORK_DIMENSION:			return "CL_INVALID_WORK_DIMENSION";              
-		case CL_INVALID_WORK_GROUP_SIZE:		return "CL_INVALID_WORK_GROUP_SIZE";             
-		case CL_INVALID_WORK_ITEM_SIZE:			return "CL_INVALID_WORK_ITEM_SIZE";             
-		case CL_INVALID_GLOBAL_OFFSET:			return "CL_INVALID_GLOBAL_OFFSET";              
-		case CL_INVALID_EVENT_WAIT_LIST:		return "CL_INVALID_EVENT_WAIT_LIST";             
-		case CL_INVALID_EVENT:				return "CL_INVALID_EVENT";                      
-		case CL_INVALID_OPERATION:			return "CL_INVALID_OPERATION";                 
-		case CL_INVALID_GL_OBJECT:			return "CL_INVALID_GL_OBJECT";                  
-		case CL_INVALID_BUFFER_SIZE:			return "CL_INVALID_BUFFER_SIZE";                 
-		case CL_INVALID_MIP_LEVEL:			return "CL_INVALID_MIP_LEVEL";                   
-		case CL_INVALID_GLOBAL_WORK_SIZE:		return "CL_INVALID_GLOBAL_WORK_SIZE";            
+		case CL_MEM_COPY_OVERLAP:			return "CL_MEM_COPY_OVERLAP";
+		case CL_IMAGE_FORMAT_MISMATCH:			return "CL_IMAGE_FORMAT_MISMATCH";
+		case CL_IMAGE_FORMAT_NOT_SUPPORTED:		return "CL_IMAGE_FORMAT_NOT_SUPPORTED";
+		case CL_BUILD_PROGRAM_FAILURE:			return "CL_BUILD_PROGRAM_FAILURE";
+		case CL_MAP_FAILURE:				return "CL_MAP_FAILURE";
+		case CL_INVALID_VALUE:				return "CL_INVALID_VALUE";
+		case CL_INVALID_DEVICE_TYPE:			return "CL_INVALID_DEVICE_TYPE";
+		case CL_INVALID_PLATFORM:			return "CL_INVALID_PLATFORM";
+		case CL_INVALID_DEVICE:				return "CL_INVALID_DEVICE";
+		case CL_INVALID_CONTEXT:			return "CL_INVALID_CONTEXT";
+		case CL_INVALID_QUEUE_PROPERTIES:		return "CL_INVALID_QUEUE_PROPERTIES";
+		case CL_INVALID_COMMAND_QUEUE:			return "CL_INVALID_COMMAND_QUEUE";
+		case CL_INVALID_HOST_PTR:			return "CL_INVALID_HOST_PTR";
+		case CL_INVALID_MEM_OBJECT:			return "CL_INVALID_MEM_OBJECT";
+		case CL_INVALID_IMAGE_FORMAT_DESCRIPTOR:	return "CL_INVALID_IMAGE_FORMAT_DESCRIPTOR";
+		case CL_INVALID_IMAGE_SIZE:			return "CL_INVALID_IMAGE_SIZE";
+		case CL_INVALID_SAMPLER:			return "CL_INVALID_SAMPLER";
+		case CL_INVALID_BINARY:				return "CL_INVALID_BINARY";
+		case CL_INVALID_BUILD_OPTIONS:			return "CL_INVALID_BUILD_OPTIONS";
+		case CL_INVALID_PROGRAM:			return "CL_INVALID_PROGRAM";
+		case CL_INVALID_PROGRAM_EXECUTABLE:		return "CL_INVALID_PROGRAM_EXECUTABLE";
+		case CL_INVALID_KERNEL_NAME:			return "CL_INVALID_KERNEL_NAME";
+		case CL_INVALID_KERNEL_DEFINITION:		return "CL_INVALID_KERNEL_DEFINITION";
+		case CL_INVALID_KERNEL:				return "CL_INVALID_KERNEL";
+		case CL_INVALID_ARG_INDEX:			return "CL_INVALID_ARG_INDEX";
+		case CL_INVALID_ARG_VALUE:			return "CL_INVALID_ARG_VALUE";
+		case CL_INVALID_ARG_SIZE:			return "CL_INVALID_ARG_SIZE";
+		case CL_INVALID_KERNEL_ARGS:			return "CL_INVALID_KERNEL_ARGS";
+		case CL_INVALID_WORK_DIMENSION:			return "CL_INVALID_WORK_DIMENSION";
+		case CL_INVALID_WORK_GROUP_SIZE:		return "CL_INVALID_WORK_GROUP_SIZE";
+		case CL_INVALID_WORK_ITEM_SIZE:			return "CL_INVALID_WORK_ITEM_SIZE";
+		case CL_INVALID_GLOBAL_OFFSET:			return "CL_INVALID_GLOBAL_OFFSET";
+		case CL_INVALID_EVENT_WAIT_LIST:		return "CL_INVALID_EVENT_WAIT_LIST";
+		case CL_INVALID_EVENT:				return "CL_INVALID_EVENT";
+		case CL_INVALID_OPERATION:			return "CL_INVALID_OPERATION";
+		case CL_INVALID_GL_OBJECT:			return "CL_INVALID_GL_OBJECT";
+		case CL_INVALID_BUFFER_SIZE:			return "CL_INVALID_BUFFER_SIZE";
+		case CL_INVALID_MIP_LEVEL:			return "CL_INVALID_MIP_LEVEL";
+		case CL_INVALID_GLOBAL_WORK_SIZE:		return "CL_INVALID_GLOBAL_WORK_SIZE";
 		default:					return "unknown error code";
 	}
 	return "unknown error code";
@@ -376,7 +376,7 @@ CLContext::~CLContext()
 }
 
 /////////////////////////////////////////////////////////////////
-// Template Instantiations 
+// Template Instantiations
 /////////////////////////////////////////////////////////////////
 template
 int CLContext::checkVal<char>(char input, char reference, std::string message, bool isAPIerror) const;

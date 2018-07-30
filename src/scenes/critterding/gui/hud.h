@@ -11,18 +11,18 @@ class BeGraphicsSystem;
 class Hud : public Panel
 {
 	public:
-		Hud(boost::shared_ptr<BeGraphicsSystem> graphicsSystem);
+		Hud(std::shared_ptr<BeGraphicsSystem> graphicsSystem);
 		~Hud();
 		void		draw();
 		WorldB*		world;
-		
+
 	private:
 		void drawBorders();
 		Critterselection* critterselection;
 		std::vector<BeWidgetPtr> cbuttons; // FIXME save as buttons
 		float m_viewposition[16];
-		boost::shared_ptr<BeGraphicsSystem> m_graphicsSystem;
-		
+		std::shared_ptr<BeGraphicsSystem> m_graphicsSystem;
+
 		const unsigned int m_bwidth;
 		const unsigned int m_bheight;
 };

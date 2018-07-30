@@ -42,8 +42,8 @@ void CritterB::initConst()
 
 	// raycast
 // 	raycast = new Raycast(btDynWorld);
-	
-	
+
+
 	canProcreate = false;
 	touchingFood = false;
 	touchingCritter = false;
@@ -88,7 +88,7 @@ CritterB::CritterB(btDynamicsWorld* btWorld, long unsigned int id, const btTrans
 
 	// LINK
 	registerBrainInputOutputs();
-	
+
 	// BRAIN
 // 	genotype->brainzArch->buildArch();
 	brain.wireArch( genotype->brainzArch );
@@ -191,7 +191,7 @@ void CritterB::registerBrainInputOutputs()
 
 	// procreate
 		brain.registerOutput( &procreate, 100001 );
-		
+
 	// debug check
 	if ( brain.Outputs.size() != genotype->brainzArch->OutputIDs.size() )
 		cerr << "WARNING: brain.Outputs.size() != genotype->brainzArch->OutputIDs.size()" << endl;
@@ -203,23 +203,23 @@ void CritterB::registerBrainInputOutputs()
 // 	for( unsigned int j=0; j < body.bodyparts.size(); j++)
 // 	{
 // 		body.bodyparts[j]->myMotionState->m_graphicsWorldTrans.getOpenGLMatrix(position);
-// 
-// 		glPushMatrix(); 
+//
+// 		glPushMatrix();
 // // 		glMultMatrixf(position);
-// // 		glMultMatrixd(position); // FIXME WATCHIT OK WENT TO DOUBLE HERE 
+// // 		glMultMatrixd(position); // FIXME WATCHIT OK WENT TO DOUBLE HERE
 // 		Displaylists::Instance()->glMultiMatrix(position);
-// 
+//
 // 			if ( *colormode == 1 )
 // 				glColor4f( genotype->speciescolor.r(), genotype->speciescolor.g(), genotype->speciescolor.b(), genotype->speciescolor.a() );
 // 			else
 // 				glColor4f( genotype->bodyArch->color.r(), genotype->bodyArch->color.g(), genotype->bodyArch->color.b(), genotype->bodyArch->color.a() );
-// 
+//
 // 				const btBoxShape* boxShape = static_cast<const btBoxShape*>(body.bodyparts[j]->shape);
 // 				const btVector3& halfExtent = boxShape->getHalfExtentsWithMargin();
 // 				glScalef(halfExtent[0], halfExtent[1], halfExtent[2]);
-// 
+//
 // 				Displaylists::Instance()->call();
-// 
+//
 // 		glPopMatrix();
 // 	}
 // 	if ( drawFaces )
@@ -227,19 +227,19 @@ void CritterB::registerBrainInputOutputs()
 // 		for( unsigned int j=0; j < body.mouths.size(); j++)
 // 		{
 // 			body.mouths[j]->ghostObject->getWorldTransform().getOpenGLMatrix(position);
-// 			glPushMatrix(); 
+// 			glPushMatrix();
 // // 			glMultMatrixf(position);
-// // 			glMultMatrixd(position); // FIXME WATCHIT OK WENT TO DOUBLE HERE 
+// // 			glMultMatrixd(position); // FIXME WATCHIT OK WENT TO DOUBLE HERE
 // 			Displaylists::Instance()->glMultiMatrix(position);
-// 
+//
 // 					glColor4f( 1.0f, 0.0f, 0.0f, 0.0f );
-// 
+//
 // 					const btBoxShape* boxShape = static_cast<const btBoxShape*>(body.mouths[j]->shape);
 // 					const btVector3& halfExtent = boxShape->getHalfExtentsWithMargin();
 // 					glScalef(halfExtent[0], halfExtent[1], halfExtent[2]);
-// 
+//
 // 					Displaylists::Instance()->call();
-// 
+//
 // 			glPopMatrix();
 // 		}
 // 	}
@@ -253,9 +253,9 @@ void CritterB::registerBrainInputOutputs()
 // 		for( unsigned int j=0; j < body.bodyparts.size(); j++)
 // 		{
 // // 			body.bodyparts[j]->myMotionState->m_graphicsWorldTrans.getOpenGLMatrix(position);
-// 			glPushMatrix(); 
+// 			glPushMatrix();
 // // 				Displaylists::Instance()->glMultiMatrix(position);
-// 
+//
 // 				if ( do_color )
 // 				{
 // 					if ( *colormode == 1 )
@@ -265,16 +265,16 @@ void CritterB::registerBrainInputOutputs()
 // 	// 				glColor4f( color.r(), color.g(), color.b(), color.a() );
 // 					m_model->get()->setContext( 0 );
 // 				}
-// 				
+//
 // 				if ( do_scale )
 // 				{
 // 					const btBoxShape* boxShape = static_cast<const btBoxShape*>(body.bodyparts[j]->shape);
 // 					const btVector3& halfExtent = boxShape->getHalfExtentsWithMargin();
 // 					glScalef(halfExtent[0], halfExtent[1], halfExtent[2]);
 // 				}
-// 				
+//
 // 				m_model->get()->draw( 0, body.bodyparts[j]->myMotionState->m_graphicsWorldTrans );
-// 			glPopMatrix(); 
+// 			glPopMatrix();
 // 		}
 // 	}
 // 	else
@@ -283,9 +283,9 @@ void CritterB::registerBrainInputOutputs()
 // 		for( unsigned int j=0; j < body.bodyparts.size(); j++)
 // 		{
 // 			body.bodyparts[j]->myMotionState->m_graphicsWorldTrans.getOpenGLMatrix(position);
-// 			glPushMatrix(); 
+// 			glPushMatrix();
 // 				Displaylists::Instance()->glMultiMatrix(position);
-// 
+//
 // 				if ( do_color )
 // 				{
 // 					if ( *colormode == 1 )
@@ -294,16 +294,16 @@ void CritterB::registerBrainInputOutputs()
 // 						glColor4f( genotype->bodyArch->color.r(), genotype->bodyArch->color.g(), genotype->bodyArch->color.b(), genotype->bodyArch->color.a() );
 // 	// 				glColor4f( color.r(), color.g(), color.b(), color.a() );
 // 				}
-// 				
+//
 // 				if ( do_scale )
 // 				{
 // 					const btBoxShape* boxShape = static_cast<const btBoxShape*>(body.bodyparts[j]->shape);
 // 					const btVector3& halfExtent = boxShape->getHalfExtentsWithMargin();
 // 					glScalef(halfExtent[0], halfExtent[1], halfExtent[2]);
 // 				}
-// 				
+//
 // 				Displaylists::Instance()->call();
-// 			glPopMatrix(); 
+// 			glPopMatrix();
 // 		}
 // 	}
 // }
@@ -341,9 +341,9 @@ void CritterB::process()
  		energyUsed += brain.totalSynapses		* *brain_costhavingsynapse;
  		energyUsed += body.totalBodyparts()		* *body_costhavingbodypart;
  		energyUsed += body.totalWeight			* *body_costtotalweight;
-		
+
 // 		std::cout << "weight : " << body.totalWeight << std::endl;
-		
+
 		energyUsed = energyUsed / 1000000;
 // 		cerr << energyUsed << endl;
 
@@ -378,11 +378,11 @@ void CritterB::procInputNeurons()
 
 	// can procreate sensor neuron
 		canProcreate	= false;
-		
+
 		unsigned int actual( *critter_minenergyproc );
 		if ( *setting_critter_mutate_minenergyproc > 0 )
 			actual = genotype->bodyArch->m_minenergyproc;
-		
+
 		if ( procreateTimeCount > (unsigned int)*critter_procinterval && energyLevel > actual )
 		{
 			brain.Inputs[overstep++].output = 1;
@@ -417,7 +417,7 @@ void CritterB::procInputNeurons()
 // 		if ( *critter_raycastvision )
 // 		{
 // 			const btVector3& head_origin(body.mouths[0]->ghostObject->getWorldTransform().getOrigin());
-// 			
+//
 // 			for ( int y = genotype->bodyArch->retinasize-1; y >= 0; --y )
 // 				for ( unsigned int x = 0; x < genotype->bodyArch->retinasize; ++x )
 // 				{
@@ -457,7 +457,7 @@ void CritterB::procInputNeurons()
 		{
 			const unsigned int val1(retinaColumnStart+((genotype->bodyArch->retinasize)*4));
 			const unsigned int val3(retinaRowStart+(genotype->bodyArch->retinasize*retinaRowLength));
-			
+
 			for ( unsigned int h(retinaRowStart); h < val3; h += retinaRowLength )
 			{
 				const unsigned int val2(h+val1);
@@ -485,7 +485,7 @@ void CritterB::procInputNeurons()
 // 			cerr << endl;
 // 		}
 // 		cerr << endl;
-// 
+//
 // 		for ( unsigned int h=retinaRowStart; h < retinaRowStart+(retinasize*retinaRowLength); h += retinaRowLength )
 // 		{
 // 			for ( unsigned int w=h+retinaColumnStart; w < h+retinaColumnStart+((retinasize)*4); w+=4 )
@@ -536,16 +536,16 @@ btVector3 CritterB::getScreenDirection(const int& x, const int& y)
 	float directionlength = 1000000.f;
 
 	btTransform tr = body.mouths[0]->ghostObject->getWorldTransform();
-	btVector3 forwardRay( 
-		-tr.getBasis()[0][2], 
-		-tr.getBasis()[1][2], 
-		-tr.getBasis()[2][2]); 
+	btVector3 forwardRay(
+		-tr.getBasis()[0][2],
+		-tr.getBasis()[1][2],
+		-tr.getBasis()[2][2]);
 	forwardRay *=  directionlength;
 
-	btVector3 upRay( 
-		tr.getBasis()[0][1], 
-		tr.getBasis()[1][1], 
-		tr.getBasis()[2][1]); 
+	btVector3 upRay(
+		tr.getBasis()[0][1],
+		tr.getBasis()[1][1],
+		tr.getBasis()[2][1]);
 
 	btVector3 hor = forwardRay.cross(upRay);
 	hor.normalize();
@@ -569,7 +569,7 @@ btVector3 CritterB::getScreenDirection(const int& x, const int& y)
 		glViewport (0, 0, 8, 8);
 		// set The Current Viewport to the fbo size
 		glBindTexture(GL_TEXTURE_2D, 0);
-		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fb); 
+		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fb);
 // 		glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, depth_rb);
 
 		glClearColor (0.0f, 0.0f, 0.0f, 0.0f);
@@ -598,54 +598,54 @@ btVector3 CritterB::getScreenDirection(const int& x, const int& y)
 // 		glFrustum(-m_frustumHalf, m_frustumHalf, -m_frustumHalf, m_frustumHalf, m_zNear, m_zFar);
 // 		glFrustum(-m_frustumHalf, m_frustumHalf, -m_frustumHalf, m_frustumHalf, m_zNear, 0.1f * *critter_sightrange);
 		glFrustum(-m_frustumHalf, m_frustumHalf, -m_frustumHalf, m_frustumHalf, m_zNear, 1800.0f);
-		
-		
+
+
 		btTransform t2( m_render_offset * body.mouths[0]->ghostObject->getWorldTransform().inverse() );
-	
+
 		t2.getOpenGLMatrix(position);
-		
+
 // 		body.mouths[0]->ghostObject->getWorldTransform().inverse().getOpenGLMatrix(position);
 		glMultMatrixf(position);
-		
+
 		if(v_inv != -1)
 		{
 			btScalar modelview2[16];
 			body.mouths[0]->ghostObject->getWorldTransform().getOpenGLMatrix(modelview2);
 			glUniformMatrix4fv(v_inv, 1, GL_FALSE, modelview2);
 		}
-		
+
 
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 	}
-	
-	
+
+
 // 	void CritterB::releaseFBO()
 // 	{
-// /*		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0); 
+// /*		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
 // 		glBindTexture(GL_TEXTURE_2D, 0);
 // 		glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, 0);
-// 
-// 		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fb); 
+//
+// 		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fb);
 // 		glBindTexture(GL_TEXTURE_2D, color_tex);
 // 		glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, depth_rb);
 // 		glEnable(GL_TEXTURE_2D);*/
-// 
-// // 		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0); 
+//
+// // 		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
 // // 		glBindTexture(GL_TEXTURE_2D, color_tex);
 // // 		glDisable(GL_TEXTURE_2D);
-// 
+//
 // // 		glBindTexture(GL_TEXTURE_2D, 0);
-// // 		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fb); 
+// // 		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fb);
 // // 		glBindTexture(GL_TEXTURE_2D, color_tex);
-// 
-// 		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0); 
+//
+// 		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
 // 		glBindTexture(GL_TEXTURE_2D, color_tex);
-// 
+//
 // // 		glPixelStoref(GL_UNPACK_ALIGNMENT, 1);
 // // 		unsigned char *temp = new unsigned char[8 * 8];
 // // 		glGetTexImage(GL_TEXTURE_2D, 0, GL_LUMINANCE, GL_UNSIGNED_BYTE, temp);
-// 
+//
 // // 		for ( unsigned int h=0; h < (genotype->bodyArch->retinasize*8); h += 8 )
 // // 		{
 // // 			for ( unsigned int w=h+0; w < h+((genotype->bodyArch->retinasize)*4); w+=4 )
@@ -662,7 +662,7 @@ btVector3 CritterB::getScreenDirection(const int& x, const int& y)
 // // 			cerr << "" << endl;
 // // 		}
 // // 		cerr << "" << endl;
-// 
+//
 // 	}
 
 	void CritterB::calcFramePos(unsigned int pos)

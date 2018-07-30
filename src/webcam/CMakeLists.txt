@@ -1,6 +1,6 @@
 include_directories( ${bengine_INCLUDES} )
 
-set(webcam_STAT_SRCS 
+set(webcam_STAT_SRCS
 	img.cpp
 	videocap.cpp
 # 	videograb.cpp

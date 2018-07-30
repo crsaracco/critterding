@@ -10,14 +10,14 @@
 class BeShape
 {
 protected:
-    BeShape(boost::shared_ptr<btCollisionShape> shape) : m_shape(shape)
+    BeShape(std::shared_ptr<btCollisionShape> shape) : m_shape(shape)
     {
     }
     virtual ~BeShape()
     {
     }
 private:
-    boost::shared_ptr<btCollisionShape> m_shape;
+    std::shared_ptr<btCollisionShape> m_shape;
 };
 
 class BeRigidBody
@@ -27,13 +27,13 @@ class BeRigidBody
 		virtual ~BeRigidBody();
 		const btTransform& transform() const { return m_motionState->m_graphicsWorldTrans; }
         void setMaterial(const BePhysicsMaterial& material);
-		boost::shared_ptr<btRigidBody> getBody() { return m_body; }
+		std::shared_ptr<btRigidBody> getBody() { return m_body; }
 	protected:
 		void generalSetup( const float weight, const btTransform& transform, const float linearDamping, const float angularDamping);
-        boost::shared_ptr<btCollisionShape> 	m_shape;
-        boost::shared_ptr<btRigidBody> m_body;
+        std::shared_ptr<btCollisionShape> 	m_shape;
+        std::shared_ptr<btRigidBody> m_body;
         btDynamicsWorld* 	m_ownerWorld;
     private:
-		boost::shared_ptr<btDefaultMotionState> m_motionState;
+		std::shared_ptr<btDefaultMotionState> m_motionState;
 };
 #endif

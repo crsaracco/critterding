@@ -12,7 +12,7 @@ class Canvas : public BeWidgetContainer
 		virtual ~Canvas();
 
 		void setDefaultZAxis();
-		
+
 		void moveMouse(unsigned int x, unsigned int y);
 		bool mouseFocus;
 
@@ -24,7 +24,7 @@ class Canvas : public BeWidgetContainer
 
 		void swapChild(const std::string& child);
 		void raisePanel(BeWidget* w);
-		
+
 	private:
 		virtual void drawChildren();
 		bool mouseOverChild( BeWidgetPtr* fWidget, int x, int y );

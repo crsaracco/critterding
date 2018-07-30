@@ -136,14 +136,14 @@ BrainzArch::BrainzArch()
 	{
 		// clear architecture by removing all architectural neurons
 			ArchNeurons.clear();
-	
+
 		// determine number of neurons this brain will start with
 			const unsigned int NeuronAmount(randgen->Instance()->get( minNeuronsAtBuildtime, maxNeuronsAtBuildtime ));
-	
+
 		// create the architectural neurons
 			for ( unsigned i = 0; i < NeuronAmount; ++i )
 				addRandomArchNeuron();
-	
+
 		// create architectural synapses
 			for ( unsigned neuronID = 0; neuronID < NeuronAmount; ++neuronID )
 			{
@@ -215,7 +215,7 @@ BrainzArch::BrainzArch()
 		// determine dendritic branches
 // 			if ( an.isMotor ) an.dendridicBranches = maxDendridicBranches;
 // 			else an.dendridicBranches = randgen->Instance()->get( 1, maxDendridicBranches );
-			
+
 			an.potentialDecay = randgen->Instance()->get( 666, 1000 );
 
 		// push it on the vector
@@ -226,7 +226,7 @@ BrainzArch::BrainzArch()
 	{
 		// new architectural synapse
 			ArchSynapse as;
-	
+
 		// is it connected to a sensor neuron ?
 										// < 2 because if only 1 archneuron, it can't connect to other one
 			if ( (unsigned int)randgen->Instance()->get( 1, 100 ) <= percentChanceSensorySynapse || ArchNeurons.size() < 2 )
@@ -243,7 +243,7 @@ BrainzArch::BrainzArch()
 				// as in real life, neurons can connect to themselves
 				as.neuronID = randgen->Instance()->get( 0, ArchNeurons.size()-1 );
 	 		}
-	
+
 		// dendrite branch number
 // 			as.dendriteBranch = randgen->Instance()->get( 1, ArchNeurons[parentneuron].dendridicBranches );
 
@@ -280,7 +280,7 @@ BrainzArch::BrainzArch()
 // 				return count;
 // 			++count;
 // 		}
-		
+
 		const auto& result = std::find ( InputIDs.begin(), InputIDs.end(), id);
 		if ( result != InputIDs.end()  )
 		{
@@ -292,7 +292,7 @@ BrainzArch::BrainzArch()
 // 			if ( InputIDs[i] == id )
 // 				return i;
 // 		}
-		
+
 // 		std::cerr << "brain findSensorNeuron error for id: " << id << std::endl;
 		return -1;
 	}
@@ -311,14 +311,14 @@ BrainzArch::BrainzArch()
 		{
 			return true;
 		}
-		
-		
+
+
 // 		for ( unsigned int i(0); i < numberOfInputs; ++i )
 // 		{
 // 			if ( InputIDs[i] == id )
 // 				return i;
 // 		}
-		
+
 // 		std::cerr << "brain findSensorNeuron error for id: " << id << std::endl;
 		return false;
 	}
@@ -474,7 +474,7 @@ BrainzArch::BrainzArch()
 								for ( unsigned int i(0); i < ArchNeurons.size() && proceed; ++i )
 									if ( ArchNeurons[i].isMotor && ArchNeurons[i].motorID == motorID )
 										proceed = false;
-				
+
 								if ( proceed )
 								{
 									ArchNeurons[nid].isMotor = true;
@@ -525,7 +525,7 @@ BrainzArch::BrainzArch()
 							if ( (unsigned int)randgen->Instance()->get(1,100) <= percentChanceConsistentSynapses )
 							{
 								ArchNeurons[nid].hasConsistentSynapses = true;
-				
+
 								// if so, does it have inhibitory synapses ?
 									if ( (unsigned int)randgen->Instance()->get(1,100) <= percentChanceInhibitorySynapses )
 										ArchNeurons[nid].hasInhibitorySynapses = true;
@@ -557,9 +557,9 @@ BrainzArch::BrainzArch()
 // 						{
 // 							// backup old
 // 							unsigned int old = ArchNeurons[nid].dendridicBranches;
-// 
+//
 // 							ArchNeurons[nid].dendridicBranches = randgen->Instance()->get( 1, maxDendridicBranches );
-// 
+//
 // 							// make sure we mutate
 // 							if ( old == ArchNeurons[nid].dendridicBranches ) runs++;
 // 						}
@@ -623,7 +623,7 @@ BrainzArch::BrainzArch()
 // 				const float pct = 0.01f * randgen->Instance()->get( 1, 90 );
 // 				int amount( m_mutationrate * pct );
 // 				amount = std::max( amount, 1 );
-// 				
+//
 // 				if ( randgen->Instance()->get( 0, 1000 ) < 500 || m_mutationrate == Settings::Instance()->getCVar("brain_mutationrate") )
 // 					m_mutationrate -= amount;
 // 				else
@@ -632,11 +632,11 @@ BrainzArch::BrainzArch()
 // 					if ( m_mutationrate > Settings::Instance()->getCVar("brain_mutationrate") )
 // 						m_mutationrate = Settings::Instance()->getCVar("brain_mutationrate");
 // 				}
-// 				
-// 				
+//
+//
 // 				continue;
 // 			}
-// 			
+//
 // 		// ALTER MAXMUTATIONS
 // 			modesum += Settings::Instance()->getCVar("brain_percentmutateeffectchangemaxmutations");
 // 			if ( mode <= modesum )
@@ -644,7 +644,7 @@ BrainzArch::BrainzArch()
 // 				const float pct = 0.01f * randgen->Instance()->get( 1, 90 );
 // 				int amount( m_maxmutations * pct );
 // 				amount = std::max( amount, 1 );
-// 				
+//
 // 				if ( randgen->Instance()->get( 0, 1000 ) < 500 || m_maxmutations == Settings::Instance()->getCVar("brain_maxmutations") )
 // 					m_maxmutations -= amount;
 // 				else
@@ -653,8 +653,8 @@ BrainzArch::BrainzArch()
 // 					if ( m_maxmutations > Settings::Instance()->getCVar("brain_maxmutations") )
 // 						m_maxmutations = Settings::Instance()->getCVar("brain_maxmutations");
 // 				}
-// 				
-// 				
+//
+//
 // 				continue;
 // 			}
 
@@ -740,7 +740,7 @@ BrainzArch::BrainzArch()
 // 				{
 // 					unsigned int jmode = randgen->Instance()->get(1,2);
 // 					unsigned int factor = randgen->Instance()->get(1,5);
-// 
+//
 // 					if ( jmode == 1 && maxDendridicBranches < 100-factor )	maxDendridicBranches+=factor;
 // 					else if ( maxDendridicBranches > 1+factor )		maxDendridicBranches-=factor; // !!! > 1
 // 				}
@@ -860,7 +860,7 @@ BrainzArch::BrainzArch()
 // 		m_mutationrate			= otherBrain->m_mutationrate;
 		m_maxmutations					= Settings::Instance()->getCVar("brain_maxmutations");
 		m_mutationrate					= Settings::Instance()->getCVar("brain_mutationrate");
-		
+
 		for ( unsigned int i = 0; i < otherBrain->ArchNeurons.size(); ++i )
 		{
 			ArchNeuronz an;
@@ -1004,7 +1004,7 @@ BrainzArch::BrainzArch()
 			{
 				ArchNeuronz an;
 //				unsigned int nid = (ArchNeurons.size()-1);
-	
+
 				if ( parseH.beginMatchesStrip( "i=", line ) )
 				{
 					std::string II = parseH.returnUntillStrip( '|', line );
@@ -1038,21 +1038,21 @@ BrainzArch::BrainzArch()
 					//cerr << "FT: " << FT  << std::endl;
 					if(EOF == sscanf(FT.c_str(), "%d", &an.firingThreshold))		std::cerr << "ERROR INSERTING CRITTER" << std::endl;
 				}
-	
+
 				if ( parseH.beginMatchesStrip( "pd=", line ) )
 				{
 					std::string PD = parseH.returnUntillStrip( '|', line );
 					//cerr << "FT: " << FT  << std::endl;
 					if(EOF == sscanf(PD.c_str(), "%d", &an.potentialDecay))		std::cerr << "ERROR INSERTING CRITTER" << std::endl;
 				}
-	
+
 // 				if ( parseH.beginMatchesStrip( "d=", line ) )
 // 				{
 // 					string DB = parseH.returnUntillStrip( "|", line );
 // 					//cerr << "IWR: " << IWR  << std::endl;
 // 					if(EOF == sscanf(DB.c_str(), "%d", &an.dendridicBranches))		std::cerr << "ERROR INSERTING CRITTER" << std::endl;
 // 				}
-	
+
 				if ( parseH.beginMatchesStrip( "m=", line ) )
 				{
 					std::string MTR = parseH.returnUntillStrip( '|', line );
@@ -1081,7 +1081,7 @@ BrainzArch::BrainzArch()
 						int isIt;
 						if(EOF == sscanf(isSensorNeuron.c_str(), "%d", &isIt))			std::cerr << "ERROR INSERTING CRITTER" << std::endl;
 						if ( isIt == 1 ) as.isSensorNeuron = true;
-	
+
 						if(EOF == sscanf(neuronID.c_str(), "%d", &as.neuronID))			std::cerr << "ERROR INSERTING CRITTER" << std::endl;
 // 						if(EOF == sscanf(dendriteBranch.c_str(), "%d", &as.dendriteBranch))	std::cerr << "ERROR INSERTING CRITTER" << std::endl;
 						if(EOF == sscanf(weight.c_str(), "%f", &as.weight))			std::cerr << "ERROR INSERTING CRITTER" << std::endl;
@@ -1232,8 +1232,8 @@ BrainzArch::BrainzArch()
 					if ( result == 1 )	mutate_maxFiringThreshold = true;
 					else			mutate_maxFiringThreshold = false;
 				}
-				
-				
+
+
 // 			else if ( parseH.beginMatchesStrip( "maxDendridicBranches=", line ) )
 // 			{
 // 				std::string Holder = parseH.returnUntillStrip( ";", line );
@@ -1349,15 +1349,15 @@ BrainzArch::BrainzArch()
 				std::string Holder = parseH.returnUntillStrip( ';', line );
 				if(EOF == sscanf(Holder.c_str(), "%d", &m_mutationrate))				std::cerr << "ERROR INSERTING CRITTER" << std::endl;
 			}
-				
+
 			line = contentParser.returnUntillStrip( '\n', content );
 		}
 	}
-	
+
 	std::string* BrainzArch::getArch()
 	{
 			std::stringstream buf;
-	
+
 			buf << "maxNeurons="				<< maxNeurons << ";" << std::endl;
 			buf << "minSynapses="				<< minSynapses << ";" << std::endl;
 			buf << "maxSynapses="				<< maxSynapses << ";" << std::endl;
@@ -1380,7 +1380,7 @@ BrainzArch::BrainzArch()
 				buf << "mutate_maxFiringThreshold="		<< mutate_maxFiringThreshold << ";" << std::endl;
 // 			buf << "maxDendridicBranches="			<< maxDendridicBranches << ";" << std::endl;
 // 				buf << "mutate_maxDendridicBranches="		<< mutate_maxDendridicBranches << ";" << std::endl;
-	
+
 			buf << "percentChanceConsistentSynapses="	<< percentChanceConsistentSynapses << ";" << std::endl;
 				buf << "mutate_percentChanceConsistentSynapses="<< mutate_percentChanceConsistentSynapses << ";" << std::endl;
 			buf << "percentChanceInhibitorySynapses="	<< percentChanceInhibitorySynapses << ";" << std::endl;
@@ -1396,21 +1396,21 @@ BrainzArch::BrainzArch()
 			buf << "percentMutateEffectAlterMutable="	<< percentMutateEffectAlterMutable << ";" << std::endl;
 
 				buf << "mutate_MutateEffects="			<< mutate_MutateEffects << ";" << std::endl;
-	
+
 			buf << "brain_maxmutations="	<< m_maxmutations << ";" << std::endl;
 			buf << "brain_mutationrate="	<< m_mutationrate << ";" << std::endl;
-	
+
 			// neuronal arch & connections
 			for ( unsigned int i = 0; i < ArchNeurons.size(); ++i )
 			{
 				// neuron info
 				buf << "n(";
-	
+
 				if ( ArchNeurons[i].isInhibitory )
 					buf << "i=1|";
 				else
 					buf << "i=0|";
-	
+
 				if ( ArchNeurons[i].hasConsistentSynapses )
 				{
 					buf << "cs=1|";
@@ -1421,13 +1421,13 @@ BrainzArch::BrainzArch()
 				}
 				else
 					buf << "cs=0|";
-	
+
 				buf << "f=" << ArchNeurons[i].firingThreshold << "|";
 				buf << "pd=" << ArchNeurons[i].potentialDecay << "|";
 // 				buf << "d=" << ArchNeurons[i].dendridicBranches << "|";
 				if ( ArchNeurons[i].isMotor ) buf << "m=" << ArchNeurons[i].motorID << "|";
 				if ( ArchNeurons[i].isPlastic ) buf << "p=" << ArchNeurons[i].plasticityStrengthen << "," << ArchNeurons[i].plasticityWeaken << "|";
-		
+
 				// inputs
 				for ( unsigned int j = 0; j < ArchNeurons[i].ArchSynapses.size(); ++j )
 				{

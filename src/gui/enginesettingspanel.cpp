@@ -7,7 +7,7 @@ Enginesettingspanel::Enginesettingspanel()
 	rowspacer = 15;
 	col2 = 150;
 	col3 = 200;
-	
+
 	m_localposition.set(2, 24);
 
 	// FIXME camera sensitivity is missing
@@ -27,8 +27,8 @@ Enginesettingspanel::Enginesettingspanel()
 	addSettingmutator("camerasensitivity_move", 0, 0);
 	addSettingmutator("camerasensitivity_look", 0, 0);
 	addSettingmutator("camera_smoothfactor", 0, 0);
-	
-	
+
+
 // 	addSettingcheckbox("sound", 0, 0);
 
 	m_dimensions.set(col3 + 50,row-rowspacer+10+10);

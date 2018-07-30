@@ -18,7 +18,7 @@ public:
 
 	void			motorate();
 	float			getAngle();
-	
+
 	std::vector<bool*>		Inputs;
 // 	btTypedConstraint*	hinge;
 	btHingeConstraint*	hinge;
@@ -29,7 +29,7 @@ private:
 
 	bool			input1;
 	bool			input2;
-	
+
 // 	float			limitA;
 // 	float			limitB;
 };

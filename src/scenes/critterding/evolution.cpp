@@ -69,7 +69,7 @@ Evolution::Evolution(BeFilesystem& filesystem)
  , m_light_attenuation_linear(settings->getCVarPtr("light_attenuation_linear"))
  , m_light_attenuation_quadratic(settings->getCVarPtr("light_attenuation_quadratic"))
 {
-	m_graphicsSystem = boost::shared_ptr<BeGraphicsSystem>(new BeGraphicsSystem(filesystem));
+	m_graphicsSystem = std::shared_ptr<BeGraphicsSystem>(new BeGraphicsSystem(filesystem));
 	eventsystem = BeEventSystem::Instance();
 
 	m_glsl = settings->getCVarPtr("glsl");
@@ -82,9 +82,9 @@ Evolution::Evolution(BeFilesystem& filesystem)
 	m_cameraSensitivity_move = settings->getCVarPtr("camerasensitivity_move");
 	m_cameraSensitivity_look = settings->getCVarPtr("camerasensitivity_look");
 
-	m_logBuffer = boost::shared_ptr<Logbuffer>(new Logbuffer);
+	m_logBuffer = std::shared_ptr<Logbuffer>(new Logbuffer);
 
-	boost::shared_ptr<Textverbosemessage> textverbosemessage;
+	std::shared_ptr<Textverbosemessage> textverbosemessage;
 // 	if ( settings->getCVar("headless") == 0 )
 	{
 		m_glwindow= new GLWindow(BeEventSystem::Instance());
@@ -111,27 +111,27 @@ Evolution::Evolution(BeFilesystem& filesystem)
 // 	if ( !*world->headless )
 	{
 		// init gui panels
-		m_canvas->addWidget( "enginesettingspanel", boost::shared_ptr<BeWidget>(new Enginesettingspanel()) );
-		m_canvas->addWidget( "helpinfo", boost::shared_ptr<BeWidget>(new Helpinfo()) );
-		m_canvas->addWidget( "logbuffermessage", boost::shared_ptr<BeWidget>(new Logbuffermessage( m_logBuffer )) );
-		m_canvas->addWidget( "statsgraph", boost::shared_ptr<BeWidget>(new Statsgraph()) );
+		m_canvas->addWidget( "enginesettingspanel", std::shared_ptr<BeWidget>(new Enginesettingspanel()) );
+		m_canvas->addWidget( "helpinfo", std::shared_ptr<BeWidget>(new Helpinfo()) );
+		m_canvas->addWidget( "logbuffermessage", std::shared_ptr<BeWidget>(new Logbuffermessage( m_logBuffer )) );
+		m_canvas->addWidget( "statsgraph", std::shared_ptr<BeWidget>(new Statsgraph()) );
 		m_infobar.reset(new Infobar(&m_timer));
 		m_canvas->addWidget( "infobar", m_infobar );
-// 		m_canvas->addWidget( "infobar", boost::shared_ptr<BeWidget>(new Infobar(&m_timer)) );
+// 		m_canvas->addWidget( "infobar", std::shared_ptr<BeWidget>(new Infobar(&m_timer)) );
 // 		m_canvas->addWidget( "infobar",		BeWidgetPtr(new Infobar( m_currentFramesPerSecond, m_averageFramesPerSecond )) );
-		
-		m_canvas->addWidget( "infostats", boost::shared_ptr<BeWidget>(new Infostats()) );
-		m_canvas->addWidget( "panel_exit", boost::shared_ptr<BeWidget>(new Exitpanel()) );
-		m_canvas->addWidget( "mutationpanel", boost::shared_ptr<BeWidget>(new Mutationpanel()) );
-		m_canvas->addWidget( "globalsettingspanel", boost::shared_ptr<BeWidget>(new Globalsettingspanel()) );
-		m_canvas->addWidget( "settingsbrainpanel", boost::shared_ptr<BeWidget>(new Settingsbrainpanel()) );
-		m_canvas->addWidget( "settingsbodypanel", boost::shared_ptr<BeWidget>(new Settingsbodypanel()) );
-		m_canvas->addWidget( "critterview", boost::shared_ptr<BeWidget>(new Critterview(m_graphicsSystem)) );
-		m_canvas->addWidget( "brainview", boost::shared_ptr<BeWidget>(new Brainview()) );
-		m_canvas->addWidget( "hud", boost::shared_ptr<BeWidget>(new Hud(m_graphicsSystem)) );
-		m_canvas->addWidget( "speciesview", boost::shared_ptr<BeWidget>(new Speciesview()) );
-		m_canvas->addWidget( "populationcontrolpanel", boost::shared_ptr<BeWidget>(new Populationcontrolpanel()) );
-		m_canvas->addWidget( "settingslightpanel", boost::shared_ptr<BeWidget>(new Settingslightpanel()) );
+
+		m_canvas->addWidget( "infostats", std::shared_ptr<BeWidget>(new Infostats()) );
+		m_canvas->addWidget( "panel_exit", std::shared_ptr<BeWidget>(new Exitpanel()) );
+		m_canvas->addWidget( "mutationpanel", std::shared_ptr<BeWidget>(new Mutationpanel()) );
+		m_canvas->addWidget( "globalsettingspanel", std::shared_ptr<BeWidget>(new Globalsettingspanel()) );
+		m_canvas->addWidget( "settingsbrainpanel", std::shared_ptr<BeWidget>(new Settingsbrainpanel()) );
+		m_canvas->addWidget( "settingsbodypanel", std::shared_ptr<BeWidget>(new Settingsbodypanel()) );
+		m_canvas->addWidget( "critterview", std::shared_ptr<BeWidget>(new Critterview(m_graphicsSystem)) );
+		m_canvas->addWidget( "brainview", std::shared_ptr<BeWidget>(new Brainview()) );
+		m_canvas->addWidget( "hud", std::shared_ptr<BeWidget>(new Hud(m_graphicsSystem)) );
+		m_canvas->addWidget( "speciesview", std::shared_ptr<BeWidget>(new Speciesview()) );
+		m_canvas->addWidget( "populationcontrolpanel", std::shared_ptr<BeWidget>(new Populationcontrolpanel()) );
+		m_canvas->addWidget( "settingslightpanel", std::shared_ptr<BeWidget>(new Settingslightpanel()) );
 		m_canvas->setDefaultZAxis();
 
 		static_cast<Hud*>(m_canvas->children["hud"].get())->world = world;
@@ -146,7 +146,7 @@ Evolution::Evolution(BeFilesystem& filesystem)
 // 			exit(1);
 // 		}
 // 	}
-	
+
  	BeCommandSystem::Instance()->registerVoidCommand("quit", boost::bind(&Evolution::quit, this));
 	BeCommandSystem::Instance()->registerIntCommand("cs_unregister", boost::bind(&Evolution::unregisterCritterVID, this, _1));
 	BeCommandSystem::Instance()->registerVoidCommand("cs_clear", boost::bind(&Evolution::clear, this));
@@ -174,8 +174,8 @@ Evolution::Evolution(BeFilesystem& filesystem)
 
 	BeCommandSystem::Instance()->registerFloatCommand("camera_lookleftright_mouse", boost::bind(&Evolution::camera_lookleftright_mouse, this, _1));
 	BeCommandSystem::Instance()->registerFloatCommand("camera_lookupdown_mouse", boost::bind(&Evolution::camera_lookupdown_mouse, this, _1));
-		
-	
+
+
 	BeCommandSystem::Instance()->registerVoidCommand("camera_rollleft", boost::bind(&Evolution::camera_rollleft, this));
 	BeCommandSystem::Instance()->registerVoidCommand("camera_rollright", boost::bind(&Evolution::camera_rollright, this));
 // 	BeCommandSystem::Instance()->registerVoidCommand("camera_lookhorizontal", &Evolution::camera_lookhorizontal);
@@ -223,7 +223,7 @@ Evolution::Evolution(BeFilesystem& filesystem)
 	BeCommandSystem::Instance()->registerVoidCommand("canvas_release", boost::bind(&Evolution::canvas_release, this));
 	BeCommandSystem::Instance()->registerVoidCommand("canvas_pressAlt", boost::bind(&Evolution::canvas_pressAlt, this));
 	BeCommandSystem::Instance()->registerVoidCommand("canvas_releaseAlt", boost::bind(&Evolution::canvas_releaseAlt, this));*/
-	
+
 	//Load control definitions
 	BeFile befileControls;
 	if ( filesystem.load(befileControls, "settings.xml") )
@@ -231,7 +231,7 @@ Evolution::Evolution(BeFilesystem& filesystem)
 		BeSettingsLoader settingsLoader;
 		settingsLoader.load( BeEventSystem::Instance(), &befileControls );
 	}
-	
+
 	if ( *benchmark == 1 )
 	{
 		m_canvas->deactivate();
@@ -240,8 +240,8 @@ Evolution::Evolution(BeFilesystem& filesystem)
 	}
 
 	world->init();
-	
-	
+
+
 				glewInit();
 				if(*m_glsl)
 				{
@@ -253,11 +253,11 @@ Evolution::Evolution(BeFilesystem& filesystem)
 // 					m_v_inv = -1;
 				}
 // 				world->m_v_inv = m_v_inv;
-	
+
 	m_select_up.setIdentity();
 	m_select_up.setOrigin( btVector3(0.0f, 4.0f, 0.0f) );
 
-	
+
 // 	debugDrawer.setDebugMode(btIDebugDraw::DBG_DrawWireframe|btIDebugDraw::DBG_DrawWireframe|btIDebugDraw::DBG_DrawAabb|btIDebugDraw::DBG_DrawContactPoints|btIDebugDraw::DBG_DrawText|btIDebugDraw::DBG_DrawConstraints | btIDebugDraw::DBG_DrawConstraintLimits);
 	world->m_dynamicsWorld->setDebugDrawer(&debugDrawer);
 }
@@ -274,17 +274,17 @@ void Evolution::initGLSL()
 // // 					m_effect.reset(new BeGraphicsEffect(m_filesystem, "shaders/default.vert", "shaders/default.frag"));
 // // 					m_crittervision_effect.reset(new BeGraphicsEffect(m_filesystem, "shaders/crittervision.vert", "shaders/crittervision.frag"));
 // // 					m_crittervision_effect.reset(new BeGraphicsEffect(m_filesystem, "shaders/crittervision_new.vert", "shaders/crittervision_new.frag"));
-// 					
+//
 // 					GLint m_tex1Loc = glGetUniformLocation(m_effect->m_program.get()->handle(), "tex1");
 // 					GLint m_doNormalMapping = glGetUniformLocation(m_effect->m_program.get()->handle(), "normal_map_do");
 // 					m_graphicsSystem->setNormalMappingIDs(m_tex1Loc, m_doNormalMapping);
-					
+
 // 					m_v_inv = glGetUniformLocation(m_graphics->m_effect->m_program.get()->handle(), "v_inv");
 					world->setGraphics(m_graphics);
-		
+
 		m_glsl_initialised=true;
 	}
-	
+
 }
 
 void Evolution::setLights()
@@ -292,20 +292,20 @@ void Evolution::setLights()
 
 // 		GLfloat ambientLight[] = {0.05f, 0.05f, 0.05f, 1.0f};
 // 		glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientLight);
-// 
+//
 // 		GLfloat lightAmbient[] = {0.025f, 0.025f, 0.025f, 1.0f};
 // 		glLightfv(GL_LIGHT0, GL_AMBIENT, lightAmbient);
-// 	
+//
 // 		GLfloat lightDiffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 // 		glLightfv(GL_LIGHT0, GL_DIFFUSE, lightDiffuse);
-// 		
+//
 // 		if(*m_glsl)
 // 		{
 // 		// LIGHT
 // 			GLfloat lightSpecular[] = {1.0f, 1.0f, 1.0f, 1.0f};
 // 			glLightfv(GL_LIGHT0, GL_SPECULAR, lightSpecular);
 // 		}
-	
+
 		const double factor( 1.0/255 );
 
 		GLfloat ambientLight[] = {factor*  *m_light_ambient_modelR, factor*  *m_light_ambient_modelG, factor*  *m_light_ambient_modelB, 1.0f};
@@ -313,10 +313,10 @@ void Evolution::setLights()
 
 		GLfloat lightAmbient[] = {factor*  *m_light_ambientR, factor*  *m_light_ambientG, factor*  *m_light_ambientB, 1.0f};
 		glLightfv(GL_LIGHT0, GL_AMBIENT, lightAmbient);
-	
+
 		GLfloat lightDiffuse[] = { factor*  *m_light_diffuseR, factor*  *m_light_diffuseG, factor*  *m_light_diffuseB, 1.0f };
 		glLightfv(GL_LIGHT0, GL_DIFFUSE, lightDiffuse);
-		
+
 		if(*m_glsl)
 		{
 		// LIGHT
@@ -336,9 +336,9 @@ void Evolution::setLights()
 
 			GLfloat lightExponent[] = { 128.0f }; // exponent is 0 to 128
 			glLightfv(GL_LIGHT0, GL_SPOT_EXPONENT, lightExponent);
-			
-			
-			
+
+
+
 			GLfloat lightAttenuation[] = { 0.001f * *m_light_attenuation_constant };
 			glLightfv(GL_LIGHT0, GL_CONSTANT_ATTENUATION, lightAttenuation);
 
@@ -348,28 +348,28 @@ void Evolution::setLights()
 			GLfloat lightQAttenuation[] = { 0.000000001f * *m_light_attenuation_quadratic };
 			glLightfv(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, lightQAttenuation);
 
-			
+
 	// 		GLfloat lightAttenuation[] = { 0.5f };
 	// 		glLightfv(GL_LIGHT0, GL_CONSTANT_ATTENUATION, lightAttenuation);
-	// 
+	//
 	// 		GLfloat lightLAttenuation[] = { 0.000005f };
 	// 		glLightfv(GL_LIGHT0, GL_LINEAR_ATTENUATION, lightLAttenuation);
-	// 
+	//
 	// 		GLfloat lightQAttenuation[] = { 0.000000f };
 	// 		glLightfv(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, lightQAttenuation);
 
-			
+
 			glEnable(GL_LIGHTING);
 			glEnable(GL_LIGHT0);
-						
-			
+
+
 // 			GLfloat lightCutoff[] = { m_spot_cutoff };
 // 			glLightfv(GL_LIGHT0, GL_SPOT_CUTOFF, lightCutoff);
-// 
+//
 // 			GLfloat lightExponent[] = { m_spot_exponent };
 // 			glLightfv(GL_LIGHT0, GL_SPOT_EXPONENT, lightExponent);
-// 			
-			
+//
+
 // 		glPopMatrix();
 }
 
@@ -383,7 +383,7 @@ void Evolution::process()
 	const float timeDelta=m_timer.getSeconds();
 	m_cameraTranslateSpeed=0.04 * timeDelta * *m_cameraSensitivity_move; //0.5f**m_cameraSensitivity;
 	m_cameraRotateSpeed=0.0005 * timeDelta * *m_cameraSensitivity_look; //0.0001f**m_cameraSensitivity;
-	
+
 	m_glwindow->process();
 	eventsystem->processEvents( m_timer.getMilliSeconds() );
 
@@ -426,33 +426,33 @@ void Evolution::process()
 		}
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
 	initGLSL();
 
-	
-	
-			
-	SDL_GL_SwapBuffers();
-	
 
-	
+
+
+	SDL_GL_SwapBuffers();
+
+
+
 // 	m_timer.mark();
 // 	framelimiter.mark( &m_timer );
 
 	m_infobar->mark();
 	++Statsbuffer::Instance()->frameCounter;
-	
+
 	m_logBuffer->deleteExpiredMsg( timeDelta );
-	
+
 
 // 	if ( !m_glwindow->resized() )
 	{
@@ -460,7 +460,7 @@ void Evolution::process()
 	// 	if ( !*world->headless )
 		{
 // 			m_glwindow->process();
-		
+
 			// glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			glEnable(GL_DEPTH_TEST);
@@ -486,11 +486,11 @@ void Evolution::process()
 
 		const int width=m_glwindow->width();
 		const int height=m_glwindow->height();
-		
+
 		glColor4f( 1.0f, 1.0f, 1.0f, 0.0f );
-		
-		
-		
+
+
+
 		setLights();
 
 		world->updateCameraTransform( m_timer.getMilliSeconds() );
@@ -501,13 +501,13 @@ void Evolution::process()
 		{
 			m_graphicsSystem->clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 			glViewport(0,0,width,height);
-			
-			
+
+
 			if ( *drawscene == 1 || *drawdebug > 0 )
 			{
 				if( *m_glsl == 1 )
 				{
-					
+
 	// 				m_graphicsSystem->useProgram(m_graphics->m_effect->m_program.get());
 
 					if ( *m_hdr == 1 )
@@ -526,7 +526,7 @@ void Evolution::process()
 
 				m_graphicsSystem->clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	// 			glViewport(0,0,TONETEXTURE_W,TONETEXTURE_H);
-			
+
 				glMatrixMode(GL_PROJECTION);
 				glLoadIdentity();
 
@@ -536,12 +536,12 @@ void Evolution::process()
 				const float frustumHalfWidth = frustumHalfHeight * world->m_camera.m_aspect;
 				glFrustum(-frustumHalfWidth, frustumHalfWidth, -frustumHalfHeight, frustumHalfHeight, world->m_camera.m_zNear, world->m_camera.m_zFar);
 
-				
+
 				world->getCameraTransform().inverse().getOpenGLMatrix(cam_position);
 				glMultMatrixf(cam_position);
-			
+
 	// 			if ( world->m_follow_critterP == 0 )
-	// 			
+	//
 	// 			{
 	// 				world->m_sceneNodeCamera.getTransform().inverse().getOpenGLMatrix(cam_position);
 	// 				glMultMatrixf(cam_position);
@@ -549,22 +549,22 @@ void Evolution::process()
 	// 			else
 	// 			{
 	// 				auto& cam(world->m_sceneNodeCamera);
-	// 				
+	//
 	// 				const auto& tr(world->m_follow_critterP->body.mouths[0]->ghostObject->getWorldTransform());
 	// 				cam.setOrigin(btVector3(tr.getOrigin().x(),cam.getOrigin().getY()+5.0f,tr.getOrigin().z()));
-	// 				
+	//
 	// // 				cam.setOrigin(world->critterselection->clist[0]->body.mouths[0]->ghostObject->getWorldTransform().getOrigin() + btVector3(0,cam.getOrigin().getY()+5.0f,0));
 	// // 				cam.getOrigin().setY(cam.getOrigin().getY()+5.0f);
 	// 				cam.pitch( -SIMD_HALF_PI ); // 1.5707f  (float)*energy/10
-	// 
+	//
 	// 				cam.getTransform().inverse().getOpenGLMatrix(cam_position);
 	// 				glMultMatrixf(cam_position);
 	// 			}
-				
+
 
 				glMatrixMode(GL_MODELVIEW);
 				glLoadIdentity();
-		
+
 				if ( *drawscene == 1 )
 				{
 	// 				if ( world->critterselection->clist.empty() )
@@ -572,10 +572,10 @@ void Evolution::process()
 	// 				else
 	// 					world->drawWithinCritterSight( world->critterselection->clist[0] );
 				}
-				
-				
-				
-						
+
+
+
+
 				if(*m_glsl)
 				{
 					if ( *m_hdr )
@@ -588,19 +588,19 @@ void Evolution::process()
 				// 			glDisable (GL_LIGHTING);
 				// 			glDisable(GL_CULL_FACE);
 				// 			glDisable(GL_TEXTURE_2D);
-				// 		
+				//
 							glDisable(GL_ALPHA_TEST);
 							glDisable(GL_BLEND);
 
 // 						glColor4f(1,1,1,0);
-							
-							
+
+
 						float exposure = 0.0255f;
-					
+
 						float brightness_exposure = 0.0255f;
 						float brightness_threshold = 0.2f;
 
-						
+
 						// First Pass
 						{
 							m_graphicsSystem->reset2D(1, 1);
@@ -626,8 +626,8 @@ void Evolution::process()
 							}
 							size /= 2;
 							chain_length--;
-						
-						
+
+
 						// Second Pass
 						{
 							m_graphicsSystem->useProgram(m_graphics->m_luminanceEffect3->m_program.get());
@@ -663,7 +663,7 @@ void Evolution::process()
 				// 			m_graphicsSystem->viewport(0, 0, width/4, height/4);
 	// 						m_graphicsSystem->viewport(0, 0, BRIGHTTEXTURE_W, BRIGHTTEXTURE_H);
 							m_graphicsSystem->viewport(0, 0, width, height);
-							
+
 							m_graphicsSystem->drawQuad();
 							//m_graphicsSystem->bindFramebuffer(0);
 							//m_graphicsSystem->bindMultiTexture2D(GL_TEXTURE0,0);
@@ -696,7 +696,7 @@ void Evolution::process()
 							m_graphics->m_gaussianFramebuffer[1]->bind();
 							m_graphicsSystem->bindTexture2D(m_graphics->m_gaussianTexture[0].get());
 							m_graphicsSystem->viewport(0,0, width, height);
-							
+
 							m_graphicsSystem->drawQuad();
 
 							//m_graphicsSystem->bindTexture2D(0);
@@ -715,9 +715,9 @@ void Evolution::process()
 							m_graphics->m_tonemapFramebuffer->bind();
 							m_graphicsSystem->bindMultiTexture2D(GL_TEXTURE0, m_graphics->m_sceneTexture.get());
 							m_graphicsSystem->bindMultiTexture2D(GL_TEXTURE1, m_graphics->m_luminanceTexture3[chain_length-1].get());
-							
+
 							m_graphicsSystem->viewport(0, 0, width, height);
-							
+
 							m_graphicsSystem->drawQuad();
 							m_graphicsSystem->bindMultiTexture2D(GL_TEXTURE0,0);
 							m_graphicsSystem->bindMultiTexture2D(GL_TEXTURE1,0);
@@ -779,15 +779,15 @@ void Evolution::process()
 
 						m_graphicsSystem->bindFramebuffer(0);
 						m_graphicsSystem->reset2D(1, 1);
-						
+
 	// 					if ( *m_hdr == 0 || *m_glsl == 0 )
 	// 					{
 	// 						m_graphicsSystem->clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	// 						glViewport(0,0,*settings->winWidth,*settings->winHeight);
 	// 					}
 						glViewport(0, 0, width,height);
-						
-						
+
+
 				// 		glEnable(GL_TEXTURE_2D);
 						m_graphicsSystem->bindTexture2D(m_graphics->m_dofSceneTexture.get());
 						m_graphicsSystem->drawQuad();
@@ -805,24 +805,24 @@ void Evolution::process()
 				// 		m_graphicsSystem->drawQuad();
 				// 		m_graphicsSystem->bindTexture2D(0);
 				// 		glDisable(GL_TEXTURE_2D);
-				// 	}					
-				}	
-		
+				// 	}
+				}
+
 		}
-		
-		
+
+
 			m_graphicsSystem->bindFramebuffer(0);
-		
-			
-			
-							
-							
-							
-							
-							
-							
-							
-			
+
+
+
+
+
+
+
+
+
+
+
 			if ( m_canvas->isActive() || *drawdebug > 0 || (*drawscene == 1 && !world->critterselection->clist.empty()) )
 			{
 				if(*m_glsl)
@@ -832,12 +832,12 @@ void Evolution::process()
 				glDisable (GL_LIGHTING);
 				glDisable(GL_CULL_FACE);
 				glDisable(GL_TEXTURE_2D);
-				
+
 				// DEBUG DRAWING
 				if ( *drawdebug > 0 )
 				{
 // 					glColor4f(1.0f, 1.0f, 1.0f, 0.0f);
-					
+
 					if ( *drawdebug == 1 )
 					{
 	// 					debugDrawer.setDebugMode(btIDebugDraw::DBG_DrawWireframe|btIDebugDraw::DBG_DrawAabb|btIDebugDraw::DBG_DrawText|btIDebugDraw::DBG_DrawConstraints | btIDebugDraw::DBG_DrawConstraintLimits);
@@ -869,8 +869,8 @@ void Evolution::process()
 					m_graphicsSystem->clear(GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 					glDisable(GL_DEPTH_TEST);
 					disabled_depth=true;
-					
-					
+
+
 					// draw selected info
 					btTransform trans;
 					trans.setIdentity();
@@ -884,7 +884,7 @@ void Evolution::process()
 					const float width_ratio_age( width / maxlifetime );
 
 					const float seperation(hheight+0.16f);
-					
+
 					for ( unsigned int i=0; i < world->critterselection->clist.size(); i++ )
 					{
 						const auto& c( world->critterselection->clist[i] );
@@ -895,13 +895,13 @@ void Evolution::process()
 						trans *= m_select_up;
 						trans.getOpenGLMatrix(cam_position);
 
-						glPushMatrix(); 
+						glPushMatrix();
 		// 				glMultMatrixf(position);
-		// 				glMultMatrixd(position); // FIXME WATCHIT OK WENT TO DOUBLE HERE 
+		// 				glMultMatrixd(position); // FIXME WATCHIT OK WENT TO DOUBLE HERE
 						Displaylists::Instance()->glMultiMatrix(cam_position);
 
-						
-						
+
+
 						// ENERGY
 							glBegin(GL_QUADS);
 								const float e_fill( -hwidth + (width_ratio_energy * c->energyLevel) );
@@ -921,10 +921,10 @@ void Evolution::process()
 								glVertex2f(a_fill, -hheight+seperation);
 								glVertex2f(a_fill,  hheight+seperation);
 							glEnd();
-							
+
 	// 								m_graphicsSystem->color(BeColor(1.0f, 1.0f, 1.0f, 1.0f));
 							glColor4f(1.0f, 1.0f, 1.0f, 0.0f);
-							
+
 							glBegin(GL_LINES);
 						// ENERGY
 									glVertex2f(-hwidth, hheight-seperation);
@@ -938,8 +938,8 @@ void Evolution::process()
 
 									glVertex2f(hwidth,  hheight-seperation);
 									glVertex2f(-hwidth, hheight-seperation);
-									
-									
+
+
 						// AGE
 									glVertex2f(-hwidth, hheight+seperation);
 									glVertex2f(-hwidth,-hheight+seperation);
@@ -952,15 +952,15 @@ void Evolution::process()
 
 									glVertex2f(hwidth,  hheight+seperation);
 									glVertex2f(-hwidth, hheight+seperation);
-									
+
 							glEnd();
 
 						glPopMatrix();
-						
-						
+
+
 					}
 				}
-				
+
 			// CANVAS
 				if ( m_canvas->isActive() )
 				{
@@ -970,7 +970,7 @@ void Evolution::process()
 						glDisable(GL_DEPTH_TEST);
 					}
 						world->m_graphicsSystem->matrixLoadIdentity(GL_PROJECTION);
-						
+
 						world->m_graphicsSystem->matrixOrtho(GL_PROJECTION, 0, *settings->winWidth, *settings->winHeight, 0,  0, 1);
 						world->m_graphicsSystem->matrixLoadIdentity(GL_MODELVIEW);
 						world->m_graphicsSystem->matrixTranslate(GL_MODELVIEW, 0.5f, -0.5f, 0.0f); // pixel precision offset
@@ -980,9 +980,9 @@ void Evolution::process()
 
 						if ( *drawscene == 1 || *drawdebug > 0  )
 						{
-							
-							
-							
+
+
+
 							if (!world->mouselook && !m_canvas->mouseFocus )
 							{
 								world->castMouseRay();
@@ -1012,16 +1012,16 @@ void Evolution::process()
 							}
 						}
 	// 				}
-	// 				glPopMatrix(); 
+	// 				glPopMatrix();
 				}
-				
-							
-				
-				
-				
+
+
+
+
+
 			}
-			
-		
+
+
 
 	// 		#ifdef _DEBUG
 
@@ -1068,13 +1068,13 @@ void Evolution::process()
 // 	{
 // 		world->mousex = x;
 // 		world->mousey = y;
-// 		
+//
 // 		// world mouse dynamics
 // 		world->calcMouseDirection();
 // 		world->movePickedBodyTo();
 // 	}
 // }
-// 
+//
 // void Evolution::handleMouseMotionRel(int x, int y)
 // {
 // 	std::cout << "rel" << std::endl;
@@ -1118,7 +1118,7 @@ void Evolution::process()
 		{
 			settings->setCVar("energy", settings->getCVar("energy")-1 );
 // 			world->m_freeEnergy -= settings->getCVar("food_maxenergy");
-			
+
 // 			stringstream buf;
 // 			buf << "energy: " << settings->getCVar("energy");
 // 			m_logBuffer->add(buf);
@@ -1176,7 +1176,7 @@ void Evolution::process()
 		world->movePickedBodyFrom();
 	}
 	void Evolution::camera_moveforward()
-	{ 
+	{
 // 		if ( world->m_follow_critterP == 0 )
 		{
 			BeSceneNode* const sceneNode=world->m_camera.getSceneNode();
@@ -1189,10 +1189,10 @@ void Evolution::process()
 // 		{
 // 			world->m_follow_critter_transform.setOrigin( world->m_follow_critter_transform.getOrigin() + btVector3(0,-m_cameraTranslateSpeed,0));
 // 		}
-		world->movePickedBodyFrom(); 
+		world->movePickedBodyFrom();
 	}
-	void Evolution::camera_movebackward() 	
-	{ 
+	void Evolution::camera_movebackward()
+	{
 // 		if ( world->m_follow_critterP == 0 )
 		{
 			BeSceneNode* const sceneNode=world->m_camera.getSceneNode();
@@ -1205,88 +1205,88 @@ void Evolution::process()
 // 		{
 // 			world->m_follow_critter_transform.setOrigin( world->m_follow_critter_transform.getOrigin() + btVector3(0,m_cameraTranslateSpeed,0));
 // 		}
-		world->movePickedBodyFrom(); 
+		world->movePickedBodyFrom();
 	}
-	void Evolution::camera_moveleft() 		
-	{ 
+	void Evolution::camera_moveleft()
+	{
 		BeSceneNode* const sceneNode=world->m_camera.getSceneNode();
 		if(sceneNode)
 		{
 			sceneNode->translateLocal(btVector3(-m_cameraTranslateSpeed,0,0));
 		}
-		world->movePickedBodyFrom(); 
+		world->movePickedBodyFrom();
 	}
-	void Evolution::camera_moveright() 		
-	{ 
+	void Evolution::camera_moveright()
+	{
 		BeSceneNode* const sceneNode=world->m_camera.getSceneNode();
 		if(sceneNode)
 		{
 			sceneNode->translateLocal(btVector3(m_cameraTranslateSpeed,0,0));
 		}
-		world->movePickedBodyFrom(); 
+		world->movePickedBodyFrom();
 	}
-	void Evolution::camera_lookup() 		
-	{ 
+	void Evolution::camera_lookup()
+	{
 		BeSceneNode* const sceneNode=world->m_camera.getSceneNode();
 		if(sceneNode)
 		{
 			sceneNode->pitch(m_cameraRotateSpeed);
 		}
-		world->calcMouseDirection(); 
-		world->movePickedBodyTo(); 
+		world->calcMouseDirection();
+		world->movePickedBodyTo();
 	}
-	void Evolution::camera_lookdown() 		
-	{ 
+	void Evolution::camera_lookdown()
+	{
 		BeSceneNode* const sceneNode=world->m_camera.getSceneNode();
 		if(sceneNode)
 		{
 			sceneNode->pitch(-m_cameraRotateSpeed);
 		}
-		world->calcMouseDirection(); 
-		world->movePickedBodyTo(); 
+		world->calcMouseDirection();
+		world->movePickedBodyTo();
 	}
 	void Evolution::camera_lookleft()
-	{ 
+	{
 		BeSceneNode* const sceneNode=world->m_camera.getSceneNode();
 		if(sceneNode)
 		{
-			sceneNode->yaw(m_cameraRotateSpeed); 
+			sceneNode->yaw(m_cameraRotateSpeed);
 		}
-		world->calcMouseDirection(); 
-		world->movePickedBodyTo(); 
+		world->calcMouseDirection();
+		world->movePickedBodyTo();
 	}
-	void Evolution::camera_lookright() 		
-	{ 
+	void Evolution::camera_lookright()
+	{
 		BeSceneNode* const sceneNode=world->m_camera.getSceneNode();
 		if(sceneNode)
 		{
 			sceneNode->yaw(-m_cameraRotateSpeed);
 		}
-		world->calcMouseDirection(); 
-		world->movePickedBodyTo(); 
+		world->calcMouseDirection();
+		world->movePickedBodyTo();
 	}
-	void Evolution::camera_rollleft() 		
-	{ 
+	void Evolution::camera_rollleft()
+	{
 		BeSceneNode* const sceneNode=world->m_camera.getSceneNode();
 		if(sceneNode)
 		{
-			sceneNode->roll(m_cameraRotateSpeed); 		
+			sceneNode->roll(m_cameraRotateSpeed);
 		}
-		world->calcMouseDirection(); 
-		world->movePickedBodyTo(); 
+		world->calcMouseDirection();
+		world->movePickedBodyTo();
 	}
-	void Evolution::camera_rollright() 		
-	{ 
+	void Evolution::camera_rollright()
+	{
 		BeSceneNode* const sceneNode=world->m_camera.getSceneNode();
 		if(sceneNode)
 		{
-			sceneNode->roll(-m_cameraRotateSpeed); 
-		}	
-		world->calcMouseDirection(); 
-		world->movePickedBodyTo(); 
+			sceneNode->roll(-m_cameraRotateSpeed);
+		}
+		world->calcMouseDirection();
+		world->movePickedBodyTo();
 	}
-	
-	
+
+
 // 	void Evolution::camera_movedown() { world->camera.moveDown(0.01f); world->movePickedBodyFrom(); }
 // 	void Evolution::camera_moveforward() { world->camera.moveForward(0.01f); world->movePickedBodyFrom(); }
 // 	void Evolution::camera_movebackward() { world->camera.moveBackward(0.01f); world->movePickedBodyFrom(); }
@@ -1341,17 +1341,17 @@ void Evolution::process()
 		{
 			sv->activate();
 			m_canvas->raisePanel(sv.get());
-			
+
 			for ( unsigned int i(0); i < world->critters.size(); ++i )
 			{
 				if ( world->critters[i]->genotype == Genotypes::Instance()->list[s] )
 					world->critterselection->registerCritter(world->critters[i]);
 			}
-			
+
 // 			world->critterselection->selectCritterVID(c);
-			
-			
-			
+
+
+
 // 			std::cout << "select species " << s << std::endl;
 		}
 	}
@@ -1378,7 +1378,7 @@ void Evolution::process()
 			// world mouse dynamics
 			world->calcMouseDirection();
 			world->movePickedBodyTo();
-		}		
+		}
 	}
 
 	void Evolution::camera_lookleftright_mouse( const float value )
@@ -1397,7 +1397,7 @@ void Evolution::process()
 		}
 	}
 
-	
+
 // 	void Evolution::canvas_press()
 // 	{
 // 		m_canvas->buttonPress( 1 );
@@ -1422,7 +1422,7 @@ void Evolution::process()
 		m_canvas->swapChild( child );
 	}
 
-	
+
 
 Evolution::~Evolution()
 {

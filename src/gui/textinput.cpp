@@ -15,7 +15,7 @@ m_emtpyOnClick(false)
 
 	m_text = BeWidgetTextPtr(new BeWidgetText());
 		m_text->translate(m_textposition);
-	
+
 	addWidget("btext", m_text);
 // 	m_text = static_cast<Text*>(addWidgetText( "btext", m_textposition.m_x, m_textposition.m_y, "" ));
 }
@@ -23,7 +23,7 @@ m_emtpyOnClick(false)
 void BeWidgetTextInput::genSubmitEvent(const BeCommand& cmds )
 {
 	submitEvent = new Event( cmds, EVENT_NOREPEAT, 0);
-// 	submitEvent = BeEventSystem::Instance()->registerEvent( DOWN, name, boost::shared_ptr<Event>(new Event( cmds, repeat, delay) ) );
+// 	submitEvent = BeEventSystem::Instance()->registerEvent( DOWN, name, std::shared_ptr<Event>(new Event( cmds, repeat, delay) ) );
 }
 
 void BeWidgetTextInput::set(const std::string& newstring)
@@ -33,32 +33,32 @@ void BeWidgetTextInput::set(const std::string& newstring)
 
 
 char BeWidgetTextInput::getAsciiValue( const SDL_KeyboardEvent &key )
-{    
-    // magic numbers courtesy of SDL docs :)    
-    const int INTERNATIONAL_MASK = 0xFF80, UNICODE_MASK = 0x7F;    
-    int uni = key.keysym.unicode;    
-    if( uni == 0 ) // not translatable key (like up or down arrows)    
-    {        // probably not useful as string input        
-        // we could optionally use this to get some value        
-        // for it: 
-        //SDL_GetKeyName( key );        
-        return 0;    
-    }    
-    if( ( uni & INTERNATIONAL_MASK ) == 0 )    
-    {        
-        if( SDL_GetModState() & KMOD_SHIFT )        
-        {            
-            return (char)(toupper(uni & UNICODE_MASK));        
-        }        
-        else       
-        {            
-            return (char)(uni & UNICODE_MASK);        
-        }    
-    }    
-    else // we have a funky international character. one we can't read :(    
-    {        
-        // we could do nothing, or we can just show some sign of input, like so:        
-        return '?';    
+{
+    // magic numbers courtesy of SDL docs :)
+    const int INTERNATIONAL_MASK = 0xFF80, UNICODE_MASK = 0x7F;
+    int uni = key.keysym.unicode;
+    if( uni == 0 ) // not translatable key (like up or down arrows)
+    {        // probably not useful as string input
+        // we could optionally use this to get some value
+        // for it:
+        //SDL_GetKeyName( key );
+        return 0;
+    }
+    if( ( uni & INTERNATIONAL_MASK ) == 0 )
+    {
+        if( SDL_GetModState() & KMOD_SHIFT )
+        {
+            return (char)(toupper(uni & UNICODE_MASK));
+        }
+        else
+        {
+            return (char)(uni & UNICODE_MASK);
+        }
+    }
+    else // we have a funky international character. one we can't read :(
+    {
+        // we could do nothing, or we can just show some sign of input, like so:
+        return '?';
     }
 }
 
@@ -134,7 +134,7 @@ void BeWidgetTextInput::acceptKey(const SDL_KeyboardEvent& event)
 	//}
 	//else //if ( key.size() == 1 )
 	//{
-        
+
 	//	m_text->set( m_text->getString()+std::string(str) );
 	//}
 }
@@ -147,7 +147,7 @@ void BeWidgetTextInput::click(const int& button)
 
 	if ( m_emtpyOnClick )
 		m_text->set("");
-	
+
     SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY,SDL_DEFAULT_REPEAT_INTERVAL);
 	isKeyboardGrabbing = true;
 }

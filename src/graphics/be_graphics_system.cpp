@@ -68,7 +68,7 @@ void BeGraphicsSystem::bindTexture2D( BeTexture2D* const texture )
 // 	if ( texture )
 // 	{
 // // 		std::cout << texture->handle() << std::endl;
-// 
+//
 // 		if ( texture->handle() == 24 )
 // 			m_graphicsKernel.bindTexture(GL_TEXTURE_2D, 20);
 // 		else
@@ -80,14 +80,14 @@ void BeGraphicsSystem::bindTexture2DWhitePixel()
 {
 	if ( !m_pixel_load_attempt_done )
 	{
-		m_imageTexture2D = boost::shared_ptr<BeTexture2DResource>( new BeTexture2DResource(m_filesystem, "pixmaps/pixel.png") );
+		m_imageTexture2D = std::shared_ptr<BeTexture2DResource>( new BeTexture2DResource(m_filesystem, "pixmaps/pixel.png") );
 		if ( m_imageTexture2D && m_imageTexture2D->get().get()->handle() > 0 )
 		{
 			m_pixel_handle = m_imageTexture2D->get().get()->handle();
 		}
 		m_pixel_load_attempt_done = true;
 	}
-	
+
 	m_graphicsKernel.bindTexture(GL_TEXTURE_2D, m_pixel_handle);
 }
 
@@ -122,20 +122,20 @@ void BeGraphicsSystem::matrixPop(const GLenum matrixMode)
 
 void BeGraphicsSystem::matrixLoad(const GLenum matrixMode, GLfloat* const m)
 {
-// 	glGetFloatv(GL_PROJECTION_MATRIX, m); 
+// 	glGetFloatv(GL_PROJECTION_MATRIX, m);
 // 	m_graphicsKernel.matrixMode(matrixMode);
 // 	m_graphicsKernel.loadMatrix(m);
 // 	glLoadMatrixf(m);
 // 	glMatrixMode(GL_PROJECTION);
-	
-	
-// 	glGetFloatv(GL_MODELVIEW_MATRIX, m); 
+
+
+// 	glGetFloatv(GL_MODELVIEW_MATRIX, m);
 // 	glMatrixMode(matrixMode);
 // 	glLoadMatrixf(m);
-	
+
 // 	m_graphicsKernel.matrixMode(matrixMode);
 // 	m_graphicsKernel.loadMatrix(m);
-	
+
 // 	glMatrixMode(matrixMode);
 	glMultMatrixf(m);
 	glMatrixMode(matrixMode);

@@ -10,13 +10,13 @@
 
 #include <iomanip>
 
-Critterview::Critterview(boost::shared_ptr<BeGraphicsSystem> graphicsSystem)
+Critterview::Critterview(std::shared_ptr<BeGraphicsSystem> graphicsSystem)
  : Panel(false)
  , m_graphicsSystem(graphicsSystem)
  , m_view_size(162)
 {
 	critterselection = Critterselection::Instance();
-	
+
 	m_active = false;
 	isMovable = true;
 
@@ -28,7 +28,7 @@ Critterview::Critterview(boost::shared_ptr<BeGraphicsSystem> graphicsSystem)
 
 // 	m_dimensions.set(346+m_view_size+10, 168);
 	m_dimensions.set(520, 178);
-	
+
 	int buttons_starty = m_dimensions.m_y - totalbuttonheight-10;
 
 	m_localposition.set(2, 24);
@@ -50,7 +50,7 @@ Critterview::Critterview(boost::shared_ptr<BeGraphicsSystem> graphicsSystem)
 
 	v_space += v_spacer; addWidget( "cv_neurons", Vector2i(10, v_space), BeWidgetTextPtr(new BeWidgetText("Neurons") ) );
 	v_space += v_spacer; addWidget( "cv_synapses", Vector2i(10, v_space), BeWidgetTextPtr(new BeWidgetText("Synapses") ) );
-	
+
 	// view widgets
 // 	viewbutton = addWidgetButton( "cv_view", Vector2i(0+m_dimensions.m_x-m_view_size-10, 35), Vector2i(m_view_size, m_view_size), "", Vector2i(0, 0), BeCommand(""), EVENT_NOREPEAT, 0 );
 	viewbutton = addWidgetButton( "cv_view", Vector2i(0+m_dimensions.m_x-m_view_size-25, 10), Vector2i(m_view_size, m_view_size), "", Vector2i(0, 0), BeCommand(""), EVENT_NOREPEAT, 0 );
@@ -64,32 +64,32 @@ Critterview::Critterview(boost::shared_ptr<BeGraphicsSystem> graphicsSystem)
 // 	unsigned int c_width = 10;
 // 	unsigned int c_height = buttons_starty;
 // 	addWidgetButton( "cv_action_kill", Vector2i(c_width, c_height), Vector2i(bwidth, bheight), "kill", BeCommand("cs_kill"), EVENT_NOREPEAT, 0 );
-// 
+//
 // 	c_height += bspacing + bheight;
 // 	addWidgetButton( "cv_action_brainview", Vector2i(c_width, c_height), Vector2i(bwidth, bheight), "brainview", BeCommand("gui_togglepanel", "brainview"), EVENT_NOREPEAT, 0 );
-// 	
+//
 // 	c_width += bwidth + bspacing;
 // 	c_height = buttons_starty;
 // 	addWidgetButton( "cv_action_duplicate", Vector2i(c_width, c_height), Vector2i(bwidth, bheight), "duplicate", BeCommand("cs_duplicate"), EVENT_NOREPEAT, 0 );
-// 	
+//
 // 	c_height += bspacing + bheight;
 // 	addWidgetButton( "cv_action_spawnbrainmutant", Vector2i(c_width, c_height), Vector2i(bwidth, bheight), "brain mutant", BeCommand("cs_spawnbrainmutant"), EVENT_NOREPEAT, 0 );
-// 
+//
 // 	c_width += bwidth + bspacing;
 // 	c_height = buttons_starty;
 // 	addWidgetButton( "cv_action_spawnbodymutant", Vector2i(c_width, c_height), Vector2i(bwidth, bheight), "body mutant", BeCommand("cs_spawnbodymutant"), EVENT_NOREPEAT, 0 );
-// 
+//
 // 	c_height += bspacing + bheight;
 // 	addWidgetButton( "cv_action_spawnbrainbodymutant", Vector2i(c_width, c_height), Vector2i(bwidth, bheight), "brain+body m", BeCommand("cs_spawnbrainbodymutant"), EVENT_NOREPEAT, 0 );
-// 
+//
 // 	c_width += bwidth + bspacing;
 // 	c_height = buttons_starty;
 // 	addWidgetButton( "cv_action_feed", Vector2i(c_width, c_height), Vector2i(bwidth, bheight), "feed", BeCommand("cs_feed"), EVENT_NOREPEAT, 0 );
-// 
+//
 // 	c_height += bspacing + bheight;
 // 	addWidgetButton( "cv_action_resetage", Vector2i(c_width, c_height), Vector2i(bwidth, bheight), "reset age", BeCommand("cs_resetage"), EVENT_NOREPEAT, 0 );
 
-	
+
 	// action buttons
 	unsigned int c_width = 10;
 	unsigned int c_height = buttons_starty;
@@ -97,10 +97,10 @@ Critterview::Critterview(boost::shared_ptr<BeGraphicsSystem> graphicsSystem)
 
 	c_height += bspacing + bheight;
 	addWidgetButton( "cv_action_brainview", Vector2i(c_width, c_height), Vector2i(bwidth, bheight), "brainview", BeCommand("gui_togglepanel", "brainview"), EVENT_NOREPEAT, 0 );
-	
+
 	c_height += bspacing + bheight;
 	addWidgetButton( "cv_action_duplicate", Vector2i(c_width, c_height), Vector2i(bwidth, bheight), "duplicate", BeCommand("cs_duplicate"), EVENT_NOREPEAT, 0 );
-	
+
 	c_width += bwidth + bspacing;
 	c_height = buttons_starty;
 	addWidgetButton( "cv_action_spawnbrainmutant", Vector2i(c_width, c_height), Vector2i(bwidth, bheight), "brain mutant", BeCommand("cs_spawnbrainmutant"), EVENT_NOREPEAT, 0 );
@@ -117,7 +117,7 @@ Critterview::Critterview(boost::shared_ptr<BeGraphicsSystem> graphicsSystem)
 
 	c_height += bspacing + bheight;
 	addWidgetButton( "cv_action_resetage", Vector2i(c_width, c_height), Vector2i(bwidth, bheight), "reset age", BeCommand("cs_resetage"), EVENT_NOREPEAT, 0 );
-	
+
 	c_height += bspacing + bheight;
 	addWidgetButton( "cv_action_follow", Vector2i(c_width, c_height), Vector2i(bwidth, bheight), "follow", BeCommand("cs_follow"), EVENT_NOREPEAT, 0 );
 }
@@ -140,15 +140,15 @@ void Critterview::draw()
 		drawBorders();
 		// draw the rest
 		drawChildren();
-		
+
 		// draw values of critter
 		v_space = 3;
 		v_space += v_spacer; textprinter->print( m_absposition.m_x+110, m_absposition.m_y+v_space, critterselection->selectedCritter->critterID );
 		v_space += v_spacer; textprinter->print( m_absposition.m_x+110, m_absposition.m_y+v_space, critterselection->selectedCritter->genotype->adamdist );
  		v_space += v_spacer; textprinter->print( m_absposition.m_x+110, m_absposition.m_y+v_space, critterselection->selectedCritter->totalFrames );
-		
+
  		textprinter->print( m_absposition.m_x+210, m_absposition.m_y+v_space, critterselection->selectedCritter->genotype->bodyArch->m_maxlifetime );
-		
+
 // 		std::stringstream s;
 // 		s << std::setprecision(3) << critterselection->selectedCritter->energyLevel;
 //  		v_space += v_spacer; textprinter->print( m_absposition.m_x+110, m_absposition.m_y+v_space, s.str() );
@@ -156,7 +156,7 @@ void Critterview::draw()
 
  		v_space += v_spacer; textprinter->print( m_absposition.m_x+110, m_absposition.m_y+v_space, critterselection->selectedCritter->brain.totalNeurons );
  		v_space += v_spacer; textprinter->print( m_absposition.m_x+110, m_absposition.m_y+v_space, critterselection->selectedCritter->brain.totalSynapses );
-		
+
 // 		std::stringstream s2;
 // 		s2 << std::setprecision(3) << (float)critterselection->selectedCritter->brain.totalSynapses / critterselection->selectedCritter->brain.totalNeurons;
 // 		textprinter->print( m_absposition.m_x+200, m_absposition.m_y+v_space, s2.str() );
@@ -178,7 +178,7 @@ void Critterview::draw()
 			world->drawWithinCritterSight(critterselection->selectedCritter);
 		}
 
-		// switch back to 2d 
+		// switch back to 2d
 		{
 			glDisable (GL_DEPTH_TEST);
 			glDisable (GL_LIGHTING);
@@ -192,11 +192,11 @@ void Critterview::draw()
 			m_graphicsSystem->matrixLoadIdentity(GL_PROJECTION);
 			m_graphicsSystem->matrixOrtho(GL_PROJECTION, 0, *settings->winWidth, *settings->winHeight, 0,  0, 1);
 			m_graphicsSystem->matrixLoadIdentity(GL_MODELVIEW);
-			m_graphicsSystem->matrixTranslate(GL_MODELVIEW, 0.5f, -0.5f, 0.0f); // pixel precision offset			
-// 			m_graphicsSystem->matrixTranslate(GL_MODELVIEW, 0.0f, 0.0f, 0.0f); // pixel precision offset			
+			m_graphicsSystem->matrixTranslate(GL_MODELVIEW, 0.5f, -0.5f, 0.0f); // pixel precision offset
+// 			m_graphicsSystem->matrixTranslate(GL_MODELVIEW, 0.0f, 0.0f, 0.0f); // pixel precision offset
 		}
 	}
-	
+
 }
 
 Critterview::~Critterview()

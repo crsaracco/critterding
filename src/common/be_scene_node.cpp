@@ -45,7 +45,7 @@ BeSceneNode::BeSceneNode( const bool lock_axis )
 		m_follow_critter_view0_rotx = 0;
 		m_follow_critter_view0_roty = 0;
 		m_follow_critter_view0_rotz = 0;
-		
+
 		recalcActualTransform();
 	}
 
@@ -59,7 +59,7 @@ BeSceneNode::BeSceneNode( const bool lock_axis )
 		m_transform_actual.setOrigin(m_transform.getOrigin()+vector);
 	}
 
-	
+
 	void BeSceneNode::translateLocal(const btVector3& vector)
 	{
 		btTransform transform;
@@ -68,7 +68,7 @@ BeSceneNode::BeSceneNode( const bool lock_axis )
 		m_transform_actual *= transform;
 	}
 
-	
+
 	const btVector3& BeSceneNode::getRightVector() const
 	{
 		return m_transform_actual.getBasis().getRow(0);
@@ -119,26 +119,26 @@ BeSceneNode::BeSceneNode( const bool lock_axis )
 				m_follow_critter_view0_rotx += rotation_x;
 				m_follow_critter_view0_roty += rotation_y;
 				m_follow_critter_view0_rotz += rotation_z;
-				
+
 				if ( m_follow_critter_view0_roty > SIMD_2_PI )
 					m_follow_critter_view0_roty -= SIMD_2_PI;
 				else if ( m_follow_critter_view0_roty < -SIMD_2_PI )
 					m_follow_critter_view0_roty += SIMD_2_PI;
-				
+
 				if ( m_follow_critter_view0_rotz > SIMD_PI/2 )
 					m_follow_critter_view0_rotz = SIMD_PI/2;
 				else if ( m_follow_critter_view0_rotz < -SIMD_PI/2 )
 					m_follow_critter_view0_rotz = -SIMD_PI/2;
-				
 
-			
+
+
 			// TRANSFORM
 				btTransform turn_y;
 				turn_y.setIdentity();
 				turn_y.setOrigin( m_transform_actual.getOrigin() );
 				turn_y.getBasis().setEulerZYX( m_follow_critter_view0_rotz, m_follow_critter_view0_roty, m_follow_critter_view0_rotx );
-				
-				
+
+
 			// RESET VIEW ROTATION
 	// 			m_follow_critter_view0.setRotation( m_null_transform.getRotation() );
 				m_transform = m_null_transform;

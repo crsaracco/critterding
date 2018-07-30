@@ -3,7 +3,7 @@
 	#include <omp.h>
 #endif
 
-Concavefloor::Concavefloor(  boost::shared_ptr<BeGraphicsSystem> system, boost::shared_ptr<Textverbosemessage> textverbosemessage )
+Concavefloor::Concavefloor(  std::shared_ptr<BeGraphicsSystem> system, std::shared_ptr<Textverbosemessage> textverbosemessage )
  : WorldB( system, textverbosemessage )
 {
 	gVertices = 0;
@@ -38,50 +38,50 @@ void Concavefloor::init()
 // 	{
 // 		// recalc freeEnergy
 // 			calcFreeEnergy();
-// 		
+//
 // 		#ifdef HAVE_OPENCL
 // // 			nbody.process();
 // 		#endif
-// 	
+//
 // 		// kill half?
 // 			killHalforDouble();
-// 
+//
 // 		// Remove food
 // 			expireFood();
-// 
+//
 // 		// Autoinsert Food
 // 			autoinsertFood();
-// 
+//
 // 		// remove all dead critters
 // 			expireCritters();
-// 
+//
 // 		// Autosave Critters?
 // 			autosaveCritters(timer);
-// 
+//
 // 		// Autoexchange Critters?
 // 			autoexchangeCritters(timer);
-// 
+//
 // 		// Autoinsert Critters?
 // 			autoinsertCritters();
-// 
+//
 // 		if ( *critter_raycastvision == 0 )
 // 		{
 // 			renderVision();
 // 			grabVision();
 // 		}
-// 
-// 
+//
+//
 // 		m_dynamicsWorld->stepSimulation(0.016667f, 2, 0.00833334f);
-// 			
-// 			
+//
+//
 // 		// process all critters
 // 		unsigned int lmax = critters.size();
 // 		unsigned int i;
 // 		float freeEnergyc = 0.0f;
-// 
+//
 // 		for( i=0; i < lmax; ++i)
 // 			checkCollisions( critters[i] );
-// 		
+//
 // #ifdef HAVE_OPENMP
 // 		std::cout << "found" << std::endl;
 // 	// process
@@ -90,7 +90,7 @@ void Concavefloor::init()
 // 			m_threads_last = *threads;
 // 			omp_set_num_threads(m_threads_last);
 // 		}
-// 
+//
 // 		if ( m_threads_last > 1 )
 // 		{
 // // 			unsigned int t_lmax = lmax;
@@ -107,26 +107,26 @@ void Concavefloor::init()
 // 			for( i=0; i < lmax; ++i)
 // 				critters[i]->process();
 // 		}
-// 
+//
 // 		for( i=0; i < lmax; ++i)
 // 		{
 // 			CritterB* c = critters[i];
-// 
+//
 // 			// record critter used energy
 // 				freeEnergyc += c->energyUsed;
-// 
+//
 // 			// process Output Neurons
 // 				eat(c);
-// 
+//
 // 			// procreation if procreation energy trigger is hit
 // 				procreate(c);
-// 				
+//
 // 				c->beingTouched = false;
 // 				c->beingEaten   = false;
 // 		}
-// 		
+//
 // 		m_freeEnergy += freeEnergyc;
-// 
+//
 // 		getGeneralStats();
 // 	}
 // }
@@ -140,10 +140,10 @@ void Concavefloor::setVertexPositions(float waveheight, float offset)
 
 void Concavefloor::makeFloor()
 {
-// 	for ( unsigned int i=0; i < walls.size(); ++i )	
+// 	for ( unsigned int i=0; i < walls.size(); ++i )
 // 		delete walls[i];
 // 	walls.clear();
-	
+
 	if ( trimeshShape > 0 )
 		delete trimeshShape;
 
@@ -161,9 +161,9 @@ void Concavefloor::makeFloor()
 
 	if ( gIndices > 0 )
 		delete gIndices;
-	
-	
-	
+
+
+
 	for ( int i=0; i < (int)entities.size(); ++i )
 	{
 		if ( entities[i]->type == WALL )
@@ -174,7 +174,7 @@ void Concavefloor::makeFloor()
 		}
 	}
 
- 
+
 	// Wall Constants
 		float WallWidth = 5.f;
 		float WallHalfWidth = WallWidth/2.0f;
@@ -195,7 +195,7 @@ void Concavefloor::makeFloor()
 // 		Wall* w = new Wall( *worldsizeX, WallWidth, *worldsizeY, position, m_dynamicsWorld );
 // 		w->color.r = 0.30f; w->color.g = 0.20f; w->color.b = 0.10f;
 // 		walls.push_back(w);
-	
+
 	if ( settings->getCVar("worldwalls") )
 	{
 		// Left Wall
@@ -277,14 +277,14 @@ void Concavefloor::makeFloor()
 //		trimeshShape->serializeSingleShape(serializer);
 	trimeshShape->serializeSingleBvh(serializer);
 	serializer->finishSerialization();
-	
+
 	groundTransform.setIdentity();
 	groundTransform.setOrigin( btVector3((float)*worldsizeX/2 + 0.5f, 0, (float)*worldsizeY/2 + 0.5f) );
 
-	fixedGround = new btRigidBody(0,0,trimeshShape,btVector3(0,0,0));	
+	fixedGround = new btRigidBody(0,0,trimeshShape,btVector3(0,0,0));
 	fixedGround->setWorldTransform(groundTransform);
 	m_dynamicsWorld->addRigidBody(fixedGround);
-	
+
 	activateFood();
 }
 
@@ -321,22 +321,22 @@ void Concavefloor::drawWithGrid()
 
 void Concavefloor::drawfloor(float dim)
 {
-	glPushMatrix(); 
+	glPushMatrix();
 		glTranslatef((float)*worldsizeX/2 + 0.5f, 0, (float)*worldsizeY/2 + 0.5f);
 		glColor4f( 0.3f * dim, 0.2f * dim, 0.1f * dim, 0.0f );
 		trimeshShape->processAllTriangles(&drawCallback,aabbMin,aabbMax);
-	glPopMatrix(); 
+	glPopMatrix();
 // 	for( unsigned int i=0; i < walls.size(); ++i)
 // 		walls[i]->draw();
 }
 
 void Concavefloor::drawfloor()
 {
-	glPushMatrix(); 
+	glPushMatrix();
 		glTranslatef((float)*worldsizeX/2 + 0.5f, 0, (float)*worldsizeY/2 + 0.5f);
 		glColor4f( 0.3f, 0.2f, 0.1f, 0.0f );
 		trimeshShape->processAllTriangles(&drawCallback,aabbMin,aabbMax);
-	glPopMatrix(); 
+	glPopMatrix();
 	for( unsigned int i=0; i < entities.size(); ++i)
 		if ( entities[i]->type == WALL )
 			entities[i]->draw();

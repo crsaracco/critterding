@@ -3,17 +3,17 @@
 
 #include "BulletCollision/CollisionDispatch/btGhostObject.h"
 
-typedef boost::shared_ptr<std::vector<void*> > collisionObjects;
+typedef std::shared_ptr<std::vector<void*> > collisionObjects;
 
 class BePhysicsSensor
 {
 public:
-	BePhysicsSensor( boost::shared_ptr<btDynamicsWorld> ownerWorld, const btVector3& dimensions, btTransform& position ) :
+	BePhysicsSensor( std::shared_ptr<btDynamicsWorld> ownerWorld, const btVector3& dimensions, btTransform& position ) :
 	m_ownerWorld(ownerWorld)
 	{
 		ghostObject = new btPairCachingGhostObject();
 		ghostObject->setCollisionShape( new btBoxShape( dimensions ) );
-		
+
 		ghostObject->setCollisionFlags( btCollisionObject::CF_KINEMATIC_OBJECT | btCollisionObject::CF_NO_CONTACT_RESPONSE );
 		ghostObject->setWorldTransform( position );
 		m_ownerWorld->addCollisionObject(ghostObject);
@@ -23,7 +23,7 @@ public:
 		m_ownerWorld->removeCollisionObject(ghostObject);
 		delete ghostObject->getCollisionShape();
 		delete ghostObject;
-		
+
 	};
 
 	collisionObjects check()
@@ -50,7 +50,7 @@ public:
 			for ( int j = 0; j < manifoldArray.size(); j++ )
 			{
 				btPersistentManifold* manifold = manifoldArray[j];
-				
+
 				btCollisionObject* object1 = static_cast<btCollisionObject*>(manifold->getBody0());
 				btCollisionObject* object2 = static_cast<btCollisionObject*>(manifold->getBody1());
 
@@ -67,7 +67,7 @@ public:
 							Collidingobject = object1->getUserPointer();
 						else if ( object2->getUserPointer() != 0 )
 							Collidingobject = object2->getUserPointer();
-						else 
+						else
 							continue;
 
 						collisionobjects->push_back( Collidingobject );
@@ -81,7 +81,7 @@ public:
 
 	btPairCachingGhostObject* ghostObject;
 private:
-	boost::shared_ptr<btDynamicsWorld> m_ownerWorld;
+	std::shared_ptr<btDynamicsWorld> m_ownerWorld;
 
 };
 

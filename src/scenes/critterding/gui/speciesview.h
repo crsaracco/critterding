@@ -16,7 +16,7 @@ class Speciesview : public Panel
 
 		void draw();
 		void recalculate();
-		
+
 	private:
 		Genotypes* genotypes;
 
@@ -25,7 +25,7 @@ class Speciesview : public Panel
 		int rowspacer;
 		int qwidth;
 		int qheight;
-		
+
 		std::string titlePos;
 		std::string titleColor;
 		std::string titleNum;
@@ -33,7 +33,7 @@ class Speciesview : public Panel
 		std::string titleNeurons;
 		std::string titleSynapses;
 		std::string titleBodyparts;
-		
+
 		int titlePosW;
 		int titleColorW;
 		int titleNumW;
@@ -41,24 +41,24 @@ class Speciesview : public Panel
 		int titleNeuronsW;
 		int titleSynapsesW;
 		int titleBodypartsW;
-		
+
 		const int*	colormode;
-		
+
 		std::vector<int> indices;
-		
+
 		unsigned int highestCount;
 		unsigned int highestAD;
 		unsigned int highestNeurons;
 		unsigned int highestSynapses;
 		unsigned int highestBodyparts;
-		
+
 		const unsigned int m_recalc_interval;
 		unsigned int m_recalc_count;
-		
-		
+
+
 		unsigned int m_num_species_buttons;
-		
-		
+
+
 		int titleNumWH;
 		int titleColorWH;
 		int titlePosWH;
@@ -66,7 +66,7 @@ class Speciesview : public Panel
 		int titleNeuronsWH;
 		int titleSynapsesWH;
 		int titleBodypartsWH;
-		
+
 		int colw1;
 		int colw2;
 		int colw3;
@@ -84,7 +84,7 @@ class Speciesview : public Panel
 		int col6;
 		int col7;
 		int col8;
-		
+
 };
 
 #endif
@@ -103,31 +103,31 @@ class Speciesview : public Panel
 
 // #ifndef SPECIESVIEW_H
 // #define SPECIESVIEW_H
-// 
+//
 // #include "src/gui/panel.h"
 // #include "../entities/genotypes.h"
 // #include "src/math/vector2f.h"
-// 
+//
 // # include <vector>
-// 
+//
 // using namespace std;
-// 
+//
 // class Speciesview : public Panel
 // {
 // 	public:
 // 		Speciesview();
 // 		~Speciesview();
-// 
+//
 // 		void draw();
 // 	private:
 // 		Genotypes* genotypes;
-// 
+//
 // 		int titlebar;
 // 		int v_space;
 // 		int rowspacer;
 // 		int qwidth;
 // 		int qheight;
-// 		
+//
 // 		string titlePos;
 // 		string titleColor;
 // 		string titleNum;
@@ -135,7 +135,7 @@ class Speciesview : public Panel
 // 		string titleNeurons;
 // 		string titleSynapses;
 // 		string titleBodyparts;
-// 		
+//
 // 		int titlePosW;
 // 		int titleColorW;
 // 		int titleNumW;
@@ -143,8 +143,8 @@ class Speciesview : public Panel
 // 		int titleNeuronsW;
 // 		int titleSynapsesW;
 // 		int titleBodypartsW;
-// 		
+//
 // 		const int*	colormode;
 // };
-// 
+//
 // #endif

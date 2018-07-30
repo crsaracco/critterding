@@ -28,7 +28,7 @@ void Helpinfo::draw()
 
 		heightpos += vspace + 3;
 		const auto delayed_heightpos1(heightpos);
-		
+
 		glColor3f(0.7f, 0.7f, 0.7f);
 		heightpos += vspace + 3; printInfoLine(heightpos, widthpos1, widthpos2, "esc", "exit");
 
@@ -87,7 +87,7 @@ void Helpinfo::draw()
 		glColor3f(1.0f, 1.0f, 1.0f);
 		printInfoLine(delayed_heightpos1, widthpos1, widthpos2, "World / Engine operations", "");
 		printInfoLine(delayed_heightpos2, widthpos1, widthpos2, "Camera Operations", "");
-		
+
 	}
 }
 

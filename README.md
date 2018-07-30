@@ -8,7 +8,7 @@ For more information, check out the SourceForge page (which I eventually want to
 
 ## Dependencies
 
- - gcc 4.5+
+ - A `gcc` that supports C++17 (tested on gcc 8.1.0)
  - bzip2
  - freetype2
  - SDL

@@ -16,7 +16,7 @@ BeWidgetButton::BeWidgetButton() : Panel(false)
 void BeWidgetButton::genEvent(const int& button, const std::string& name, const BeCommand& cmds, EventProperty_Repeat repeat, unsigned int delay )
 {
 	eventname = name;
-	buttonlist[button] = BeEventSystem::Instance()->registerEvent( DOWN, name, boost::shared_ptr<Event>(new Event( cmds, repeat, delay) ) );
+	buttonlist[button] = BeEventSystem::Instance()->registerEvent( DOWN, name, std::shared_ptr<Event>(new Event( cmds, repeat, delay) ) );
 }
 
 BeCommand* BeWidgetButton::getCommand(const int& button)

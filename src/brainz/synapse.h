@@ -24,7 +24,7 @@ class Synapse
 				return true;
 			return false;
 		}
-		
+
 		float getWeightedInfluence() const
 		{
 // 			if ( m_weight != 0.0f && m_ref != 0.0f )

@@ -6,8 +6,6 @@
 #include <cstdint>
 #include <unordered_map>
 
-#include <boost/shared_ptr.hpp>
-#include <boost/make_shared.hpp>
 // #include "boost/circular_buffer.hpp"
 // #include "boost/circular_buffer/space_optimized.hpp"
 #include <boost/function.hpp>
@@ -73,7 +71,7 @@ typedef BEInt32 BEInt;
 		bool operator==(const be_net_type_Vector3& rhs) const;
 		be_net_type_Vector3 operator+=(const be_net_type_Vector3& rhs) const;
 		be_net_type_Vector3 operator-=(const be_net_type_Vector3& rhs) const;
-		
+
 		BEFloat x() const { return m_x; }
 		BEFloat y() const { return m_y; }
 		BEFloat z() const { return m_z; }
@@ -115,7 +113,7 @@ typedef BEInt32 BEInt;
 	class be_net_type_Quaternion : public be_net_type_Vector4
 	{
 	public:
-		
+
 // 		be_net_type_Quaternion() : be_net_type_Vector4( 0.0f, 0.0f, 0.0f, 1.0f ) {};
 // 		be_net_type_Quaternion(BEFloat x, BEFloat y, BEFloat z, BEFloat w) : be_net_type_Vector4( x, y, z, w ) { };
 // 		be_net_type_Quaternion(const btQuaternion& q);
@@ -152,7 +150,7 @@ typedef BEInt32 BEInt;
 		const be_net_type_Quaternion& getRotation() const { return m_rotation ; }
 		void setRotation( const be_net_type_Quaternion& rotation ) { m_rotation = rotation; }
 		void setIdentity();
-		
+
 		bool isValid() const
 		{
 			if ( this != this )
@@ -163,16 +161,16 @@ typedef BEInt32 BEInt;
 // 				|| m_position.y() != m_position.y()
 // 				|| m_position.z() != m_position.z()
 // 			) return false;
-// 
+//
 // 			if (   m_rotation.x() != m_rotation.x()
 // 				|| m_rotation.y() != m_rotation.y()
 // 				|| m_rotation.z() != m_rotation.z()
 // 				|| m_rotation.w() != m_rotation.w()
 // 			) return false;
-// 
+//
 // 			return true;
 		}
-		
+
 		void postInvalid( const std::string& header, const bool die ) const
 		{
 // 			std::cout << " testing: " << header << std::endl;
@@ -190,7 +188,7 @@ typedef BEInt32 BEInt;
 			}
 		}
 
-		
+
 	private:
 		be_net_type_Vector3 m_position;
 		be_net_type_Quaternion m_rotation;
@@ -250,24 +248,24 @@ class BeSignalHistory_String
 		void initString();
 		char* getHistoryString() const { return m_history_string; }
 		void setHistoryString( char* history_string ) { m_history_string = history_string; }
-		
+
 		void free() const
 		{
 			if ( size() > 0 )
 				delete[] getHistoryString();
 		}
-		
-		
-		
+
+
+
 // 		const std::string getStdString() const
 // 		{
 // 			std::string n(m_history_string, m_history_string+m_size);
 // // 			for ( unsigned int i(0); i < m_size; ++i )
 // // 				n.append(m_history_string[i]);
 // 			return n;
-// 			
+//
 // // 			std::string str(buf, buf + l);
-// 			
+//
 // 		}
 
 	private:
@@ -291,13 +289,13 @@ public:
 	~net_message_t( ){};
 	int type() const { return m_type; }
 	const BeSignalHistory_String& getHistory() const { return m_entity_history; }
-	
+
 	unsigned int sizeAddition() const
 	{
 		return m_entity_history.size();
 	}
 	BeSignalHistory_String m_entity_history;
-	
+
 protected:
 	net_message_t(const int type) : m_type(type) {};
 	net_message_t(const int type, const BeSignalHistory& entity_history) : m_entity_history(entity_history), m_type(type)
@@ -342,7 +340,7 @@ public:
 
 class BeMessageManager
 {
-	typedef std::unordered_map< int, boost::shared_ptr<BeMessageHandlerI> > Map;
+	typedef std::unordered_map< int, std::shared_ptr<BeMessageHandlerI> > Map;
 public:
 	template<typename T>
 	void setHandler(boost::function<void (const T&)> function)
@@ -353,7 +351,7 @@ public:
 		{
 			m_map.erase(it);
 		}
-		m_map[ t.type() ]=boost::make_shared< BeMessageHandler<T> >(function);
+		m_map[ t.type() ]=std::make_shared< BeMessageHandler<T> >(function);
 	}
 	bool handle(const net_message_t& message)
 	{
@@ -403,7 +401,7 @@ public:
 template<typename T>
 class BeMessageManager1
 {
-	typedef std::unordered_map< int, boost::shared_ptr<BeMessageHandlerI1<T> > > Map;
+	typedef std::unordered_map< int, std::shared_ptr<BeMessageHandlerI1<T> > > Map;
 public:
 	template<typename U>
 	void setHandler(boost::function<void (T, const U&)> function)
@@ -414,7 +412,7 @@ public:
 		{
 			m_map.erase(it);
 		}
-		m_map[ t.type() ]=boost::make_shared< BeMessageHandler1<T, U> >(function);
+		m_map[ t.type() ]=std::make_shared< BeMessageHandler1<T, U> >(function);
 	}
 	bool handle(T t, const net_message_t& message)
 	{
@@ -482,23 +480,23 @@ public:
 
 // #ifndef BE_NET_MESSAGE_H_INCLUDED
 // #define BE_NET_MESSAGE_H_INCLUDED
-// 
+//
 // #include <iostream>
 // #include <string.h>
 // #include <cstdint>
 // #include <unordered_map>
-// 
+//
 // #include <boost/shared_ptr.hpp>
 // #include <boost/make_shared.hpp>
 // // #include "boost/circular_buffer.hpp"
 // // #include "boost/circular_buffer/space_optimized.hpp"
 // #include <boost/function.hpp>
-// 
+//
 // typedef std::float_t BEFloat;
 // typedef std::double_t BEDouble;
 // typedef std::uint32_t BEUInt;
 // typedef std::int32_t BEInt;
-// 
+//
 // // namespace BeNetTypes
 // // {
 // 	class be_net_type_String
@@ -528,7 +526,7 @@ public:
 // 	private:
 // 		char m_value[128];
 // 	};
-// 
+//
 // 	class btVector3;
 // 	class be_net_type_Vector3
 // 	{
@@ -540,7 +538,7 @@ public:
 // 		operator btVector3() const;
 // 		bool operator!=(const be_net_type_Vector3& rhs) const;
 // 		bool operator==(const be_net_type_Vector3& rhs) const;
-// 		
+//
 // 		const float x() const { return m_x; }
 // 		const float y() const { return m_y; }
 // 		const float z() const { return m_z; }
@@ -552,7 +550,7 @@ public:
 // 		BEFloat m_y;
 // 		BEFloat m_z;
 // 	};
-// 
+//
 // 	class btVector4;
 // 	class be_net_type_Vector4
 // 	{
@@ -582,9 +580,9 @@ public:
 // 		BEFloat m_z;
 // 		BEFloat m_w;
 // 	};
-// 
+//
 // 	class btQuaternion;
-// 	
+//
 // 	class be_net_type_Quaternion : public be_net_type_Vector4
 // 	{
 // 	public:
@@ -594,9 +592,9 @@ public:
 // 		be_net_type_Quaternion(const btQuaternion& q);
 // 		operator btQuaternion() const;
 // 	};
-// 
+//
 // 	class btTransform;
-// 
+//
 // 	class be_net_type_Transform
 // 	{
 // 	public:
@@ -609,38 +607,38 @@ public:
 // 		be_net_type_Transform(const btTransform& transform);
 // 		operator btTransform() const;
 // 		bool operator!=(const be_net_type_Transform& rhs) const;
-// 
+//
 // 		const be_net_type_Vector3& getOrigin() const { return m_position ; }
 // 		const be_net_type_Vector3& getPosition() const { return m_position ; }
 // 		void setPosition( const be_net_type_Vector3& position ) { m_position = position; }
 // 		void setOrigin( const be_net_type_Vector3& position ) { m_position = position; }
-// 
+//
 // 		const be_net_type_Quaternion& getRotation() const { return m_rotation ; }
 // 		void setRotation( const be_net_type_Quaternion& rotation ) { m_rotation = rotation; }
 // 		void setIdentity();
-// 		
-// 		
-// 		
+//
+//
+//
 // 		const bool isValid() const
 // 		{
 // 			if ( this != this )
 // 				return false;
 // 			return true;
-// 
+//
 // // 			if (   m_position.x() != m_position.x()
 // // 				|| m_position.y() != m_position.y()
 // // 				|| m_position.z() != m_position.z()
 // // 			) return false;
-// // 
+// //
 // // 			if (   m_rotation.x() != m_rotation.x()
 // // 				|| m_rotation.y() != m_rotation.y()
 // // 				|| m_rotation.z() != m_rotation.z()
 // // 				|| m_rotation.w() != m_rotation.w()
 // // 			) return false;
-// // 
+// //
 // // 			return true;
 // 		}
-// 		
+//
 // 		void postInvalid( const std::string& header, const bool die ) const
 // 		{
 // // 			std::cout << " testing: " << header << std::endl;
@@ -657,42 +655,42 @@ public:
 // 				}
 // 			}
 // 		}
-// 		
+//
 // 	private:
 // 		be_net_type_Vector3 m_position;
 // 		be_net_type_Quaternion m_rotation;
 // 	};
-// 
+//
 // // }
-// 
+//
 // typedef be_net_type_String BEString;
 // typedef be_net_type_Vector3 BEVector3;
 // typedef be_net_type_Vector4 BEVector4;
 // typedef be_net_type_Transform BETransform;
 // typedef be_net_type_Quaternion BEQuaternion;
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // class BeSignalHistory_String;
 // class BeSignalHistory
 // {
 // 	public:
 // 		BeSignalHistory() {};
 // 		BeSignalHistory( const BeSignalHistory_String& signal_history );
-// 
+//
 // 		virtual ~BeSignalHistory(){};
 // 		void addID( const unsigned int new_id )
 // 		{
@@ -701,11 +699,11 @@ public:
 // 		const bool hasID( const unsigned int find_id ) const;
 // 		const bool hasIDorAdd( const unsigned int find_id, const unsigned int add_id );
 // 		const std::unordered_map<unsigned int, bool>& getList() const { return m_entity_history; }
-// 
+//
 // 	private:
 // 		std::unordered_map<unsigned int, bool> m_entity_history;
 // };
-// 
+//
 // class BeSignalHistory_String
 // {
 // 	public:
@@ -717,40 +715,40 @@ public:
 // 		void initString();
 // 		const char* getHistoryString() const { return m_history_string; }
 // 		void setHistoryString( char* history_string ) { m_history_string = history_string; }
-// 		
+//
 // 		void free() const
 // 		{
 // 			if ( size() > 0 )
 // 				delete[] m_history_string;
 // 		}
-// 		
-// 		
-// 		
+//
+//
+//
 // // 		const std::string getStdString() const
 // // 		{
 // // 			std::string n(m_history_string, m_history_string+m_size);
 // // // 			for ( unsigned int i(0); i < m_size; ++i )
 // // // 				n.append(m_history_string[i]);
 // // 			return n;
-// // 			
+// //
 // // // 			std::string str(buf, buf + l);
-// // 			
+// //
 // // 		}
-// 
+//
 // 	private:
 // 		char* m_history_string; // FIXME TO PRIVATE
 // 		unsigned int m_size;
-// 
+//
 // // 		std::string m_history_string;
 // // 		char* m_value[128];
 // };
-// 
-// 
-// 
-// 
-// 
-// 
-// 
+//
+//
+//
+//
+//
+//
+//
 // struct net_message_t
 // {
 // public:
@@ -758,13 +756,13 @@ public:
 // 	~net_message_t(){};
 // 	int type() const { return m_type; }
 // 	const BeSignalHistory_String& getHistory() const { return m_entity_history; }
-// 	
+//
 // 	const unsigned int sizeAddition() const
 // 	{
 // 		return m_entity_history.size();
 // 	}
 // 	BeSignalHistory_String m_entity_history;
-// 	
+//
 // protected:
 // 	net_message_t(const int type) : m_type(type) {};
 // 	net_message_t(const int type, const BeSignalHistory& entity_history) : m_type(type), m_entity_history(entity_history)
@@ -775,7 +773,7 @@ public:
 // // 		m_entity_history = entity_history;
 // // 		std::cout << "net_message_t:  post size: " << sizeof(m_entity_history) << std::endl;
 // // 		std::cout << "net_message_t:  post items: " << m_entity_history.getList().size() << std::endl;
-// 
+//
 // // 		std::cout << "net_message_t: MESSAGE NEWS" << std::endl;
 // // 		std::cout << "net_message_t:  size: " << sizeof(m_entity_history) << std::endl;
 // // 		std::cout << "net_message_t:  items: " << m_entity_history.size() << std::endl;
@@ -783,13 +781,13 @@ public:
 // private:
 // 	int m_type;
 // };
-// 
+//
 // class BeMessageHandlerI
 // {
 // public:
 // 	virtual void handle(const net_message_t& message) = 0;
 // };
-// 
+//
 // template<typename T>
 // class BeMessageHandler : public BeMessageHandlerI
 // {
@@ -806,10 +804,10 @@ public:
 // 	}
 // 	Function m_function;
 // };
-// 
+//
 // class BeMessageManager
 // {
-// 	typedef std::unordered_map< int, boost::shared_ptr<BeMessageHandlerI> > Map;
+// 	typedef std::unordered_map< int, std::shared_ptr<BeMessageHandlerI> > Map;
 // public:
 // 	template<typename T>
 // 	void setHandler(boost::function<void (const T&)> function)
@@ -820,7 +818,7 @@ public:
 // 		{
 // 			m_map.erase(it);
 // 		}
-// 		m_map[ t.type() ]=boost::make_shared< BeMessageHandler<T> >(function);
+// 		m_map[ t.type() ]=std::make_shared< BeMessageHandler<T> >(function);
 // 	}
 // 	bool handle(const net_message_t& message)
 // 	{
@@ -839,17 +837,17 @@ public:
 // 	}
 // 	Map m_map;
 // };
-// 
-// 
-// 
-// 
+//
+//
+//
+//
 // template<typename T>
 // class BeMessageHandlerI1
 // {
 // public:
 // 	virtual void handle(T t, const net_message_t& message) = 0;
 // };
-// 
+//
 // template<typename T, typename U>
 // class BeMessageHandler1 : public BeMessageHandlerI1<T>
 // {
@@ -866,11 +864,11 @@ public:
 // 	}
 // 	Function m_function;
 // };
-// 
+//
 // template<typename T>
 // class BeMessageManager1
 // {
-// 	typedef std::unordered_map< int, boost::shared_ptr<BeMessageHandlerI1<T> > > Map;
+// 	typedef std::unordered_map< int, std::shared_ptr<BeMessageHandlerI1<T> > > Map;
 // public:
 // 	template<typename U>
 // 	void setHandler(boost::function<void (T, const U&)> function)
@@ -881,7 +879,7 @@ public:
 // 		{
 // 			m_map.erase(it);
 // 		}
-// 		m_map[ t.type() ]=boost::make_shared< BeMessageHandler1<T, U> >(function);
+// 		m_map[ t.type() ]=std::make_shared< BeMessageHandler1<T, U> >(function);
 // 	}
 // 	bool handle(T t, const net_message_t& message)
 // 	{
@@ -913,5 +911,5 @@ public:
 // 	}
 // 	Map m_map;
 // };
-// 
+//
 // #endif

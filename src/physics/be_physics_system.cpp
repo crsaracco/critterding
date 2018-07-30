@@ -14,10 +14,10 @@ m_logDebug("PHYSTICS")
 	physicsdebugrenderer.setDebugMode( btIDebugDraw::DBG_DrawWireframe + btIDebugDraw::DBG_DrawConstraints + btIDebugDraw::DBG_DrawConstraintLimits );
 }
 
-boost::shared_ptr<btDynamicsWorld> BePhysicsSystem::createWorld()
+std::shared_ptr<btDynamicsWorld> BePhysicsSystem::createWorld()
 {
 	m_logDebug << "::PHYSTICS setting up bullet\n";
-	boost::shared_ptr<btDynamicsWorld> dynamicsWorld(new btSoftRigidDynamicsWorld(m_dispatcher.get(),m_broadphase.get(),m_solver.get(),m_collisionConfiguration.get()));
+	std::shared_ptr<btDynamicsWorld> dynamicsWorld(new btSoftRigidDynamicsWorld(m_dispatcher.get(),m_broadphase.get(),m_solver.get(),m_collisionConfiguration.get()));
 	if(dynamicsWorld)
 	{
 		dynamicsWorld->getSolverInfo().m_numIterations = 10;

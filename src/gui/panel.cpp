@@ -9,7 +9,7 @@ Panel::Panel( bool resizable ) : BeWidgetContainer(resizable)
 	isTouchable = true;
 	isTransparant = true;
 	isAlwaysOnTop = false;
-	
+
 	zaxis = 0;
 	if ( m_isresizable )
 	{

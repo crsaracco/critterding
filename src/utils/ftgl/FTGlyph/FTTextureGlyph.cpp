@@ -138,7 +138,7 @@ const FTPoint& FTTextureGlyphImpl::RenderImpl(const FTPoint& pen,
 
 	const auto dy_height(dy - destHeight);
 	const auto dx_width(dx + destWidth);
-	
+
     glBegin(GL_QUADS);
         glTexCoord2f(uv[0].Xf(), uv[0].Yf());
         glVertex2f(dx, dy);

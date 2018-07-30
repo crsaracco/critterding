@@ -30,7 +30,7 @@ struct vmsg
 		void		getLongestMsg();
 
 		void		deleteExpiredMsg();
-		
+
 		unsigned int	col2;
 };
 

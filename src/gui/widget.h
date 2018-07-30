@@ -44,7 +44,7 @@ class BeWidget
 
 		// drawing
 		bool			isTransparant;
-		
+
 		// width/height accessors
 		void			setDimensions(const Vector2i& dimensions) { m_dimensions = dimensions; }
 		void			setWidth(const int width) { m_dimensions.m_x = width; }
@@ -72,7 +72,7 @@ class BeWidget
 		virtual void		translate( const Vector2i& pos );
 		virtual void		resize( const Vector2i& pos );
 		virtual void		updateAbsPosition();
-		
+
 		int			getMinWidth() const { return m_min_width; }
 		int			getMinHeight() const { return m_min_height; }
 
@@ -83,7 +83,7 @@ class BeWidget
 	protected:
 		Vector2i		m_absposition;
 		bool			m_active;
-		
+
 		Settings*		settings;
 
 		// width and height

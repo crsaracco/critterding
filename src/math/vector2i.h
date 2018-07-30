@@ -7,7 +7,7 @@ public:
 	Vector2i();
 	Vector2i(const int xv, const int yv);
 	~Vector2i();
-	
+
 	void set( const int xv, const int yv ) { m_x = xv; m_y = yv; }
 	Vector2i operator+(const Vector2i &other) const;
 	int	m_x;

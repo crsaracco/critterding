@@ -21,7 +21,7 @@ class BeWidgetContainer : public BeWidget
 
 		virtual void resize( int x, int y );
 		virtual void updateAbsPosition();
-		
+
 		bool isResizable() const { return m_isresizable; }
 
 		int getMarginLeft() const { return m_margin_left; }
@@ -30,9 +30,9 @@ class BeWidgetContainer : public BeWidget
 		int getMarginBottom() const { return m_margin_bottom; }
 
 		std::map<std::string, BeWidgetPtr> children;
-		
+
 		BeWidgetPtr get( const std::string& name );
-		
+
 	protected:
 		virtual void drawChildren();
 
@@ -44,7 +44,7 @@ class BeWidgetContainer : public BeWidget
 
 		// children map iterator
 		std::map <std::string, BeWidgetPtr>::const_iterator childit;
-		
+
 		// flags
 		bool			m_isresizable;
 

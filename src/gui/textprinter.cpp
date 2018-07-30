@@ -6,7 +6,7 @@
 #include "filesystem/be_filesystem.h"
 
 
-Textprinter* Textprinter::Instance () 
+Textprinter* Textprinter::Instance ()
 {
 	static Textprinter t;
 	return &t;
@@ -47,7 +47,7 @@ void Textprinter::printR(int x, int y, const char *fmt, ...)
 	va_start(ap, fmt);
 	char text[1024];
 	vsprintf(text, fmt, ap);
-	
+
 	glPushMatrix();
 
 // 		glTranslatef(x - (int)m_font->BBox(text).Upper().X(), y, 0);
@@ -115,18 +115,18 @@ void Textprinter::setUpFonts(BeFilesystem& filesystem)
 	BeFile befileFont;
 	if ( filesystem.load( befileFont, "font.ttf" ) )
 	{
-		
+
 		// clear if exists
 // 		if ( fonts )
 // 		{
 // 			delete m_font;
 // 			delete fonts;
 // 		}
-		
+
 		// Allocate an array to hold all fonts
 // 		fonts = new FTFont *[1];
 
-		
+
 // 		font = new FTBitmapFont(file.c_str());
 // 		font = new FTPixmapFont(file.c_str());
 // 		font = new FTOutlineFont(file.c_str());
@@ -146,7 +146,7 @@ void Textprinter::setUpFonts(BeFilesystem& filesystem)
 			std::cerr << "Failed to set size" << std::endl;
 			exit(1);
 		}
-		
+
 	}
 
 }

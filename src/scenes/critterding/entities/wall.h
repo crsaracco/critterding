@@ -23,7 +23,7 @@ class Wall : public Entity
 // 		void			create(float X, float Y, float Z, btVector3 position, btDynamicsWorld* m_dynamicsWorld);
 
 // 		float			color[4];
-		boost::shared_ptr<BeGraphicsModelResource> m_model;
+		std::shared_ptr<BeGraphicsModelResource> m_model;
 	private:
 		float			halfX;
 		float			halfY;

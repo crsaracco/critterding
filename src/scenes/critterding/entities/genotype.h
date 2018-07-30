@@ -13,15 +13,15 @@ class Genotype
 
 		unsigned int adamdist;
 		BeColor speciescolor;
-		
+
 		BodyArch* bodyArch;
 		BrainzArch* brainzArch;
-		
+
 		unsigned int count;
 		void registerBrainInputOutputs();
-		
+
 		std::string saveGenotype();
-		
+
 	private:
 };
 

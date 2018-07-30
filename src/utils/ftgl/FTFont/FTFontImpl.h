@@ -144,7 +144,7 @@ class FTFontImpl
         FTPoint pen;
 
         FTPoint m_position;
-		
+
         /* Internal generic BBox() implementation */
         template <typename T>
         inline FTBBox BBoxI(const T *s, const int len,

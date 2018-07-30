@@ -23,8 +23,8 @@ btVector3 BeCameraPerspective::getScreenDirection(const float x, const float y)
 	}
 	const btVector3& rayFrom = tr.getOrigin();
 
-	btVector3 rayForward( -tr.getBasis()[0][2], -tr.getBasis()[1][2], -tr.getBasis()[2][2]); 
-	btVector3 rayUp( tr.getBasis()[0][1], tr.getBasis()[1][1], tr.getBasis()[2][1]); 
+	btVector3 rayForward( -tr.getBasis()[0][2], -tr.getBasis()[1][2], -tr.getBasis()[2][2]);
+	btVector3 rayUp( tr.getBasis()[0][1], tr.getBasis()[1][1], tr.getBasis()[2][1]);
 
 	rayForward.normalize();
 
@@ -44,14 +44,14 @@ btVector3 BeCameraPerspective::getScreenDirection(const float x, const float y)
 	hor *= (float)*settings->winWidth / *settings->winHeight;
 
 	btVector3 rayTo = (rayFrom + rayForward) - 0.5f * hor + 0.5f * vertical;
-	
+
 	rayTo += x * hor * 1.f / *settings->winWidth;
 	rayTo -= y * vertical * 1.f / *settings->winHeight;
 
-	
-	
-	
-	
+
+
+
+
 	return rayTo;
 }
 
@@ -60,8 +60,8 @@ btVector3 BeCameraPerspective::getScreenDirection(const float x, const float y, 
 {
 	const btVector3& rayFrom = tr.getOrigin();
 
-	btVector3 rayForward( -tr.getBasis()[0][2], -tr.getBasis()[1][2], -tr.getBasis()[2][2]); 
-	btVector3 rayUp( tr.getBasis()[0][1], tr.getBasis()[1][1], tr.getBasis()[2][1]); 
+	btVector3 rayForward( -tr.getBasis()[0][2], -tr.getBasis()[1][2], -tr.getBasis()[2][2]);
+	btVector3 rayUp( tr.getBasis()[0][1], tr.getBasis()[1][1], tr.getBasis()[2][1]);
 
 	rayForward.normalize();
 
@@ -81,14 +81,14 @@ btVector3 BeCameraPerspective::getScreenDirection(const float x, const float y, 
 	hor *= (float)*settings->winWidth / *settings->winHeight;
 
 	btVector3 rayTo = (rayFrom + rayForward) - 0.5f * hor + 0.5f * vertical;
-	
+
 	rayTo += x * hor * 1.f / *settings->winWidth;
 	rayTo -= y * vertical * 1.f / *settings->winHeight;
 
-	
-	
-	
-	
+
+
+
+
 	return rayTo;
 }
 

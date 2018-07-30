@@ -9,12 +9,12 @@ class ArchSynapse
 
 		// determines if id referes to an interneuron or sensorneuron
 			bool		isSensorNeuron;
-	
+
 		// id of neuron which axon connects to this synapse
 			unsigned int	neuronID;
 			int	realneuronID;
 			unsigned int	neurontargetlayer;
-	
+
 		// dendridic weight according
 // 			unsigned int	dendriteBranch;
 

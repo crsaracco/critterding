@@ -20,7 +20,7 @@ Wall::Wall(const float X, const float Y, const float Z, const btTransform& trans
 // 	color.a		= 0.0f;
 
 	groundShape = new btBoxShape( btVector3( halfX ,halfY, halfZ ) );
-	
+
 // 	groundTransform.setIdentity();
 // 	groundTransform.setOrigin( position );
 
@@ -28,20 +28,20 @@ Wall::Wall(const float X, const float Y, const float Z, const btTransform& trans
 	fixedGround->setUserPointer(this);
 	fixedGround->setCollisionShape(groundShape);
 	fixedGround->setWorldTransform(groundTransform);
-	
+
 	fixedGround->setFriction(0.8f);                                  // added by Ethical
-  
+
 	m_ownerWorld->addCollisionObject(fixedGround);
 
 	groundTransform.getOpenGLMatrix(nposition);
-	
+
 	type = WALL;
 	isPicked = false;
 }
 
 void Wall::draw()
 {
-	glPushMatrix(); 
+	glPushMatrix();
 		Displaylists::Instance()->glMultiMatrix(nposition);
 
 		glColor4f( color.r(), color.g(), color.b(), color.a() );
@@ -58,7 +58,7 @@ void Wall::draw( const bool do_color, const bool do_scale )
 	if ( m_model )
 	{
 // 		std::cout << "a" << std::endl;
-		glPushMatrix(); 
+		glPushMatrix();
 			Displaylists::Instance()->glMultiMatrix(nposition);
 
 			if ( do_color )
@@ -70,13 +70,13 @@ void Wall::draw( const bool do_color, const bool do_scale )
 			m_model->get()->setContext( 0 );
 			m_model->get()->draw( 0 );
 
-		glPopMatrix(); 
+		glPopMatrix();
 	}
 	else
 	{
 // 		std::cout << "b" << std::endl;
 // 		myMotionState->m_graphicsWorldTrans.getOpenGLMatrix(position);
-		glPushMatrix(); 
+		glPushMatrix();
 			Displaylists::Instance()->glMultiMatrix(nposition);
 
 			if ( do_color )
@@ -84,45 +84,45 @@ void Wall::draw( const bool do_color, const bool do_scale )
 
 			if ( do_scale )
 				glScalef(halfX, halfY, halfZ);
-			
+
 			Displaylists::Instance()->call();
-		glPopMatrix(); 
+		glPopMatrix();
 	}
 }
 
 // void Wall::draw()
 // {
-// 	glPushMatrix(); 
+// 	glPushMatrix();
 // 		Displaylists::Instance()->glMultiMatrix(nposition);
 // 		glColor4f( color.r(), color.g(), color.b(), color.a() );
 // 		glScalef(halfX, halfY, halfZ);
 // 		Displaylists::Instance()->call();
-// 	glPopMatrix(); 
+// 	glPopMatrix();
 // }
-// 
+//
 // void Wall::draw( const bool do_color, const bool do_scale )
 // {
-// 	glPushMatrix(); 
+// 	glPushMatrix();
 // 		Displaylists::Instance()->glMultiMatrix(nposition);
-// 
+//
 // 		if ( do_color )
 // 			glColor4f( color.r(), color.g(), color.b(), color.a() );
-// 		
+//
 // 		if ( do_scale )
 // 			glScalef(halfX, halfY, halfZ);
-// 		
+//
 // 		Displaylists::Instance()->call();
-// 	glPopMatrix(); 
+// 	glPopMatrix();
 // }
 
 Wall::~Wall()
 {
 	if ( fixedGround )
 		m_ownerWorld->removeCollisionObject(fixedGround);
-	
+
 	if ( groundShape )
 		delete groundShape;
-	
+
 	if ( fixedGround )
 		delete fixedGround;
 }

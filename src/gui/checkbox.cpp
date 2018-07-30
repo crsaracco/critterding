@@ -20,13 +20,13 @@ void BeWidgetCheckbox::draw()
 void BeWidgetCheckbox::genEvent(const int& button, const std::string& name, const BeCommand& cmds, EventProperty_Repeat repeat, unsigned int delay )
 {
 	eventname = name;
-	buttonlist[button] = BeEventSystem::Instance()->registerEvent( DOWN, eventname, boost::shared_ptr<Event>(new Event( cmds, repeat, delay) ) );
+	buttonlist[button] = BeEventSystem::Instance()->registerEvent( DOWN, eventname, std::shared_ptr<Event>(new Event( cmds, repeat, delay) ) );
 	settingPointer = settings->getCVarPtr( cmds.m_argString );
 }
 
 void BeWidgetCheckbox::genEvent(const int& button, const std::string& name, const BeCommand& cmds, const std::string& settingname, EventProperty_Repeat repeat, unsigned int delay )
 {
 	eventname = name;
-	buttonlist[button] = BeEventSystem::Instance()->registerEvent( DOWN, eventname, boost::shared_ptr<Event>(new Event( cmds, repeat, delay) ) );
+	buttonlist[button] = BeEventSystem::Instance()->registerEvent( DOWN, eventname, std::shared_ptr<Event>(new Event( cmds, repeat, delay) ) );
 	settingPointer = settings->getCVarPtr( settingname );
 }

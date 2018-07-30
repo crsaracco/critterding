@@ -4,7 +4,7 @@
 #endif
 #include "dirlayout.h"
 
-Dirlayout* Dirlayout::Instance () 
+Dirlayout* Dirlayout::Instance ()
 {
 	static Dirlayout t;
 	return &t; // _instance isn't needed in this case

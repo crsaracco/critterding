@@ -17,7 +17,7 @@ Bodypart::Bodypart(btDynamicsWorld* ownerWorld, void* owner, const btVector3& di
 		shape->calculateLocalInertia(weight,localInertia);
 
 	myMotionState = new btDefaultMotionState(offset*transform);
-	
+
 	btRigidBody::btRigidBodyConstructionInfo rbInfo(weight,myMotionState,shape,localInertia);
 	body = new btRigidBody(rbInfo);
 
@@ -28,14 +28,14 @@ Bodypart::Bodypart(btDynamicsWorld* ownerWorld, void* owner, const btVector3& di
 // 	body->setSleepingThresholds(1.6f, 2.5f);
 	body->setDeactivationTime(0.00001f);
 	body->setSleepingThresholds(0.4f, 0.4f);
-	
+
 // 	body->setDeactivationTime(0.f);
 // 	body->setSleepingThresholds(0.f, 0.f);
 // 	body->setActivationState(DISABLE_DEACTIVATION);
 
     body->setFriction(0.8f);                                     // added by Ethical
     body->setRestitution(0.6f);
-	
+
 	m_ownerWorld->addRigidBody(body);
 }
 

@@ -17,7 +17,7 @@ bool Dir::exists(const Path& directory) const
 void Dir::make(const Path& directory) const
 {
 	const path directoryPath(directory);
-	create_directory(directoryPath);        
+	create_directory(directoryPath);
 }
 
 void Dir::listContents(const Path& dir, Paths& files, const bool fullPath) const
@@ -35,13 +35,13 @@ void Dir::listContents(const Path& dir, Paths& files, const bool fullPath) const
 // 					Path finalPath(dir);
 // 					finalPath += "/";
 // 					finalPath += iter->leaf();
-					
+
 // 					std::stringstream fullSS;
 // 					fullSS << iter->path().string();
 // 					std::cout << iter->path().filename() << std::endl;
-					
+
 // 					finalPath += iter->path().filename();
-					
+
 // 					files.push_back(finalPath);
 					files.push_back(iter->path().string());
 // 					std::cout << fullSS.str() << std::endl;

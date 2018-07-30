@@ -67,13 +67,13 @@ bool BeFile::loadFile( )
 		std::cerr << "  ERROR  ::filename: " << m_fullfilename << std::endl;
 		return false;
 	}
-	
+
 	if ( fstream.is_open() )
 	{
 		if ( fstream.good() )
 		{
 			boost::iostreams::filtering_streambuf<boost::iostreams::input> in;
-			
+
 			bool is_compressed(false);
 			if ( m_fullfilename.find(".bz2") != std::string::npos )
 				is_compressed = true;
@@ -129,7 +129,7 @@ bool BeFile::getLine( std::string& line )
 	{
 		char str[500000];
 // 		memset(str, 0, 500000);
-		
+
 		m_content.getline(str,500000);
 		line = str;
 
@@ -155,7 +155,7 @@ void BeFile::appendLine( const std::string& append )
 void BeFile::prependLine( const std::string& prepend )
 {
 	std::string content_copy(m_content.str());
-	
+
 	m_content.str(prepend + content_copy);
 // 	m_content.clear();
 // 	m_content << prepend << content_copy;

@@ -48,7 +48,7 @@ CLNBody::CLNBody()
 		cl->createBuffer(updatedVel, numBodies * sizeof(cl_float4), vel, CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR);
 		/* get a kernel object handle for a kernel with the given name */
 		cl->createKernel( kernel, "critterding_sim");
-	
+
 	// Set appropriate arguments to the kernel
 		/* Particle positions */
 		cl->setKernelArg( kernel, 0, sizeof(cl_mem), (void*)&updatedPos);
@@ -60,7 +60,7 @@ CLNBody::CLNBody()
 		cl->setKernelArg( kernel, 3, sizeof(cl_float), (void*)&delT);
 		/* upward Pseudoprobability */
 		cl->setKernelArg( kernel, 4, sizeof(cl_float), (void*)&espSqr);
-		/* local memory, localPos */ 
+		/* local memory, localPos */
 		cl->setKernelArg( kernel, 5, GROUP_SIZE * 4 * sizeof(float), NULL);
 
 	cl->checkLocalMemsize(kernel);
@@ -82,7 +82,7 @@ CLNBody::CLNBody()
 		initVel[3] = 0.0f;
 	}
 	memcpy(pos, initPos, 4 * numBodies * sizeof(cl_float));
-	memcpy(vel, initVel, 4 * numBodies * sizeof(cl_float));	
+	memcpy(vel, initVel, 4 * numBodies * sizeof(cl_float));
 
 }
 
@@ -100,7 +100,7 @@ void CLNBody::process()
 //  	cl->flushCL(cl->commandQueue);
 	cl->finish(cl->commandQueue);
 	/* Enqueue readBuffer*/
-	
+
 	cl->enqueueReadBuffer( cl->commandQueue, updatedPos, CL_TRUE, 0, numBodies* sizeof(cl_float4), pos, 0, NULL, &cl->events[0]);
 	/* Wait for the read buffer to finish execution */
 	cl->waitForEvents(1, &cl->events[0]);

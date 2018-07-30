@@ -33,7 +33,7 @@ public:
 	{
 	}
 	virtual ~BeCameraPerspective(){}
-	
+
 	btVector3 getScreenDirection(const float x, const float y);
 	btVector3 getScreenDirection(const float x, const float y, const btTransform& tr);
 

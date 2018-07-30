@@ -29,7 +29,7 @@ class Body
 
 		std::vector<Mouth*>		mouths;
 		void			addMouth(void* owner, float x, float y, float z, float weight, btTransform& offset, btTransform& transform);
-		
+
 		std::vector<Constraint*>	constraints;
 		void			addConstraint(unsigned int bodypartID1, unsigned int bodypartID2, btTransform& localA, btTransform& localB, double limitA, double limitB);
 		void			addConeTwistConstraint(unsigned int bodypartID1, unsigned int bodypartID2, btTransform& localA, btTransform& localB, double limitA, double limitB, double limitC);

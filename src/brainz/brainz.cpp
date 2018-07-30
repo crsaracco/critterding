@@ -47,13 +47,13 @@ Brainz::Brainz()
 				auto& t_archneuron( brainzArch->ArchNeurons[i] );
 
 // 				Neurons.push_back( NeuronInterz( t_archneuron.isInhibitory, t_archneuron.isPlastic, t_archneuron.firingThreshold, 0.001f * t_archneuron.potentialDecay ) );
-				
+
 
 // 				ni.isMotor		= t_archneuron.isMotor;
 				if (t_archneuron.isMotor)
 				{
 					const auto mneuron		= brainzArch->findMotorNeuron(t_archneuron.motorID);
-					
+
 					if ( t_archneuron.isPlastic )
 						Neurons.push_back( new NeuronInterz_Plastic( t_archneuron.isInhibitory, t_archneuron.firingThreshold, 0.001f * t_archneuron.potentialDecay, mneuron, Outputs[mneuron].output, 1.0f+(1.0f/t_archneuron.plasticityStrengthen), 1.0f-(1.0f/t_archneuron.plasticityWeaken) ) );
 					else
@@ -83,7 +83,7 @@ Brainz::Brainz()
 			{
 				auto& slist( brainzArch->ArchNeurons[i].ArchSynapses );
 				auto& n( Neurons[i] );
-				
+
 				// count connections
 				totalSynapses += slist.size();
 
@@ -93,23 +93,23 @@ Brainz::Brainz()
 					if ( t_synapse.isSensorNeuron )
 					{
 						t_synapse.realneuronID = brainzArch->findSensorNeuron(t_synapse.neuronID);
-// 						n->connec( &Inputs[ t_synapse.realneuronID ].output, 
-						n->connec( Inputs[ t_synapse.realneuronID ].output, 
+// 						n->connec( &Inputs[ t_synapse.realneuronID ].output,
+						n->connec( Inputs[ t_synapse.realneuronID ].output,
 // 							t_synapse.dendriteBranch,
 							t_synapse.weight );
 					}
 					else
-// 						n->connec( Neurons[ t_synapse.neuronID ]->outputPointer(), 
+// 						n->connec( Neurons[ t_synapse.neuronID ]->outputPointer(),
 // // 							t_synapse.dendriteBranch,
 // 							t_synapse.weight );
-						n->connec( Neurons[ t_synapse.neuronID ]->getOutput(), 
+						n->connec( Neurons[ t_synapse.neuronID ]->getOutput(),
 // 							t_synapse.dendriteBranch,
 							t_synapse.weight );
 				}
 			}
 
 			brainzArch->totalSynapses = totalSynapses;
-			
+
 			m_neurons_end = Neurons.end();
 
 			//cerr << "total neurons: " << totalNeurons << "total synapses: " << totalSynapses << endl;
@@ -132,29 +132,29 @@ Brainz::Brainz()
 		// reset fired neurons counter
 		neuronsFired = 0;
 		motorneuronsFired = 0;
-		
+
 		const auto& end(Outputs.size());
 		for ( unsigned int i(0); i < end; ++i )
 			*Outputs[i].output = false;
 
-		
-		
-		
-		
-		
+
+
+
+
+
 // // 		const std::vector<NeuronInterz*> t_Neurons(Neurons);
 // 		const unsigned int numNeurons = Neurons.size();
 // 		unsigned int i;
 // 		unsigned int t_neuronsFired(0);
 // 		unsigned int t_motorneuronsFired(0);
-// 		
+//
 // // 		omp_set_num_threads(2);
 // 		#pragma omp parallel for
 // 		for (i = 0; i < numNeurons; ++i)
 // 		{
 // 			Neurons[i]->process();
 // 		}
-// 	
+//
 // 		for (i = 0; i < numNeurons; ++i)
 // 		{
 // 			NeuronInterz* n(Neurons[i]);
@@ -162,7 +162,7 @@ Brainz::Brainz()
 // 			if ( n->fired() )
 // 			{
 // 				++t_neuronsFired;
-// 
+//
 // 				// motor neuron check & exec
 // 				if ( n->motor() )
 // 				{
@@ -171,18 +171,18 @@ Brainz::Brainz()
 // 				}
 // 			}
 // 		}
-// 		
+//
 // 		neuronsFired = t_neuronsFired;
 // 		motorneuronsFired = t_motorneuronsFired;
-		
-		
-		
+
+
+
 		for ( m_neurons_it = Neurons.begin(); m_neurons_it != m_neurons_end; ++m_neurons_it )
 		{
 			NeuronInterz* n(*m_neurons_it);
-	
+
 			n->process();
-	
+
 			// if neuron fires
 			if ( n->fired() )
 			{
@@ -199,64 +199,64 @@ Brainz::Brainz()
 
 // 		const unsigned int numNeurons = Neurons.size();
 // 		unsigned int i;
-//  
+//
 // 		#pragma omp parallel for
 // 		for (i = 0; i < numNeurons; ++i)
 // 		{
 // 			Neurons[i]->commitOutput();
 // 		}
 
-	
+
 // 		// commit outputs at the end
 // 		auto t_neurons_it;
 // 		std::vector<NeuronInterz*>::iterator t_end = m_neurons_end;
-// 		#pragma omp parallel for private(t_neurons_it,t_end) 
+// 		#pragma omp parallel for private(t_neurons_it,t_end)
 // 		for ( t_neurons_it = Neurons.begin(); t_neurons_it != t_end; ++t_neurons_it )
 // 		{
 // 			(*t_neurons_it)->commitOutput();
 // 		}
 // 		for ( m_neurons_it = Neurons.begin(); m_neurons_it != t_end; ++m_neurons_it )
 
-		
-		
-		
-		
-		
+
+
+
+
+
 		for ( m_neurons_it = Neurons.begin(); m_neurons_it != m_neurons_end; ++m_neurons_it )
 			(*m_neurons_it)->commitOutput();
-		
+
 	}
 
 	void Brainz::processTillAnswer()
 	{
 //		neuronsFired = 0;
-	
+
 		// clear Motor Outputs
 		for ( unsigned int i=0; i < numberOfOutputs; ++i )
 			Outputs[i].output = 0;
-	
+
 		// clear Neurons
 		for ( unsigned int i=0; i < totalNeurons; ++i )
 		{
 			Neurons[i]->reset();
 		}
-	
+
 		unsigned int counter = 0;
 		bool motorFired = false;
-	
+
 		while ( counter < 1000 && !motorFired )
 		{
 			for ( unsigned int i=0; i < totalNeurons; ++i )
 			{
 				NeuronInterz* n = Neurons[i];
-		
+
 				n->process();
-		
+
 				// if neuron fires
 				if ( n->fired() )
 				{
 					++neuronsFired;
-		
+
 					// motor neuron check & exec
 					if ( n->motor() )
 					{
@@ -275,7 +275,7 @@ Brainz::Brainz()
 // 	// 			n = &Neurons[i];
 // 				n.output = n.waitoutput;
 			}
-	
+
 			++counter;
 		}
 	}

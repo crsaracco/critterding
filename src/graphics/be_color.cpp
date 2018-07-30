@@ -25,13 +25,13 @@ BeColor BeColor::randomBeColorRGB()
 		, (float)BeRand::Instance()->get( 1,1000 ) / 1000.0f
 		, 1.0f
 	);
-	
+
 // 	BeColor c;
 // 	c.r = (float)BeRand::Instance()->get( 1,100 ) / 100.0f;
 // 	c.g = (float)BeRand::Instance()->get( 1,100 ) / 100.0f;
 // 	c.b = (float)BeRand::Instance()->get( 1,100 ) / 100.0f;
 // 	c.a = 0.0f;
-// 	
+//
 // 	return c;
 }
 
@@ -50,7 +50,7 @@ void BeColor::normalize(BeColor* c)
 	c->setG( c->g() / highest );
 	c->setB( c->b() / highest );
 	c->setA( c->a() / highest );
-/*	
+/*
 	c->r /= highest;
 	c->g /= highest;
 	c->b /= highest;
@@ -73,7 +73,7 @@ BeColor BeColor::getNormalized()
 		, b()/highest
 		, a()/highest
 	);
-	
+
 // 	BeColor c;
 // 	c.r = r/highest;
 // 	c.g = g/highest;

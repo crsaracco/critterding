@@ -6,7 +6,7 @@
 class Roundworld : public WorldB {
 
 	public:
-		Roundworld(  boost::shared_ptr<BeGraphicsSystem> system, BeFilesystem& fileSystem, boost::shared_ptr<Textverbosemessage> textverbosemessage );
+		Roundworld(  std::shared_ptr<BeGraphicsSystem> system, BeFilesystem& fileSystem, std::shared_ptr<Textverbosemessage> textverbosemessage );
 		~Roundworld();
 
 		void		process(const BeTimer& timer);
@@ -19,15 +19,15 @@ class Roundworld : public WorldB {
 		void		drawfloor();
 		void		childPositionOffset(btTransform* v);
 		virtual void resetCamera();
-		
+
 // 		btCollisionObject* fixedGround;
 // 		btCollisionShape* groundShape;
 		btTransform groundTransform;
-// 		boost::shared_ptr<BeGraphicsModelResource> m_model;
-		
+// 		std::shared_ptr<BeGraphicsModelResource> m_model;
+
 		virtual void updateCameraTransform( const float timeDelta );
 // 		virtual void setLights();
-		
+
 };
 
 #endif

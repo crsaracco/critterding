@@ -8,7 +8,7 @@ class BeLight
 {
 	friend class BeGraphicsSystem;
 protected:
-	BeLight() : 
+	BeLight() :
 	m_ambient(1,1,1,1),
 	m_diffuse(1,1,1,1),
 	m_specular(0,0,0,1),

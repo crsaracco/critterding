@@ -11,20 +11,20 @@ Body::Body()
 // {
 // 	Bodypart *b = new Bodypart(m_ownerWorld);
 // 	bodyparts.push_back( b );
-// 
+//
 // 	b->shape = new btCapsuleShape(width, height);
-// 
+//
 // 	btVector3 localInertia(0,0,0);
 // 	if (weight != 0.f) // weight of non zero = dynamic
 // 		b->shape->calculateLocalInertia(weight,localInertia);
-// 
+//
 // 	btDefaultMotionState* myMotionState = new btDefaultMotionState(offset*transform);
-// 	
+//
 // 	btRigidBody::btRigidBodyConstructionInfo rbInfo(weight,myMotionState,b->shape,localInertia);
 // 	b->body = new btRigidBody(rbInfo);
-// 
+//
 // 	m_ownerWorld->addRigidBody(b->body);
-// 
+//
 //  	b->body->setUserPointer(owner);
 // 	b->body->setDamping(0.05, 0.85);
 // 	b->body->setDeactivationTime(0.001);
@@ -101,7 +101,7 @@ void Body::addMouthConstraint(unsigned int bodypartID, unsigned int mouthID, btT
 void Body::wireArch(BodyArch* bodyArch, void* owner, btDynamicsWorld* ownerWorld, const btTransform& startOffset)
 {
 	m_ownerWorld = ownerWorld;
-	
+
 	btTransform offset(startOffset);
 	for ( unsigned int i=0; i < bodyArch->archBodyparts.size(); i++ )
 	{
@@ -162,7 +162,7 @@ void Body::wireArch(BodyArch* bodyArch, void* owner, btDynamicsWorld* ownerWorld
 
 		// find the ID's to connect
 		int bpID_1 = bodyArch->findBodypart( co->id_1 );
-		
+
 		if ( co->isMouthConstraint )
 		{
 			int bpID_2 = bodyArch->findMouth( co->id_2 );

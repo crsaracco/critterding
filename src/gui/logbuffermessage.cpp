@@ -1,12 +1,12 @@
 #include "logbuffermessage.h"
 #include "textprinter.h"
 
-Logbuffermessage::Logbuffermessage( boost::shared_ptr<Logbuffer> logBuffer ) : Panel(false), m_logBuffer(logBuffer)
+Logbuffermessage::Logbuffermessage( std::shared_ptr<Logbuffer> logBuffer ) : Panel(false), m_logBuffer(logBuffer)
 {
 	isMovable = true;
 	isAlwaysOnTop = true;
 	m_active = true;
-	
+
 	vpadding = 10;
 	hpadding = 10;
 
@@ -18,11 +18,11 @@ void Logbuffermessage::draw()
 	if ( m_active && !m_logBuffer->getMessages().empty() )
 	{
 // 		m_active = true;
-		
+
 		unsigned int height = 5;
 
 		m_dimensions.set(m_logBuffer->getLongestLength() + ( hpadding*2 ), (15 * (m_logBuffer->getMessages().size()-1)) + height + ( vpadding*2 ));
-		
+
 	// draw background box and border
 		drawBackground();
 		drawBorders();
@@ -40,7 +40,7 @@ void Logbuffermessage::draw()
 void Logbuffer::add(const std::string& msgstring)
 {
 	m_messages.push_back( Msg( msgstring, Textprinter::Instance()->getWidth( msgstring ) ) );
-	
+
 	if ( m_messages.size() > m_maxMessages )
 		m_messages.erase(m_messages.begin());
 

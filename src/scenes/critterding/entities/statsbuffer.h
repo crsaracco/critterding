@@ -7,7 +7,7 @@ struct statsSnapshot
 {
 	unsigned int		critters;
 	unsigned int		food;
-	
+
 	unsigned int		neurons;
 	unsigned int		synapses;
 	float				adamdistance;
@@ -37,14 +37,14 @@ class Statsbuffer
 		unsigned int m_graph_highest;
 		unsigned int m_graph_consider_highest_start;
 		long long frameCounter;
-		
+
 	protected:
 		Statsbuffer();
 	private:
 		static Statsbuffer*	_instance;
 
 		inline void findHighestGraphValue();
-		
+
 		const unsigned int		recordInterval;
 		unsigned int			framecounter;
 		const unsigned int		maxSnapshots;

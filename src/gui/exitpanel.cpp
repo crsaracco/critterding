@@ -6,7 +6,7 @@ Exitpanel::Exitpanel() : Panel(false)
 	isHCentered = true;
 	isVCentered = true;
 	isAlwaysOnTop = true;
-	
+
 	m_dimensions.set(300, 86);
 
 	addWidget("askexit", Vector2i(10, 20), BeWidgetTextPtr(new BeWidgetText("Are you sure you want to exit?")));

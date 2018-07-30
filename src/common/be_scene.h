@@ -17,9 +17,9 @@ class BeScene {
 			clean();
 		}
 protected:
-	virtual void quit() 
-	{ 
-		m_exitscene = true; 
+	virtual void quit()
+	{
+		m_exitscene = true;
 	}
 private:
 		virtual void init() {};

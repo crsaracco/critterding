@@ -21,7 +21,7 @@ class brain
 		void			updateMotorCount();
 		vector<char>		motors;
 		vector<unsigned int>	motorCount;
-		
+
 		double			weight;
 
 		float			processed;

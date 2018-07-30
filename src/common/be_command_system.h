@@ -39,7 +39,7 @@ private:
 	typedef std::map< std::string, FunctionInt > MapFunctionInt;
 	typedef std::map< std::string, FunctionFloat > MapFunctionFloat;
 	typedef std::map< std::string, FunctionString > MapFunctionString;
-	
+
 	MapFunctionVoid		m_mapFunctionVoid;
 	MapFunctionInt		m_mapFunctionInt;
 	MapFunctionFloat	m_mapFunctionFloat;

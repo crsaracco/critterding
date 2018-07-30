@@ -4,7 +4,7 @@
 // PFNGLGENBUFFERSARBPROC glGenBuffersARB = NULL;
 // PFNGLBUFFERDATAARBPROC glBufferDataARB = NULL;
 
-// 	GLfloat vertices[] = 
+// 	GLfloat vertices[] =
 // 	{
 // 		1.0f, 1.0f, 1.0f,   //V2
 // 		1.0f,-1.0f, 1.0f,   //V1
@@ -36,8 +36,8 @@
 // 		-1.0f,-1.0f, 1.0f,   //V8
 // 		-1.0f,-1.0f,-1.0f   //V6
 // 	};
-// 
-// 	GLfloat normals[] = 
+//
+// 	GLfloat normals[] =
 // 	{
 // 		 1.0f, 0.0f, 0.0f,
 // 		 0.0f, 0.0f,-1.0f,
@@ -46,8 +46,8 @@
 // 		 0.0f, 1.0f, 0.0f,
 // 		0.0f, -1.0f, 0.0f
 // 	};
-// 
-// 	GLfloat colors[] = 
+//
+// 	GLfloat colors[] =
 // 	{
 // 		 1.0f, 0.0f, 0.0f,
 // 		 0.0f, 0.0f, 1.0f,
@@ -56,8 +56,8 @@
 // 		 0.0f, 1.0f, 0.0f,
 // 		0.0f,  1.0f, 0.0f
 // 	};
-	
-Displaylists* Displaylists::Instance() 
+
+Displaylists* Displaylists::Instance()
 {
 	static Displaylists t;
 	return &t;
@@ -65,9 +65,9 @@ Displaylists* Displaylists::Instance()
 
 // void Displaylists::drawShadow(btScalar* m,const btVector3& extrusion,const btCollisionShape* shape, ShapeCache* sc,const btVector3& worldBoundsMin,const btVector3& worldBoundsMax)
 // {
-// 	glPushMatrix(); 
+// 	glPushMatrix();
 // // 	glMultMatrixf(m);
-// // 	glMultMatrixd(m); // FIXME WATCHIT OK WENT TO DOUBLE HERE 
+// // 	glMultMatrixd(m); // FIXME WATCHIT OK WENT TO DOUBLE HERE
 // 	glMultiMatrix(m);
 // 	if(shape->getShapeType() == UNIFORM_SCALING_SHAPE_PROXYTYPE)
 // 	{
@@ -98,7 +98,7 @@ Displaylists* Displaylists::Instance()
 // 			btShapeHull* hull =&sc->m_shapehull;
 // 			glBegin(GL_QUADS);
 // 			for(int i=0;i<sc->m_edges.size();++i)
-// 			{			
+// 			{
 // 				const btScalar d=btDot(sc->m_edges[i].n[0],extrusion);
 // 				if(( d * btDot(sc->m_edges[i].n[1],extrusion)) < 0 )
 // 				{
@@ -113,20 +113,20 @@ Displaylists* Displaylists::Instance()
 // 			}
 // 			glEnd();
 // 		}
-// 
+//
 // 	}
 // 	glPopMatrix();
-// 
+//
 // }
 
 GLuint Displaylists::createVBO(const void* data, int dataSize, GLenum target, GLenum usage)
 {
         GLuint id = 0;
-        
+
 //         glGenBuffersARB(1, &id);
 //         glBindBufferARB(target, id);
 //         glBufferDataARB(target, dataSize, data, usage);
-        
+
         return id;
 }
 
@@ -139,12 +139,12 @@ Displaylists::Displaylists()
 // 	glBindBufferARB = (PFNGLBINDBUFFERARBPROC)SDL_GL_GetProcAddress("glBindBufferARB");
 // 	glBufferDataARB = (PFNGLBUFFERDATAARBPROC)SDL_GL_GetProcAddress("glBufferDataARB");
 // 	glBufferSubDataARB = (PFNGLBUFFERSUBDATAARBPROC)SDL_GL_GetProcAddress("glBufferSubDataARB");
-// 
+//
 // 	vboId = createVBO(NULL, sizeof(vertices) + sizeof(normals), GL_ARRAY_BUFFER_ARB, GL_STATIC_DRAW_ARB); //  + sizeof(colors)
 // 		glBufferSubDataARB(GL_ARRAY_BUFFER_ARB, 0, sizeof(vertices), vertices);
 // 		glBufferSubDataARB(GL_ARRAY_BUFFER_ARB, sizeof(vertices), sizeof(normals), normals);
 // // 		glBufferSubDataARB(GL_ARRAY_BUFFER_ARB, sizeof(vertices) + sizeof(normals), sizeof(colors), colors);
-// 
+//
 // 	glBindBufferARB(GL_ARRAY_BUFFER_ARB, vboId);
 //         glEnableClientState(GL_VERTEX_ARRAY);
 }
@@ -198,7 +198,7 @@ void Displaylists::drawCylinder(float radius, float height, unsigned int planes)
 // 	for (unsigned int i = 0; i <= planes; i++)
 // 	{
 // 		angle = i * 2.0 * M_PI / planes;
-// 
+//
 // 		glNormal3f(cos(angle), 0.0, sin(angle));
 // 		glVertex3f(radius * cos(angle), -height, radius * sin(angle));
 // 		glVertex3f(radius * cos(angle), height, radius * sin(angle));
@@ -230,8 +230,8 @@ void Displaylists::drawCylinder(float radius, float height, unsigned int planes)
 
 void Displaylists::glMultiMatrix( btScalar* pos )
 {
-	glMultMatrixf(pos); // FIXME WATCHIT OK WENT TO DOUBLE HERE 
-// 	glMultMatrixd(pos); // FIXME WATCHIT OK WENT TO DOUBLE HERE 
+	glMultMatrixf(pos); // FIXME WATCHIT OK WENT TO DOUBLE HERE
+// 	glMultMatrixd(pos); // FIXME WATCHIT OK WENT TO DOUBLE HERE
 }
 
 void Displaylists::call()
@@ -246,10 +246,10 @@ void Displaylists::call()
 // 	else
 // 	{
 //                 glEnableClientState(GL_NORMAL_ARRAY);
-// 
-//                 glNormalPointer(GL_FLOAT, 0, (float*)NULL + (24)); // 
+//
+//                 glNormalPointer(GL_FLOAT, 0, (float*)NULL + (24)); //
 // //                 glNormalPointer(GL_FLOAT, 0, (void*)sizeof(vertices)); // ((float*)NULL + (24))
-// 
+//
 //                 glVertexPointer(3, GL_FLOAT, 0, 0);
 //                 glDrawArrays(GL_QUADS, 0, 24);
 //                 glDisableClientState(GL_NORMAL_ARRAY);
@@ -262,8 +262,8 @@ void Displaylists::call()
 // {
 // 	ShapeCache* sc = new(btAlignedAlloc(sizeof(ShapeCache),16)) ShapeCache(shape);
 // 	sc->m_shapehull.buildHull(shape->getMargin());
-// 
-// 	/* Build edges	*/ 
+//
+// 	/* Build edges	*/
 // 	const int			ni=sc->m_shapehull.numIndices();
 // 	const int			nv=sc->m_shapehull.numVertices();
 // 	const unsigned int*	pi=sc->m_shapehull.getIndexPointer();
@@ -304,7 +304,7 @@ void Displaylists::generateList()
 
 // 	// 0 = cube with the bottom missing
 // 	glNewList(displayLists,GL_COMPILE);
-// 
+//
 // 		glBegin(GL_QUADS);
 // 			//Quad 1
 // 			glVertex3f( 1.0f, 1.0f, 1.0f);   //V2
@@ -337,7 +337,7 @@ void Displaylists::generateList()
 // 			glVertex3f(-1.0f,-1.0f, 1.0f);   //V8
 // 			glVertex3f(-1.0f,-1.0f,-1.0f);   //V6
 // 		glEnd();
-// 
+//
 // 	glEndList();
 
 	glNewList(displayLists,GL_COMPILE);

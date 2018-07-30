@@ -22,11 +22,11 @@ Food::Food()
 void Food::draw()
 {
 	glVertexPointer(3, GL_FLOAT, 0, vertices);
-	
+
 	glPushMatrix();
 		glColor4f( color[0], color[1], color[2], color[3] );
 		glTranslatef( position.x, position.y, position.z );
-	
+
 		glDrawElements(GL_QUADS, 20, GL_UNSIGNED_BYTE, indices);
 	glPopMatrix();
 }

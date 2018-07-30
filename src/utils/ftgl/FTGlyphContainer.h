@@ -149,7 +149,7 @@ class FTGlyphContainer
          * Current error code. Zero means no error.
          */
         FT_Error err;
-		
+
 		FTPoint m_kernAdvance;
 };
 

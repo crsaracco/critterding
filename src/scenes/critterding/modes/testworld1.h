@@ -6,7 +6,7 @@
 class TestWorld1 : public WorldB {
 
 	public:
-		TestWorld1(  boost::shared_ptr<BeGraphicsSystem> system, boost::shared_ptr<Textverbosemessage> textverbosemessage );
+		TestWorld1(  std::shared_ptr<BeGraphicsSystem> system, std::shared_ptr<Textverbosemessage> textverbosemessage );
 		~TestWorld1();
 
 		void		process(const BeTimer& timer);

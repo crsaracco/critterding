@@ -17,7 +17,7 @@
 class BeTexture2DResource
 {
 public:
-	
+
 	enum Status
 	{
 		eStatusLoading,
@@ -27,16 +27,16 @@ public:
 
 	BeTexture2DResource(BeFilesystem& filesystem, const std::string& path) : m_status(eStatusLoading)
 	{
-// 		m_futureImage=threadPool->schedule< boost::shared_ptr<QImage> >(boost::bind(&BeTexture2DResource::loadImage, this, path));
-// 		m_texture=boost::shared_ptr<BeTexture2D>(new BeTexture2D);
+// 		m_futureImage=threadPool->schedule< std::shared_ptr<QImage> >(boost::bind(&BeTexture2DResource::loadImage, this, path));
+// 		m_texture=std::shared_ptr<BeTexture2D>(new BeTexture2D);
 
 // 		std::cout << "BeTexture2DResource upload " << path << std::endl;
-	
+
 		const std::string& fullfilename( filesystem.getPath(path) );
 		if ( !fullfilename.empty() )
 		{
-				m_texture=boost::shared_ptr<BeTexture2D>(new BeTexture2D);
-				boost::shared_ptr<QImage> image=loadImage(fullfilename);
+				m_texture=std::shared_ptr<BeTexture2D>(new BeTexture2D);
+				std::shared_ptr<QImage> image=loadImage(fullfilename);
 				if(image->bits())
 				{
                     m_texture->data(0, 4, image->width(), image->height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image->bits());
@@ -49,7 +49,7 @@ public:
 
                     m_texture->parameter(GL_TEXTURE_MAX_ANISOTROPY_EXT, 1.0f);
 //                     m_texture->parameter(GL_TEXTURE_MAX_ANISOTROPY_EXT, Settings::Instance()->getCVar("texture_anisotropy"));
-					
+
                     m_texture->generateMipmap();
 					m_status=eStatusReady;
 				}
@@ -60,18 +60,18 @@ public:
 		}
 		m_status=eStatusReady;
 // 		std::cout << "  ok" << std::endl;
-		
+
 	}
 
 	BeTexture2DResource(const std::string& path) : m_status(eStatusLoading)
 	{
-// 		m_futureImage=threadPool->schedule< boost::shared_ptr<QImage> >(boost::bind(&BeTexture2DResource::loadImage, this, path));
-// 		m_texture=boost::shared_ptr<BeTexture2D>(new BeTexture2D);
+// 		m_futureImage=threadPool->schedule< std::shared_ptr<QImage> >(boost::bind(&BeTexture2DResource::loadImage, this, path));
+// 		m_texture=std::shared_ptr<BeTexture2D>(new BeTexture2D);
 
 // 		std::cout << "BeTexture2DResource upload " << path << std::endl;
-	
-				m_texture=boost::shared_ptr<BeTexture2D>(new BeTexture2D);
-				boost::shared_ptr<QImage> image=loadImage(path);
+
+				m_texture=std::shared_ptr<BeTexture2D>(new BeTexture2D);
+				std::shared_ptr<QImage> image=loadImage(path);
 				if(image->bits())
 				{
                     m_texture->data(0, 4, image->width(), image->height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image->bits());
@@ -84,7 +84,7 @@ public:
 
                     m_texture->parameter(GL_TEXTURE_MAX_ANISOTROPY_EXT, 1.0f);
 //                     m_texture->parameter(GL_TEXTURE_MAX_ANISOTROPY_EXT, Settings::Instance()->getCVar("texture_anisotropy"));
-					
+
                     m_texture->generateMipmap();
 					m_status=eStatusReady;
 				}
@@ -94,12 +94,12 @@ public:
 				}
 		m_status=eStatusReady;
 // 		std::cout << "  ok" << std::endl;
-		
+
 	}
 
-	boost::shared_ptr<BeTexture2D> get()
+	std::shared_ptr<BeTexture2D> get()
 	{
-		return isReady() ? m_texture : boost::shared_ptr<BeTexture2D>();
+		return isReady() ? m_texture : std::shared_ptr<BeTexture2D>();
 	}
 
 	void update()
@@ -108,20 +108,20 @@ public:
 // 		{
 // 			if(m_futureImage.is_ready())
 // 			{
-// 				boost::shared_ptr<QImage> image=m_futureImage.get();
+// 				std::shared_ptr<QImage> image=m_futureImage.get();
 // 				if(image->bits())
 // 				{
 //                     m_texture->data(0, 4, image->width(), image->height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image->bits());
-// 					
+//
 // 					m_texture->parameter(GL_TEXTURE_MAX_LEVEL,4);
 // // 					m_texture->parameter(GL_TEXTURE_MAX_LOD,4);
-// 
+//
 //                     m_texture->parameter(GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 //                     m_texture->parameter(GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-// 
+//
 // //                     m_texture->parameter(GL_TEXTURE_MAX_ANISOTROPY_EXT, 16.0f);
 //                     m_texture->parameter(GL_TEXTURE_MAX_ANISOTROPY_EXT, Settings::Instance()->getCVar("texture_anisotropy"));
-// 					
+//
 //                     m_texture->generateMipmap();
 // 					m_status=eStatusReady;
 // 				}
@@ -145,15 +145,15 @@ public:
 
 private:
 
-	boost::shared_ptr<QImage> loadImage(const std::string& path)
+	std::shared_ptr<QImage> loadImage(const std::string& path)
 	{
         QImage imageA(path.c_str());
         QImage imageB = QGLWidget::convertToGLFormat(imageA);
-        return boost::shared_ptr<QImage>(new QImage(imageB));
+        return std::shared_ptr<QImage>(new QImage(imageB));
 	}
 
 	Status m_status;
-	boost::shared_ptr<BeTexture2D> m_texture;
+	std::shared_ptr<BeTexture2D> m_texture;
 
 };
 

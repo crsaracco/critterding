@@ -11,10 +11,10 @@ Populationcontrolpanel::Populationcontrolpanel()
 
 // 	row+=8;
 	addSection("Limit energy at population limit", 0, 0);
-	
+
 	addSettingmutator("population_limit_energy", 0, 0);
 	addSettingmutator("population_limit_energy_percent", 0, 0);
-	
+
 	row+=8;
 	addSection("Eliminate portion of population", 0, 0);
 	addSettingmutator("population_eliminate_portion", 0, 0);
@@ -31,26 +31,26 @@ Populationcontrolpanel::Populationcontrolpanel()
 	addSettingmutator("population_eliminate_portion_bodymutationratechange", 0, 0);
 	addSettingmutator("population_eliminate_portion_bodymutationratemin", 0, 0);
 	addSettingmutator("population_eliminate_portion_bodymutationratemax", 0, 0);
-	
-	
+
+
 	row+=8;
 // 	addSection("Limit minima", 0, 0);
 	addSection("Double a population", 0, 0);
 	addSettingmutator("population_double", 0, 0);
-	
+
 // 	addSettingmutator("body_maxbodypartsatbuildtime", 0, 0);
 // 	addSettingmutator("body_minbodypartsize", 0, 0);
 // 	addSettingmutator("body_maxbodypartsize", 0, 0);
 // 	addSettingmutator("body_minheadsize", 0, 0);
 // 	addSettingmutator("body_maxheadsize", 0, 0);
-// 	
+//
 // 	row+=8;
-// 
+//
 // 	addSettingmutator("body_maxconstraintangle", 0, 0);
 // 	addSettingmutator("body_maxconstraintlimit", 0, 0);
-// 	
+//
 // 	row+=8;
-// 
+//
 // 	addSettingmutator("body_percentmutateeffectchangecolor", 0, 0);
 // 	addSettingmutator("body_percentmutateeffectchangecolor_slightly", 0, 0);
 // 	addSettingmutator("body_percentmutateeffectaddbodypart", 0, 0);
@@ -66,9 +66,9 @@ Populationcontrolpanel::Populationcontrolpanel()
 // 	addSettingmutator("body_percentmutateeffectresizehead", 0, 0);
 // 	addSettingmutator("body_percentmutateeffectresizehead_slightly", 0, 0);
 // 	addSettingmutator("body_percentmutateeffectrepositionhead", 0, 0);
-// 	
+//
 // 	row+=8;
-// 	
+//
 // 	addSettingmutator("body_costhavingbodypart", 0, 0);
 // 	addSettingmutator("body_costtotalweight", 0, 0);
 
@@ -76,7 +76,7 @@ Populationcontrolpanel::Populationcontrolpanel()
 
 	BeWidgetPtr w = addWidgetButton( "populationcontrolpanel_close", Vector2i(2, 2), Vector2i(12, 12), "x", BeCommand("gui_togglepanel", "populationcontrolpanel"), EVENT_NOREPEAT, 0 );
 		w->isAlignedRight = true;
-	
+
 }
 
 Populationcontrolpanel::~Populationcontrolpanel()

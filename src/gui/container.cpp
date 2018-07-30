@@ -5,7 +5,7 @@
 #include "checkbox.h"
 #include "container.h"
 
-BeWidgetContainer::BeWidgetContainer( bool isresizable ) : 
+BeWidgetContainer::BeWidgetContainer( bool isresizable ) :
  m_isresizable(isresizable),
  m_margin_left(0),
  m_margin_right(0),
@@ -96,7 +96,7 @@ bool BeWidgetContainer::mouseOverChild(BeWidgetPtr* fBeWidget, int x, int y)
 			// RECURSIVE INTO CONTAINERS
 			if ( childit->second->isContainer )
 			{
-				boost::shared_ptr<BeWidgetContainer> c = boost::static_pointer_cast<BeWidgetContainer>(childit->second);
+				std::shared_ptr<BeWidgetContainer> c = std::static_pointer_cast<BeWidgetContainer>(childit->second);
 				if ( c->mouseOverChild( fBeWidget, x, y ) )
 				{
 					return true;
@@ -124,7 +124,7 @@ BeWidgetPtr BeWidgetContainer::get( const std::string& name )
 	{
 		return childit->second;
 	}
-	return boost::shared_ptr<BeWidget>();
+	return std::shared_ptr<BeWidget>();
 }
 
 

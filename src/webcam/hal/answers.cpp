@@ -1,6 +1,6 @@
 #include "answers.h"
 
-Answers* Answers::Instance () 
+Answers* Answers::Instance ()
 {
 	static Answers t;
 	return &t; // _instance isn't needed in this case
@@ -10,7 +10,7 @@ Answers::Answers()
 {
 	// init mutexes
 	pthread_mutex_init (&answers_m, NULL);
-	
+
 	dirlayout = Dirlayout::Instance();
 	loadQuestionsFromDisk();
 	loadAnswersFromDisk();
@@ -22,13 +22,13 @@ Answers::Answers()
 // 	// 	cerr << "adding answer" << endl;
 // 		list.push_back(Problem());
 // 		Problem* np = &list[list.size()-1];
-// 		
+//
 // 		p->image.copyTo(np->image);
 // 		np->questions.clear();
 // 		np->questions.push_back(question());
 // 		np->questions[0].q = p->questions[0].q;
 // 		np->questions[0].a = p->questions[0].a;
-// 
+//
 // 		cerr << list.size() << "asnwers so far" << endl;
 // // 	pthread_mutex_unlock( &answers_m );
 // }
@@ -50,7 +50,7 @@ void Answers::save(Problem* p)
 
 // 	buf << dirlayout->imagesdir << "/" << imgname.str() << ".img";
 	buf << dirlayout->imagesdir << "/" << (files.size()+1) << ".img";
-	
+
 	fileH.save(buf.str(), imgstr.str());
 
 	stringstream qa;
@@ -76,7 +76,7 @@ void Answers::loadQuestionsFromDisk()
 		if ( parseH->Instance()->endMatches( ".q", files[i] ) )
 		{
 			string content;
-			fileH.open( files[i], content ); 
+			fileH.open( files[i], content );
 
 			diskquestion q;
 			q.name = files[i];
@@ -85,7 +85,7 @@ void Answers::loadQuestionsFromDisk()
 			string qid = Parser::Instance()->returnUntillStrip( ";", content );
 			if(EOF == sscanf(qid.c_str(), "%d", &q.id))
 				cerr << "reading question id " << q.name << endl;
-			
+
 			q.question = content.substr(0, content.size()-1);
 			questions.push_back(q);
 		}
@@ -95,7 +95,7 @@ void Answers::loadQuestionsFromDisk()
 void Answers::loadAnswersFromDisk()
 {
 	answers.clear();
-  
+
 	vector<string> files;
 	dirH.listContents(dirlayout->answersdir, files);
 
@@ -104,7 +104,7 @@ void Answers::loadAnswersFromDisk()
 		if ( parseH->Instance()->endMatches( ".a", files[i] ) )
 		{
 			string content;
-			fileH.open( files[i], content ); 
+			fileH.open( files[i], content );
 
 			diskanswer a;
 
@@ -119,7 +119,7 @@ void Answers::loadAnswersFromDisk()
 			string imgid = files[i].substr(0, files[i].size()-2);
 			if(EOF == sscanf(imgid.c_str(), "%d", &a.img))
 				cerr << "reading answer id " << imgid << endl;
-			
+
 // 			cerr << qid << " " << aid << " " << imgid << " " << endl;
 			answers.push_back(a);
 		}

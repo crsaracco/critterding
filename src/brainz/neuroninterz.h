@@ -12,7 +12,7 @@ class NeuronInterz
 		virtual ~NeuronInterz() {};
 
 		virtual void	process();
-		void			connec( const float& output, const float synapticWeight ); // unsigned int dendriteBranch, 
+		void			connec( const float& output, const float synapticWeight ); // unsigned int dendriteBranch,
 		void			reset();
 		void			commitOutput();
 		bool		inhibitory() const { return m_isInhibitory; }
@@ -25,7 +25,7 @@ class NeuronInterz
 
 	protected:
 		inline void		not_firing( const float signSwitchedPotential );
-		
+
 		float				m_firingThreshold;
 		float				m_potential;
 		float				m_potentialDecay;

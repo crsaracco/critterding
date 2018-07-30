@@ -21,7 +21,7 @@ BodypartRigidTrianglemesh::BodypartRigidTrianglemesh(const btVector3* const gVer
 	generalSetup( weight, transform, linearDamping, angularDamping );
 }
 
-BodypartRigidTrianglemesh::BodypartRigidTrianglemesh(boost::shared_ptr<BeGeometry> model, btDynamicsWorld* ownerWorld, const btTransform& transform ,const float weight, const float linearDamping, const float angularDamping  )
+BodypartRigidTrianglemesh::BodypartRigidTrianglemesh(std::shared_ptr<BeGeometry> model, btDynamicsWorld* ownerWorld, const btTransform& transform ,const float weight, const float linearDamping, const float angularDamping  )
   : BeRigidBody( ownerWorld )
 {
 	BE_FUNCTION_PROFILER;
@@ -40,7 +40,7 @@ BodypartRigidTrianglemesh::BodypartRigidTrianglemesh(boost::shared_ptr<BeGeometr
 
 BodypartRigidTrianglemesh::~BodypartRigidTrianglemesh()
 {
-	
+
 }
 
 BodypartRigidConvexmesh::BodypartRigidConvexmesh(const btVector3* const gVertices, const unsigned int numVertices, int* const gVIndices, const unsigned int numVIndices, btDynamicsWorld* ownerWorld, const btTransform& transform ,const float weight, const float linearDamping, const float angularDamping  )
@@ -56,7 +56,7 @@ BodypartRigidConvexmesh::BodypartRigidConvexmesh(const btVector3* const gVertice
     generalSetup( weight, transform, linearDamping, angularDamping );
 }
 
-BodypartRigidConvexmesh::BodypartRigidConvexmesh(boost::shared_ptr<BeGeometry> model, btDynamicsWorld* ownerWorld, const btTransform& transform ,const float weight, const float linearDamping, const float angularDamping  )
+BodypartRigidConvexmesh::BodypartRigidConvexmesh(std::shared_ptr<BeGeometry> model, btDynamicsWorld* ownerWorld, const btTransform& transform ,const float weight, const float linearDamping, const float angularDamping  )
     : BeRigidBody( ownerWorld )
 {
     BE_FUNCTION_PROFILER;

@@ -1,13 +1,12 @@
 #include "bodyphysics.h"
-#include <boost/smart_ptr/make_shared.hpp>
 
-BePhysicsModel::BePhysicsModel( boost::shared_ptr<btDynamicsWorld> ownerWorld ) : m_ownerWorld(ownerWorld)
+BePhysicsModel::BePhysicsModel( std::shared_ptr<btDynamicsWorld> ownerWorld ) : m_ownerWorld(ownerWorld)
 {
 }
 
-boost::shared_ptr<BodypartRigidBox> BePhysicsModel::addBodyPart_Rigid_Box(const btVector3& dimensions, const btTransform& transform,  const float weight, const float linearDamping, const float angularDamping )
+std::shared_ptr<BodypartRigidBox> BePhysicsModel::addBodyPart_Rigid_Box(const btVector3& dimensions, const btTransform& transform,  const float weight, const float linearDamping, const float angularDamping )
 {
-	boost::shared_ptr<BodypartRigidBox> b = boost::make_shared<BodypartRigidBox>(
+	std::shared_ptr<BodypartRigidBox> b = std::make_shared<BodypartRigidBox>(
 		dimensions,
 		m_ownerWorld,
 		transform,
@@ -19,9 +18,9 @@ boost::shared_ptr<BodypartRigidBox> BePhysicsModel::addBodyPart_Rigid_Box(const 
 	return b;
 }
 
-boost::shared_ptr<BodypartRigidSphere> BePhysicsModel::addBodyPart_Rigid_Sphere(const float radius, const btTransform& transform,  const float weight, const float linearDamping, const float angularDamping)
+std::shared_ptr<BodypartRigidSphere> BePhysicsModel::addBodyPart_Rigid_Sphere(const float radius, const btTransform& transform,  const float weight, const float linearDamping, const float angularDamping)
 {
-	boost::shared_ptr<BodypartRigidSphere> b = boost::make_shared<BodypartRigidSphere>(
+	std::shared_ptr<BodypartRigidSphere> b = std::make_shared<BodypartRigidSphere>(
         radius,
         m_ownerWorld,
         transform,
@@ -33,9 +32,9 @@ boost::shared_ptr<BodypartRigidSphere> BePhysicsModel::addBodyPart_Rigid_Sphere(
     return b;
 }
 
-boost::shared_ptr<BodypartRigidCylinder> BePhysicsModel::addBodyPart_Rigid_Cylinder(const btVector3& dimensions, const btTransform& transform,  const float weight, const float linearDamping, const float angularDamping)
+std::shared_ptr<BodypartRigidCylinder> BePhysicsModel::addBodyPart_Rigid_Cylinder(const btVector3& dimensions, const btTransform& transform,  const float weight, const float linearDamping, const float angularDamping)
 {
-	boost::shared_ptr<BodypartRigidCylinder> b = boost::make_shared<BodypartRigidCylinder>(
+	std::shared_ptr<BodypartRigidCylinder> b = std::make_shared<BodypartRigidCylinder>(
 		dimensions,
 		m_ownerWorld,
 		transform,
@@ -47,10 +46,10 @@ boost::shared_ptr<BodypartRigidCylinder> BePhysicsModel::addBodyPart_Rigid_Cylin
 	return b;
 }
 
-boost::shared_ptr<BodypartRigidTrianglemesh> BePhysicsModel::addBodyPart_Rigid_Trianglemesh(const btVector3*const  gVertices, const unsigned int numVertices, int* const gVIndices, const unsigned int numVIndices, const btTransform& transform, const float weight, const float linearDamping, const float angularDamping )
+std::shared_ptr<BodypartRigidTrianglemesh> BePhysicsModel::addBodyPart_Rigid_Trianglemesh(const btVector3*const  gVertices, const unsigned int numVertices, int* const gVIndices, const unsigned int numVIndices, const btTransform& transform, const float weight, const float linearDamping, const float angularDamping )
 {
-	boost::shared_ptr<BodypartRigidTrianglemesh> b = boost::make_shared<BodypartRigidTrianglemesh>(
-		gVertices, numVertices, gVIndices, numVIndices, 
+	std::shared_ptr<BodypartRigidTrianglemesh> b = std::make_shared<BodypartRigidTrianglemesh>(
+		gVertices, numVertices, gVIndices, numVIndices,
 		m_ownerWorld,
 		transform,
         weight,
@@ -61,9 +60,9 @@ boost::shared_ptr<BodypartRigidTrianglemesh> BePhysicsModel::addBodyPart_Rigid_T
 	return b;
 }
 
-boost::shared_ptr<BodypartRigidTrianglemesh> BePhysicsModel::addBodyPart_Rigid_Trianglemesh(boost::shared_ptr<BeGeometry> model, const btTransform& transform, const float weight, const float linearDamping, const float angularDamping )
+std::shared_ptr<BodypartRigidTrianglemesh> BePhysicsModel::addBodyPart_Rigid_Trianglemesh(std::shared_ptr<BeGeometry> model, const btTransform& transform, const float weight, const float linearDamping, const float angularDamping )
 {
-	boost::shared_ptr<BodypartRigidTrianglemesh> b = boost::make_shared<BodypartRigidTrianglemesh>(
+	std::shared_ptr<BodypartRigidTrianglemesh> b = std::make_shared<BodypartRigidTrianglemesh>(
 		model,
 		m_ownerWorld,
 		transform,
@@ -75,10 +74,10 @@ boost::shared_ptr<BodypartRigidTrianglemesh> BePhysicsModel::addBodyPart_Rigid_T
 	return b;
 }
 
-boost::shared_ptr<BodypartRigidConvexmesh> BePhysicsModel::addBodyPart_Rigid_Convexmesh(const btVector3* const gVertices, const unsigned int numVertices, int* const gVIndices, const unsigned int numVIndices, const btTransform& transform, const float weight, const float linearDamping, const float angularDamping )
+std::shared_ptr<BodypartRigidConvexmesh> BePhysicsModel::addBodyPart_Rigid_Convexmesh(const btVector3* const gVertices, const unsigned int numVertices, int* const gVIndices, const unsigned int numVIndices, const btTransform& transform, const float weight, const float linearDamping, const float angularDamping )
 {
-    boost::shared_ptr<BodypartRigidConvexmesh> b = boost::make_shared<BodypartRigidConvexmesh>(
-        gVertices, numVertices, gVIndices, numVIndices, 
+    std::shared_ptr<BodypartRigidConvexmesh> b = std::make_shared<BodypartRigidConvexmesh>(
+        gVertices, numVertices, gVIndices, numVIndices,
         m_ownerWorld,
         transform,
         weight,
@@ -89,14 +88,14 @@ boost::shared_ptr<BodypartRigidConvexmesh> BePhysicsModel::addBodyPart_Rigid_Con
     return b;
 }
 
-boost::shared_ptr<BodypartRigidConvexmesh> BePhysicsModel::addBodyPart_Rigid_Convexmesh(boost::shared_ptr<BeGeometry> model, const btTransform& transform,  const float weight, const float linearDamping, const float angularDamping)
+std::shared_ptr<BodypartRigidConvexmesh> BePhysicsModel::addBodyPart_Rigid_Convexmesh(std::shared_ptr<BeGeometry> model, const btTransform& transform,  const float weight, const float linearDamping, const float angularDamping)
 {
-    boost::shared_ptr<BodypartRigidConvexmesh> b = boost::make_shared<BodypartRigidConvexmesh>(
+    std::shared_ptr<BodypartRigidConvexmesh> b = std::make_shared<BodypartRigidConvexmesh>(
         model,
         m_ownerWorld,
-        transform, 
+        transform,
         weight,
-        linearDamping, 
+        linearDamping,
         angularDamping
         );
     m_bodyparts.push_back( b );

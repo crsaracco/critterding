@@ -8,7 +8,7 @@ Constraint::Constraint(btDynamicsWorld* ownerWorld, btRigidBody& bodyA, btRigidB
 	// init constraint inputs
 	Inputs.push_back(&input1); // 0: direction +
 	Inputs.push_back(&input2); // 1: direction -
-	
+
 	m_ownerWorld = ownerWorld;
 
 // 	btTypedConstraint* c_hinge = new btHingeConstraint( bodyA, bodyB, localA, localB );
@@ -17,10 +17,10 @@ Constraint::Constraint(btDynamicsWorld* ownerWorld, btRigidBody& bodyA, btRigidB
 
 // 	hinge = static_cast<btHingeConstraint*>(c_hinge);
 	hinge = new btHingeConstraint( bodyA, bodyB, localA, localB );
-	
+
 // 	hinge->m_setting.m_impulseClamp = 30.f;
 // 	hinge->m_setting.m_tau = 0.1f;
-	
+
 	// setLimit (btScalar low, btScalar high, btScalar _softness=0.9f, btScalar _biasFactor=0.3f, btScalar _relaxationFactor=1.0f)
 	hinge->setLimit( limitA, limitB, 0.8f, 0.3f, 1.0f );
 	m_ownerWorld->addConstraint( hinge, true );

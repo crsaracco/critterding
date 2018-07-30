@@ -52,19 +52,19 @@ class Videocap
 		// import
 		int video_width;
 		int video_height;
-		
+
 		int video_input;
 		int video_norm;
-		
+
 
 		int video_contrast;
 		int video_brightness;
 		int video_color;
 		int video_hue;
-		
+
 
 		char* image_base;
-		
+
 		int vid_dev;
 		char* vid_mmap;
 		char* vid_alloc_map;
@@ -76,36 +76,36 @@ class Videocap
 		int v4l_Settings ( void );
 		char* v4l_DoCapture ( int dev, int width, int height );
 		char* v4l_SetDevice ( int dev,  int width,  int height,  int input,  int norm );
-		
-		
+
+
 		/* prototype */
 /*		void v4l_CloseDev(
 		  void
 		);
-		
+
 		int v4l_OpenDev(
 		  char *device
 		);
-		
+
 
 		char *v4l_SetDevice (
-		  int dev, 
-		  int width, 
-		  int height, 
-		  int input, 
+		  int dev,
+		  int width,
+		  int height,
+		  int input,
 		  int norm
 		);
-		
+
 		char *v4l_DoCapture (
 		  int dev,
 		  int width,
 		  int height
 		);
-		
+
 		int v4l_Settings (
 		  void
 		);*/
-		
+
 };
 
 #endif

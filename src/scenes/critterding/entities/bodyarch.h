@@ -63,7 +63,7 @@ class BodyArch
 
 		std::string			archBuffer;
 		const float		m_size_Factor;
-		
+
 		bool faceIsTaken( const archBodypart& archbodypart, const unsigned int face ) const;
 		bool findOpenFace( unsigned int& bodypart, unsigned int& face ) const;
 

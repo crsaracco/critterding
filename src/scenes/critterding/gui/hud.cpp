@@ -6,7 +6,7 @@
 #include "scenes/critterding/entities/critterselection.h"
 
 
-Hud::Hud(boost::shared_ptr<BeGraphicsSystem> graphicsSystem)
+Hud::Hud(std::shared_ptr<BeGraphicsSystem> graphicsSystem)
  : Panel(false)
  , m_graphicsSystem(graphicsSystem)
  , m_bwidth(27)
@@ -24,7 +24,7 @@ Hud::Hud(boost::shared_ptr<BeGraphicsSystem> graphicsSystem)
 	unsigned int bwidth = 60;
 	unsigned int bheight = 18;
 	unsigned int bspacing = 2;
-	
+
 	unsigned int c_width = bspacing;
 	unsigned int c_height = bspacing;
 
@@ -64,7 +64,7 @@ Hud::Hud(boost::shared_ptr<BeGraphicsSystem> graphicsSystem)
 
 	c_height += bspacing + bheight;
 	addWidgetButton( "hud_populationcontrol", Vector2i(c_width, c_height), Vector2i(bwidth, bheight), "population", BeCommand("gui_togglepanel", "populationcontrolpanel"), EVENT_NOREPEAT, 0 );
-	
+
 	// init critter selection buttons
 	c_width += bspacing + bwidth;
 	bheight = 28;
@@ -103,7 +103,7 @@ Hud::Hud(boost::shared_ptr<BeGraphicsSystem> graphicsSystem)
 	c_height += bspacing + bheight;
 	addWidgetButton( "hud__cs_kill", Vector2i(c_width, c_height), Vector2i(bwidth, bheight), "kill", BeCommand("cs_killall"), EVENT_NOREPEAT, 0 );
 
-	
+
 	c_width += bspacing + bwidth;
 	c_height = bspacing;
 	addWidgetButton( "hud__cs_duplicateall", Vector2i(c_width, c_height), Vector2i(bwidth, bheight), "duplicate", BeCommand("cs_duplicateall"), EVENT_NOREPEAT, 0 );
@@ -147,20 +147,20 @@ void Hud::draw()
 		drawBackground();
 		drawBorders();
 		drawChildren();
-		
+
 // 		if ( !critterselection->clist.empty() )
 		{
 			glEnable (GL_DEPTH_TEST);
 			glEnable (GL_LIGHTING);
 			glEnable (GL_CULL_FACE);
 			glEnable(GL_TEXTURE_2D);
-// 			glDisable(GL_BLEND); 
+// 			glDisable(GL_BLEND);
 // 			glDisable(GL_ALPHA_TEST);
 
 			if(*world->m_glsl)
 				world->m_graphicsSystem->useProgram(world->m_graphics->m_effect->m_program.get());
 // 				world->m_graphicsSystem->useProgram(world->m_graphics->m_critter_effect->m_program.get());
-			
+
 
 			// 3D
 			for (unsigned int i(0); i < numActiveButtons; ++i )
@@ -169,12 +169,12 @@ void Hud::draw()
 				CritterB* c = critterselection->clist[i];
 
 				c->place( cbuttonpos.m_x+1, *settings->winHeight-m_bheight-(cbuttonpos.m_y), m_bwidth, m_bheight, world->m_graphics->m_v_inv );
-				
+
 // 				world->drawWithinCritterSight(i);
 				world->drawWithinCritterSight(c);
 			}
 
-			// Back to 2D 
+			// Back to 2D
 			{
 				glDisable (GL_DEPTH_TEST);
 				glDisable (GL_LIGHTING);
@@ -183,8 +183,8 @@ void Hud::draw()
 
 				if(*world->m_glsl)
 					world->m_graphicsSystem->useProgram(0);
-				
-				
+
+
 				glViewport(0,0,*settings->winWidth,*settings->winHeight);
 				m_graphicsSystem->matrixLoadIdentity(GL_PROJECTION);
 				m_graphicsSystem->matrixOrtho(GL_PROJECTION, 0, *settings->winWidth, *settings->winHeight, 0,  0, 1);

@@ -145,7 +145,7 @@ public:
 	}
 
 protected:
-	boost::shared_ptr<BeFilesystem> m_filesystem;
+	std::shared_ptr<BeFilesystem> m_filesystem;
 	bool m_initialised;
 #ifdef ENABLE_FMOD
 #if 0
@@ -171,7 +171,7 @@ public:
 		{
 			printf("Audio bank loaded %s\n", path.c_str());
 			int count=0;
-			//result = 
+			//result =
 			m_sound->getNumSubSounds(&count);
 			printf("%d sounds\n", count);
 			for (int i = 0; i < count; ++i)
@@ -179,10 +179,10 @@ public:
 				FMOD::Sound *sound;
 				char name[256];
 
-				//result = 
+				//result =
 				m_sound->getSubSound(count, &sound);
 
-				//result = 
+				//result =
 				sound->getName(name, 256);
 
 				printf("%d. %s\n", i, name);
@@ -192,7 +192,7 @@ public:
 		{
 			printf("Error loading audio bank %s\n", path.c_str());
 		}
-		
+
 	}
 	/*FMOD::Sound* findSound(const std::string &name)
 	{

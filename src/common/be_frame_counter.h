@@ -60,10 +60,10 @@ private:
 
 // #ifndef FPS_H
 // #define FPS_H
-// 
+//
 // #include "be_timer.h"
 // #include <iostream>
-// 
+//
 // class BeFrameCounter
 // {
 // public:
@@ -112,5 +112,5 @@ private:
 // 	unsigned int m_currentFramesPerSecond;
 // 	unsigned int m_averageFramesPerSecond;
 // };
-// 
+//
 // #endif

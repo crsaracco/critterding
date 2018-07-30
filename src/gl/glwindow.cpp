@@ -28,8 +28,8 @@ GLWindow::GLWindow( BeEventSystem* eventsystem ) :
  m_resizable(false)
 {
 	// register an exit event from glwindow
-	m_eventsystem->registerEvent( DOWN, "glwindow-quit", boost::shared_ptr<Event>(new Event(BeCommand("quit"), EVENT_NOREPEAT, 0)) );	
-} 
+	m_eventsystem->registerEvent( DOWN, "glwindow-quit", std::shared_ptr<Event>(new Event(BeCommand("quit"), EVENT_NOREPEAT, 0)) );
+}
 
 void GLWindow::createSafe( const std::string& title )
 {
@@ -232,9 +232,9 @@ void GLWindow::create(const std::string& title)
 			//Create window
 // 			SDL_FreeSurface(m_surface);
 // 			m_surface = SDL_SetVideoMode(w_width, w_height, w_bpp, videoFlags);
-			
+
 			toggleFs();
-			
+
 			GLenum err = glewInit();
 			if (GLEW_OK != err)
 			{
@@ -242,7 +242,7 @@ void GLWindow::create(const std::string& title)
 			}
 // 			std::cout << "GLEW Version: " << glewGetString(GLEW_VERSION) << std::endl;
 // 			std::cout << "Extensions: " << glGetString(GL_EXTENSIONS) << std::endl;
-			
+
 
             SDL_EnableUNICODE( SDL_ENABLE );
 
@@ -259,7 +259,7 @@ void GLWindow::create(const std::string& title)
 // 			}
 
 // 			usleep (100000);
-			
+
 			m_logDebug << "::WINDOW SDL subsystem initialized\n";
 			return;
 
@@ -285,13 +285,13 @@ void GLWindow::resize()
 	if ( w_height == 0 ) w_height = 1;
 	if ( w_width == 0 ) w_width = 1;
 // 	std::cout << "resize" << std::endl;
-	
+
 	if ( m_canvas )
 		m_canvas->resize(w_width, w_height);
 
 	SDL_FreeSurface(m_surface);
 	m_surface = SDL_SetVideoMode( w_width, w_height, w_bpp, vidFlags | SDL_RESIZABLE );
-	
+
 }
 
 void GLWindow::toggleFs()
@@ -426,7 +426,7 @@ void GLWindow::dumpScreenShot()
     unsigned char *pixels;
     int i;
 
-    temp = SDL_CreateRGBSurface(SDL_SWSURFACE, 
+    temp = SDL_CreateRGBSurface(SDL_SWSURFACE,
         m_surface->w, m_surface->h, 24,
 #if SDL_BYTEORDER == SDL_LIL_ENDIAN
         0x000000FF, 0x0000FF00, 0x00FF0000, 0
@@ -441,12 +441,12 @@ void GLWindow::dumpScreenShot()
         SDL_FreeSurface(temp);
     }
 
-    glReadPixels(0, 0, m_surface->w, m_surface->h, 
+    glReadPixels(0, 0, m_surface->w, m_surface->h,
         GL_RGB, GL_UNSIGNED_BYTE, pixels);
 
     for (i=0; i<m_surface->h; i++)
-        memcpy(((char *) temp->pixels) + temp->pitch * i, 
-        pixels + 3*m_surface->w * (m_surface->h-i-1), 
+        memcpy(((char *) temp->pixels) + temp->pitch * i,
+        pixels + 3*m_surface->w * (m_surface->h-i-1),
         m_surface->w*3);
     free(pixels);
 
@@ -463,7 +463,7 @@ void GLWindow::dumpScreenShot()
     }
 
 
- 
+
     SDL_FreeSurface(temp);
 }
 

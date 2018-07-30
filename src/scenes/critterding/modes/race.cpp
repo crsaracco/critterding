@@ -15,7 +15,7 @@
 
 using namespace std;
 
-WorldRace::WorldRace(  boost::shared_ptr<BeGraphicsSystem> system, BeFilesystem& fileSystem, boost::shared_ptr<Textverbosemessage> textverbosemessage )
+WorldRace::WorldRace(  std::shared_ptr<BeGraphicsSystem> system, BeFilesystem& fileSystem, std::shared_ptr<Textverbosemessage> textverbosemessage )
  : WorldB( system, fileSystem, textverbosemessage )
 {
 }
@@ -67,7 +67,7 @@ void WorldRace::process(const BeTimer& timer)
 // 			m_skyBoxAngle -= 360.0f;
 // 		m_skyTransform.getBasis().setEulerZYX(0,(1.0/180) * SIMD_PI * m_skyBoxAngle,0);
 		updateSkyboxAngles();
-		
+
 		autosaveCritters(timer);
 
 		// do a bullet step
@@ -110,11 +110,11 @@ void WorldRace::process(const BeTimer& timer)
 			for( i=0; i < lmax; ++i)
 				critters[i]->process();
 		}
-		
+
 		for( i=0; i < lmax; ++i)
 		{
 			CritterB *c = critters[i];
-			
+
 			if ( c->fitness_index == 0.0f )
 			{
 // 			// process
@@ -132,11 +132,11 @@ void WorldRace::process(const BeTimer& timer)
 
 					c->energyLevel += eaten;
 					f->energyLevel -= eaten;
-					
+
 					// if a food unit has no more energy left, we have a winner, the race is over
 // 					if ( f->energyLevel  == 0.0f )
 // 						haveWinner = true;
-					
+
 					if ( f->energyLevel <= 0.0f )
 					{
 // 						c->fitness_index += 100.0f / m_finished_counter;
@@ -164,12 +164,12 @@ void WorldRace::process(const BeTimer& timer)
 							const btVector3& cposi = cmyMotionState->m_graphicsWorldTrans.getOrigin();
 
 							Food* f = food_units[i];
-							
+
 							btDefaultMotionState* fmyMotionState = (btDefaultMotionState*)f->body.bodyparts[0]->body->getMotionState();
 							btVector3 fposi = fmyMotionState->m_graphicsWorldTrans.getOrigin();
 
 							critters[i]->fitness_index +=  0.5 * (1.0 / (0.0000001 + cposi.distance(fposi)));
-						
+
 						// fitness function 2: energy of food consumed
 // 							critters[i]->fitness_index += ( (float)*food_maxenergy /(f->energyLevel + 0.0000001));
 							critters[i]->fitness_index += 0.5 * (1.0 / (0.0000001 + *food_maxenergy));
@@ -180,7 +180,7 @@ void WorldRace::process(const BeTimer& timer)
 					vector<int> indices ( critters.size(), 0 );
 					for ( unsigned int i = 0; i < critters.size(); ++i )
 						indices[i] = i;
-		
+
 				// sort results
 					for ( int i = critters.size(); i>0; i--  )
 						for ( int j = 0; j < i-1; j++  )
@@ -202,7 +202,7 @@ void WorldRace::process(const BeTimer& timer)
 					}
 // 					std::cout << "number to keep: " << bestNum << "  " << (float(bestNum) / critters.size()) * 100 << std::endl;
 
-							
+
 				// display results
 					for ( unsigned int i=0; i < critters.size() && i < bestNum; ++i  )
 					{
@@ -210,12 +210,12 @@ void WorldRace::process(const BeTimer& timer)
 // 							cout << "k";
 // 						else
 // 							cout << " ";
-						
+
 						if ( food_units[indices[i]]->energyLevel <= 0.0f )
 							cout << "f";
 						else
 							cout << " ";
-	
+
 						cout << " " << indices[i] << " : " << critters[indices[i]]->fitness_index << endl;
 					}
 
@@ -223,7 +223,7 @@ void WorldRace::process(const BeTimer& timer)
 
 				// backup the 50% best critters
 					vector<CritterB*> best;
-					
+
 					if ( !critters.empty() )
 					{
 						btTransform t;
@@ -232,7 +232,7 @@ void WorldRace::process(const BeTimer& timer)
 						for ( unsigned int i=0; i < bestNum; ++i  )
 							best.push_back( new CritterB(*critters[indices[i]], critters[indices[i]]->critterID, t, false, false) );
 					}
-					
+
 				// remove critters and food
 					for ( unsigned int i=0; i < critters.size(); ++i )
 					{
@@ -242,16 +242,16 @@ void WorldRace::process(const BeTimer& timer)
 
 						if ( critters[i]->isPicked )
 							mousepicker->detach();
-						
+
 						if ( m_follow_critterP == critters[i] )
 						{
 							m_follow_critterP = 0;
 					// 		m_follow_critterP = *critters.rbegin();
 							m_camera.setSceneNode(&m_sceneNodeCamera);
 						}
-						
-						
-						
+
+
+
 	// FIXME on windows, we segfault here 1/10 after the first run
 						critterselection->unregisterCritterID(critters[i]->critterID);
 						critterselection->deselectCritter(critters[i]->critterID);
@@ -352,35 +352,35 @@ void WorldRace::process(const BeTimer& timer)
 
 void WorldRace::makeFloor()
 {
-	
+
 	if ( !m_model_cube )
 	{
 		std::string mapName = "cube/cube.obj";
-		
+
 		btTransform t;
 		t.setIdentity();
-		
+
 		m_model_cube=m_modelSystem->load(mapName, m_graphicsSystem, m_modelSystem, btVector3(1.0f,1.0f,1.0f), t);
-// 		m_skybox = boost::shared_ptr<ScClientMapResource>(new ScClientMapResource(m_fileSystem, mapName, m_graphicsSystem, m_modelSystem));
+// 		m_skybox = std::shared_ptr<ScClientMapResource>(new ScClientMapResource(m_fileSystem, mapName, m_graphicsSystem, m_modelSystem));
 	}
-	
+
 	makeSkybox();
 // 	if ( !m_skyBoxModel )
 // 	{
 // 		std::string mapName = "skys/default/skydome3.obj";
-// 		
+//
 // 		btTransform t;
 // 		t.setIdentity();
-// 		
+//
 // 		m_skyBoxModel=m_modelSystem->load(mapName, m_graphicsSystem, m_modelSystem, btVector3(1.0f,1.0f,1.0f), t);
-// 
-// // 		m_skybox = boost::shared_ptr<ScClientMapResource>(new ScClientMapResource(m_fileSystem, mapName, m_graphicsSystem, m_modelSystem));
+//
+// // 		m_skybox = std::shared_ptr<ScClientMapResource>(new ScClientMapResource(m_fileSystem, mapName, m_graphicsSystem, m_modelSystem));
 // 	}
 // 	m_skyTransform.setOrigin( btVector3( 0.5f * *worldsizeX, -500, 0.5f * *worldsizeZ ) );
 
 
 
-// 	for ( unsigned int i=0; i < walls.size(); ++i )	
+// 	for ( unsigned int i=0; i < walls.size(); ++i )
 // 		delete walls[i];
 // 	walls.clear();
 	for ( int i=0; i < (int)wall_units.size(); ++i )
@@ -443,23 +443,23 @@ void WorldRace::makeFloor()
 			w->m_model = m_model_cube;
 			wall_units.push_back(w);
 		}
-		
+
 		// Ground Floor
 		{
 			btTransform t;
 			t.setIdentity();
 			t.setOrigin(btVector3( *worldsizeX/2.0f, -WallHalfWidth, *worldsizeZ/2.0f ));
-			
+
 			Wall* w = new Wall( *worldsizeX, WallWidth, *worldsizeZ, t, m_dynamicsWorld );
 			w->m_model = m_model_cube;
 			wall_units.push_back(w);
 		}
 
-	
+
 		for ( unsigned int i=1; i < *mincritters; ++i  )
 		{
 			btVector3 position = btVector3 ( 0.0f-WallHalfWidth + (critterspacing*i), WallHalfHeight-WallWidth, *worldsizeZ/2.0f );
-			
+
 			btTransform t;
 			t.setIdentity();
 			t.setOrigin(position);
@@ -468,7 +468,7 @@ void WorldRace::makeFloor()
 			w->m_model = m_model_cube;
 			wall_units.push_back(w);
 		}
-		
+
 	activateFood();
 }
 
@@ -500,7 +500,7 @@ void WorldRace::insRandomCritter(int nr)
 	btTransform t;
 	t.setIdentity();
 	t.setOrigin(btVector3( (critterspacing/2)+(critterspacing*nr), 3.0f, *worldsizeZ-8.0f ));
-				
+
 	CritterB *c = new CritterB(m_dynamicsWorld, currentCritterID++, t, retina);
 	c->energyLevel = *critter_maxenergy / 2;
 	critters.push_back( c );
@@ -512,7 +512,7 @@ void WorldRace::insMutatedCritter(CritterB& other, int nr, unsigned int id, bool
 	btTransform t;
 	t.setIdentity();
 	t.setOrigin(btVector3( (critterspacing/2)+(critterspacing*nr), 3.0f, *worldsizeZ-8.0f ));
-	
+
 	CritterB *nc = new CritterB(other, id, t, mutateBrain, mutateBody);
 	nc->energyLevel = *critter_maxenergy / 2;
 	critters.push_back( nc );
@@ -550,20 +550,20 @@ void WorldRace::loadAllCritters()
 		for ( unsigned int i = 0; i < files.size() && inserted < *mincritters; ++i )
 		{
 			auto& f( files[i] );
-			
+
 			if ( parseH.endMatches( ".cr", f ) || parseH.endMatches(".cr.bz2", f) )
 			{
 				BeFile befileCritter;
 				if ( m_fileSystem.load( befileCritter, f ) )
 				{
 					std::string content( befileCritter.getContent().str() );
-					
+
 					critterspacing = (float)*worldsizeX / *mincritters;
-					
+
 					btTransform t;
 					t.setIdentity();
 					t.setOrigin(btVector3( (critterspacing/2)+(critterspacing*critters.size()), 1.0f, *worldsizeZ-(*worldsizeZ/4) ));
-					
+
 					CritterB *c = new CritterB(content, m_dynamicsWorld, t, retina);
 
 					unsigned int error = 0;
@@ -600,29 +600,29 @@ void WorldRace::loadAllCritters()
 // 	const auto Z(1.4f * *worldsizeZ);
 // 	if ( Z > biggest )
 // 		biggest = Z;
-// 
+//
 // 	GLfloat lightPos[] = { 0.5f * *worldsizeX, 6.f*biggest, 0.5f * *worldsizeZ, 1.0f };
 // // 				GLfloat lightPos[] = { 0.47f * *worldsizeX, 2.5f * (*worldsizeX + *worldsizeY), 0.47f * *worldsizeY, 1.0f };
-// 	
+//
 // // 				GLfloat lightPos[] = { 0.0f, 0.1f * *worldsizeX, 0.0f, 1.0f };
 // // 			GLfloat lightPos[] = { 0.25f * *worldsizeX, 0.5f * *worldsizeX, 0.25f * *worldsizeY, 1.0f };
 // 	glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
-// 
+//
 // 	GLfloat lightDir[] = { 0.0f, -1.0f, 0.0f };
 // 	glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, lightDir);
-// 
+//
 // 	GLfloat lightCutoff[] = { 90.0f }; // angle is 0 to 180
 // 	glLightfv(GL_LIGHT0, GL_SPOT_CUTOFF, lightCutoff);
-// 
+//
 // 	GLfloat lightExponent[] = { 128.0f }; // exponent is 0 to 128
 // 	glLightfv(GL_LIGHT0, GL_SPOT_EXPONENT, lightExponent);
-// 	
+//
 // 	GLfloat lightAttenuation[] = { 0.5f };
 // 	glLightfv(GL_LIGHT0, GL_CONSTANT_ATTENUATION, lightAttenuation);
-// 
+//
 // 	GLfloat lightLAttenuation[] = { 0.000005f };
 // 	glLightfv(GL_LIGHT0, GL_LINEAR_ATTENUATION, lightLAttenuation);
-// 
+//
 // 	GLfloat lightQAttenuation[] = { 0.000000f };
 // 	glLightfv(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, lightQAttenuation);
 // }

@@ -35,7 +35,7 @@ class BeTexture2D : public BeTexture
 {
 public:
 	BeTexture2D() : BeTexture(GL_TEXTURE_2D) {}
-	BeTexture2D(const GLenum internalFormat, const GLsizei width, const GLsizei height) : BeTexture(GL_TEXTURE_2D) 
+	BeTexture2D(const GLenum internalFormat, const GLsizei width, const GLsizei height) : BeTexture(GL_TEXTURE_2D)
 	{
 		GLenum format=0;
 		GLenum type=0;

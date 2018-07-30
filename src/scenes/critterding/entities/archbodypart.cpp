@@ -24,7 +24,7 @@ archBodypart::archBodypart()
 // {
 // 	std::cout << "unmarking face: " << face << std::endl;
 // 	std::cout << " taken faces pre: " << m_takenFaces.size() << std::endl;
-// 	
+//
 // 	for ( auto it = m_takenFaces.begin(); it != m_takenFaces.end(); ++it )
 // 	{
 // 		if ( it->first == face )
@@ -33,11 +33,11 @@ archBodypart::archBodypart()
 // 			return;
 // 		}
 // 	}
-// 	
+//
 // // 	const auto& it( m_takenFaces.find(face) );
 // // 	if ( it != m_takenFaces.end() )
 // // 		m_takenFaces.erase(it);
-// 
+//
 // 	std::cout << " freefaces post: " << 5 - m_takenFaces.size() << std::endl;
 // 	std::cout << std::endl;
 // }
@@ -47,7 +47,7 @@ archBodypart::archBodypart()
 // 	const auto& it( m_takenFaces.find(face) );
 // 	if ( it != m_takenFaces.end() )
 // 		return true;
-// 	
+//
 // 	return false;
 // }
 
@@ -56,7 +56,7 @@ archBodypart::archBodypart()
 // // 	if ( m_takenFaces.size() > 0 )
 // // 		std::cout << "number free faces: " << 5 - m_takenFaces.size() << std::endl;
 // // 	std::cout << std::endl;
-// 
+//
 // 	return 5 - m_takenFaces.size();
 // }
 

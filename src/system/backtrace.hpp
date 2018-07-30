@@ -25,10 +25,10 @@ namespace boost {
 
     class backtrace {
     public:
-        
+
         static size_t const default_stack_size = 32;
 
-        backtrace(size_t frames_no = default_stack_size) 
+        backtrace(size_t frames_no = default_stack_size)
         {
             if(frames_no == 0)
                 return;
@@ -79,7 +79,7 @@ namespace boost {
                 return;
             stack_trace::write_symbols(&frames_.front(),frames_.size(),out);
         }
-    
+
     private:
         std::vector<void *> frames_;
     };

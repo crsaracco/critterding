@@ -19,10 +19,10 @@ public:
 
 	void draw(const btVector3& scale);
 
-	void upload(boost::shared_ptr<BeGraphicsSystem> graphicsSystem, boost::shared_ptr<BeGraphicsModelSystem> modelSystem)
+	void upload(std::shared_ptr<BeGraphicsSystem> graphicsSystem, std::shared_ptr<BeGraphicsModelSystem> modelSystem)
 	{
 		btTransform chassis_tranform;
-		chassis_tranform.setIdentity(); 
+		chassis_tranform.setIdentity();
 		m_model=modelSystem->load(m_path, graphicsSystem, modelSystem, btVector3(1,1,1), chassis_tranform);
 // 		m_skyBoxModel=modelSystem->load("skys/default/skydome3.obj", graphicsSystem, modelSystem, Vector3f(1,1,1), chassis_tranform);
 	}
@@ -33,11 +33,11 @@ public:
 // 	{
 // 		m_skyBoxTransform=transform;
 // 	}
-	
+
 protected:
 
 	void load(BeFilesystem& filesystem, const std::string& path);
-	boost::shared_ptr<BeGraphicsModelResource> m_model;
+	std::shared_ptr<BeGraphicsModelResource> m_model;
     btVector3 m_scale;
 	btTransform m_transform;
 	std::string m_path;
@@ -48,7 +48,7 @@ class ServerMap
 {
 public:
 
-	ServerMap(BeFilesystem& filesystem, const std::string& path, boost::shared_ptr<BeGeometrySystem> modelSystem, btDynamicsWorld* dynamicsWorld/*, const btVector3& tscale*/);
+	ServerMap(BeFilesystem& filesystem, const std::string& path, std::shared_ptr<BeGeometrySystem> modelSystem, btDynamicsWorld* dynamicsWorld/*, const btVector3& tscale*/);
 	~ServerMap();
 
 // 	btTransform finish;
@@ -61,9 +61,9 @@ public:
 
 protected:
 	BePhysicsModel m_body;
-	void load(BeFilesystem& filesystem, const std::string& path, boost::shared_ptr<BeGeometrySystem> modelSystem/*, const btVector3& tscale*/);
+	void load(BeFilesystem& filesystem, const std::string& path, std::shared_ptr<BeGeometrySystem> modelSystem/*, const btVector3& tscale*/);
 	bool loadPhysicsMaterials(const std::string& path);
-	boost::shared_ptr<BeGeometry> m_model;
+	std::shared_ptr<BeGeometry> m_model;
 	btTransform m_transform;
 	typedef std::map< std::string, BePhysicsMaterial > PhysicsMaterialMap;
 	PhysicsMaterialMap m_physicsMaterialMap;

@@ -1,9 +1,8 @@
 #include "be_model_system.h"
 #include "utils/texturestore.h"
 #include "resource/be_graphics_model_resource.h"
-#include <boost/smart_ptr/make_shared.hpp>
 
-BeGraphicsModel::BeGraphicsModel( boost::shared_ptr<BeGraphicsSystem> system, const std::string& filename ) :
+BeGraphicsModel::BeGraphicsModel( std::shared_ptr<BeGraphicsSystem> system, const std::string& filename ) :
 	m_filename(filename),
 	m_numberVertices(0),
 	m_numberNormals(0),
@@ -20,7 +19,7 @@ BeGraphicsModel::BeGraphicsModel( boost::shared_ptr<BeGraphicsSystem> system, co
 
 void BeGraphicsModel::upload(Texturestore &textureStore)
 {
-	
+
 	buildElementArrayBuffer();
 		assert(m_arrayBuffer==0);
 		m_arrayBuffer.reset(new BeArrayBuffer);
@@ -91,10 +90,10 @@ void BeGraphicsModel::draw( unsigned int current_material, const btTransform& tr
 {
 // 	btScalar m[16];
 	transform.getOpenGLMatrix(m_matrix);
-	
+
 	glPushMatrix();
 // 	m_system->matrixPush(GL_MODELVIEW);
-	
+
 		m_system->matrixMult(GL_MODELVIEW, m_matrix);
 	// 	m_system->matrixLoad(GL_MODELVIEW, m);
 		draw(current_material);
@@ -116,13 +115,13 @@ void BeGraphicsModel::draw( unsigned int current_material, const btTransform& tr
 // 	m_system->matrixMult(GL_MODELVIEW, m_matrix);
 	m_system->matrixMult(m_matrix);
 // 	m_system->matrixLoad(GL_MODELVIEW, m_matrix);
-	
+
 // 		m_system->matrixPush(GL_MODELVIEW);
 // 		glPushMatrix();
 
 			if ( scale.x() != 1.0f || scale.y() != 1.0f || scale.z() != 1.0f )
 				m_system->matrixScale(GL_MODELVIEW, scale.x(), scale.y(), scale.z());
-			
+
 			draw(current_material);
 
 // 		glPopMatrix();
@@ -224,7 +223,7 @@ void BeGraphicsModel::setContext( unsigned int current_material )
 				{
 					m_system->bindTexture2DWhitePixel();
 				}
-				
+
 				if ( *m_glsl == 1 )
 				{
 					if ( material.m_imageTexture2DBump )
@@ -237,12 +236,12 @@ void BeGraphicsModel::setContext( unsigned int current_material )
 					{
 						if ( m_system->getActiveProgram() != 0 )
 							glUniform1i(m_system->getNormalMappingDo(), 0); // 91 == tex1Loc in qt.cpp // FIXME MULTITEXTURE FIXME
-							
+
 						m_system->bindMultiTexture2D(GL_TEXTURE3, 0);
 					}
 				}
 
-				
+
 				m_system->applyMaterial(GL_FRONT_AND_BACK, &material.m_material);
 				return;
 			}
@@ -287,14 +286,14 @@ void BeGraphicsModel::disableContext()
 // void BeGraphicsModel::draw()
 // {
 // 	m_system->enable(GL_TEXTURE_2D);
-// 
+//
 // 	m_system->bindVertexArray(m_vertexArray.get());
-// 
+//
 // 	if ( matlist.size() > 0 )
 // 	{
 // 		int minPriority=0;
 // 		int maxPriority=0;
-// 
+//
 // // 		size_t i=0;
 // 		matlist_iterator it=matlist.begin();
 // 		while(it!=matlist.end())
@@ -308,21 +307,21 @@ void BeGraphicsModel::disableContext()
 // 			}
 // 			if(priority<minPriority) minPriority = priority;
 // 			if(priority>maxPriority) maxPriority = priority;
-// 			
-// 
+//
+//
 // 			++it;
 // // 			++i;
 // 		}
-// 	
+//
 // 		for(int priority=minPriority; priority<=maxPriority; ++priority)
 // 		{
-// 
+//
 // 			size_t i=0;
 // 			matlist_iterator it=matlist.begin();
 // 			while(it!=matlist.end())
 // 			{
 // 				const std::pair<const std::string, Material> pair=*it;
-// 
+//
 // 				int pr = 0;
 // // 				bool sort = false;
 // 				int depthMask=1; // FIXME THESE ARE UNUSED
@@ -337,10 +336,10 @@ void BeGraphicsModel::disableContext()
 // 					depthTest=material->getDepthTest();
 // 					blend=material->getBlend();
 // 				}
-// 
+//
 // 				if(pr==priority)
 // 				{
-// 
+//
 // 					glDepthMask(depthMask);
 // 					if(depthTest)
 // 					{
@@ -360,23 +359,23 @@ void BeGraphicsModel::disableContext()
 // 						glDisable(GL_BLEND);
 // 						glDisable(GL_SAMPLE_ALPHA_TO_COVERAGE);
 // 					}
-// 
+//
 // 					const Material& material=pair.second;
-// 
+//
 // 					if ( material.m_imageTexture2D )
 // 					{
 // 						m_system->bindTexture2D(material.m_imageTexture2D->get().get());
-// 						
+//
 // 	// 					if ( material.m_imageTexture2D->isReady() )
 // 	// 								std::cout << "handle " << material.m_imageTexture2D->get()->handle() << std::endl;
-// 									
+//
 // 					}
 // // 					else
 // // 					{
 // 	// 					glColor4f(material.m_material.getDiffuse().x(), material.m_material.getDiffuse().y(), material.m_material.getDiffuse().z(), 1.0f);
 // // 						m_system->bindTexture2D(0);
 // // 					}
-// 
+//
 // // 				BeEntity::ptr normal_mapping( get("normal_mapping", 1) );
 // // 				if ( normal_mapping && normal_mapping->getProperty_Bool() )
 // // 				{
@@ -384,8 +383,8 @@ void BeGraphicsModel::disableContext()
 // // 					t.getOpenGLMatrix(modelview2);
 // // 					glUniformMatrix4fv(m_v_inv, 1, GL_FALSE, modelview2);
 // // 				}
-// 
-// 
+//
+//
 // 					if ( material.m_imageTexture2DBump )
 // 					{
 // // 						glActiveTexture(GL_TEXTURE3);
@@ -400,22 +399,22 @@ void BeGraphicsModel::disableContext()
 // 						glUniform1i(m_system->getNormalMappingDo(), 0); // 91 == tex1Loc in qt.cpp // FIXME MULTITEXTURE FIXME
 // 						m_system->bindMultiTexture2D(GL_TEXTURE3, 0);
 // 					}
-// 
+//
 // 					const DrawCall& drawCall = m_drawCalls[i];
-// 
+//
 // // 								std::cout << "b" << std::endl;
 // // 					m_system->applyMaterial(GL_FRONT_AND_BACK, &material.m_material);
 // 						m_system->applyMaterial(GL_FRONT_AND_BACK, &material.m_material);
 // // 								std::cout << "bb" << std::endl;
-// 					
+//
 // 	// 				std::cout << "draw: materials OK c" << std::endl;
 // 					glDrawElements(GL_TRIANGLES, drawCall.m_count, GL_UNSIGNED_INT, (char *)NULL + ((drawCall.m_first)*sizeof(GLint)) );
 // 				}
-// 
+//
 // 				++it;
 // 				++i;
 // 			}
-// 
+//
 // 		}
 // 	}
 // 	else
@@ -425,7 +424,7 @@ void BeGraphicsModel::disableContext()
 // // 		std::cout << "draw: no materials d" << std::endl;
 // 		glDrawElements(GL_TRIANGLES, elementArrayBuffer.size(), GL_UNSIGNED_INT, NULL);
 // 	}
-// 
+//
 // 	m_system->bindVertexArray(0);
 // // 	m_graphicsSystem.bindTexture2D(0);
 // 	m_system->disable(GL_TEXTURE_2D);
@@ -445,7 +444,7 @@ void BeGraphicsModel::drawToDepth()
 // 	{
 // 		int minPriority=0;
 // 		int maxPriority=0;
-// 
+//
 // // 		size_t i=0;
 // 		matlist_iterator it=matlist.begin();
 // 		while(it!=matlist.end())
@@ -459,21 +458,21 @@ void BeGraphicsModel::drawToDepth()
 // 			}
 // 			if(priority<minPriority) minPriority = priority;
 // 			if(priority>maxPriority) maxPriority = priority;
-// 			
-// 
+//
+//
 // 			++it;
 // // 			++i;
 // 		}
-// 	
+//
 // 		for(int priority=minPriority; priority<=maxPriority; ++priority)
 // 		{
-// 
+//
 // 			size_t i=0;
 // 			matlist_iterator it=matlist.begin();
 // 			while(it!=matlist.end())
 // 			{
 // 				const std::pair<const std::string, Material> pair=*it;
-// 
+//
 // 				int pr = 0;
 // // 				bool sort = false;
 // 				int depthMask=1; // FIXME THESE ARE UNUSED
@@ -488,10 +487,10 @@ void BeGraphicsModel::drawToDepth()
 // 					depthTest=material->getDepthTest();
 // 					blend=material->getBlend();
 // 				}
-// 
+//
 // 				if(pr==priority)
 // 				{
-// 
+//
 // 					glDepthMask(depthMask);
 // // 					if(depthTest)
 // // 					{
@@ -511,9 +510,9 @@ void BeGraphicsModel::drawToDepth()
 // // 						glDisable(GL_BLEND);
 // // 						glDisable(GL_SAMPLE_ALPHA_TO_COVERAGE);
 // // 					}
-// 
+//
 // // 					const Material& material=pair.second;
-// 
+//
 // // 					if ( material.m_imageTexture2DBump )
 // // 					{
 // // // 						glActiveTexture(GL_TEXTURE3);
@@ -528,16 +527,16 @@ void BeGraphicsModel::drawToDepth()
 // // 						glUniform1i(m_system->getNormalMappingDo(), 0); // 91 == tex1Loc in qt.cpp // FIXME MULTITEXTURE FIXME
 // // 						m_system->bindMultiTexture2D(GL_TEXTURE3, 0);
 // // 					}
-// 
+//
 // 					const DrawCall& drawCall = m_drawCalls[i];
-// 
+//
 // 					glDrawElements(GL_TRIANGLES, drawCall.m_count, GL_UNSIGNED_INT, (char *)NULL + ((drawCall.m_first)*sizeof(GLint)) );
 // 				}
-// 
+//
 // 				++it;
 // 				++i;
 // 			}
-// 
+//
 // 		}
 // 	}
 // 	else
@@ -550,7 +549,7 @@ void BeGraphicsModel::drawToDepth()
 }
 
 
-boost::shared_ptr<BeGraphicsModelResource> BeGraphicsModelSystem::load(const std::string& filename, boost::shared_ptr<BeGraphicsSystem> graphicsSystem, boost::shared_ptr<BeGraphicsModelSystem> instance, const btVector3& scale, const btTransform& transform)
+std::shared_ptr<BeGraphicsModelResource> BeGraphicsModelSystem::load(const std::string& filename, std::shared_ptr<BeGraphicsSystem> graphicsSystem, std::shared_ptr<BeGraphicsModelSystem> instance, const btVector3& scale, const btTransform& transform)
 {
 // 	// account for scale and transform
 // 	btScalar rotX, rotY, rotZ;
@@ -559,7 +558,7 @@ boost::shared_ptr<BeGraphicsModelResource> BeGraphicsModelSystem::load(const std
 // 	sscacheName << filename << scale.x() << scale.y() << scale.z();
 // 	sscacheName << transform.getOrigin().getX() << transform.getOrigin().getY() << transform.getOrigin().getZ();
 // 	sscacheName << rotX << rotY << rotZ;
-// 
+//
 // 	std::string cacheName(sscacheName.str());
 // 	if ( m_resources[cacheName] )
 // 	{
@@ -567,13 +566,13 @@ boost::shared_ptr<BeGraphicsModelResource> BeGraphicsModelSystem::load(const std
 // 	}
 // 	else
 	{
-		boost::shared_ptr<BeGraphicsModelResource> m(new BeGraphicsModelResource( m_filesystem, filename, graphicsSystem, instance, scale, transform ));
+		std::shared_ptr<BeGraphicsModelResource> m(new BeGraphicsModelResource( m_filesystem, filename, graphicsSystem, instance, scale, transform ));
 // 		m_resources[cacheName]=m;
 		return m;
 	}
 }
 
-boost::shared_ptr<BeGeometry> BeGeometrySystem::load(BeFilesystem& filesystem, const std::string& filename, const btVector3& scale, const btTransform& transform)
+std::shared_ptr<BeGeometry> BeGeometrySystem::load(BeFilesystem& filesystem, const std::string& filename, const btVector3& scale, const btTransform& transform)
 {
 // 	// check if models exists
 // 	// 	cerr << "checking '" << filename << "'" << endl;
@@ -586,7 +585,7 @@ boost::shared_ptr<BeGeometry> BeGeometrySystem::load(BeFilesystem& filesystem, c
 	if ( filesystem.load(objBeFile, filename) )
 	{
 		const BeObjLoader obj( filesystem, objBeFile, scale, transform );
-		boost::shared_ptr<BeGeometry> m(boost::make_shared<BeGeometry>());
+		std::shared_ptr<BeGeometry> m(std::make_shared<BeGeometry>());
 
 		// copy materials
 		m->m_materialMap = obj.matlist;
@@ -594,25 +593,25 @@ boost::shared_ptr<BeGeometry> BeGeometrySystem::load(BeFilesystem& filesystem, c
 		m->facematerials = obj.facematerials;
 		m->setNumberVertices( obj.getNumberVertices()*3 );
 		m->setNumberVIndices( obj.getNumberVIndices() );
-		
+
 // 		std::cout << "model: " << filename << std::endl;
 // 		std::cout << "  number of faces: " << obj.getNumberVIndices()/3 << std::endl;
 
-		
-		
+
+
 		for ( unsigned int i=0; i < obj.getNumberVIndices(); ++i )
 		{
 			m->indices[i] = obj.gVIndices[i] - 1;
 		}
-		
+
 		memcpy(m->vertices.get(), obj.gVertices, obj.getNumberVertices()*sizeof(float)*3);
 // 		memcpy(m->vertices.get(), obj.gVertices, obj.getNumberVertices()*sizeof(float));
-		
+
 		m->buildElementArrayBuffer();
 // 		m_resources[filename]=m;
 		return m;
 	}
-	return boost::shared_ptr<BeGeometry>();
+	return std::shared_ptr<BeGeometry>();
 }
 
 void BeGeometry::buildElementArrayBuffer()

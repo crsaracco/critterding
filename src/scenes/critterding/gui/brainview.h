@@ -25,7 +25,7 @@ class Brainview : public Settingspanel
 			m_num_motor = 0;
 		}
 		NeuronInterz* nPointer;
-		
+
 		double m_position_x;
 		double m_position_y;
 		double m_newposition_x;
@@ -33,7 +33,7 @@ class Brainview : public Settingspanel
 		unsigned int m_num_motor;
 // 		Vector2f position;
 // 		Vector2f newposition;
-		
+
 		std::vector<unsigned int> m_links_to_sensor_sums;
 		std::vector<unsigned int> m_links_to_neurons_sums;
 	};
@@ -62,11 +62,11 @@ class Brainview : public Settingspanel
 		BeWidgetPtr brainview;
 // 		btScalar viewposition[16];
 		CritterB* currentCritter;
-		
+
 		unsigned int m_num_motors;
 		float m_motor_spacing;
 		float m_half_motor_spacing;
-		
+
 		// drawing helpers
 		int v_spacer;
 		int v_space;
@@ -79,7 +79,7 @@ class Brainview : public Settingspanel
 
 		unsigned int start_of_vision_inputs;
 		unsigned int stop_of_vision_inputs;
-		
+
 		// shortcuts to settings
 		const int*	attractor1;
 		const int*	attractor2;

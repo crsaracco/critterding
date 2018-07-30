@@ -64,11 +64,11 @@ bool BeSettingsLoader::load( BeEventSystem* eventsystem, const BeFile* befile )
 
 						if ( keystate == "up" )
 						{
-							eventsystem->registerEvent( UP, key, boost::shared_ptr<Event>(new Event(cmdDown, EP_Repeat, delay)) );
+							eventsystem->registerEvent( UP, key, std::shared_ptr<Event>(new Event(cmdDown, EP_Repeat, delay)) );
 						}
 						else if ( keystate == "down" )
 						{
-							eventsystem->registerEvent( DOWN, key, boost::shared_ptr<Event>(new Event(cmdDown, EP_Repeat, delay)) );
+							eventsystem->registerEvent( DOWN, key, std::shared_ptr<Event>(new Event(cmdDown, EP_Repeat, delay)) );
 						}
 					}
 				}
@@ -112,9 +112,9 @@ bool BeSettingsLoader::load( BeEventSystem* eventsystem, const BeFile* befile )
 					{
 						// never repeat for axis
 						BeCommand cmd = BeCommand( action, 0.0f );
-						boost::shared_ptr<Event> event(new Event(cmd, EVENT_NOREPEAT));
-						boost::shared_ptr<VirtualAxis> virtualaxis(new VirtualAxis(event, min, max, map_min, map_max));
-						
+						std::shared_ptr<Event> event(new Event(cmd, EVENT_NOREPEAT));
+						std::shared_ptr<VirtualAxis> virtualaxis(new VirtualAxis(event, min, max, map_min, map_max));
+
 						eventsystem->registerEvent( axis+7168, virtualaxis );
 					}
 				}
@@ -125,7 +125,7 @@ bool BeSettingsLoader::load( BeEventSystem* eventsystem, const BeFile* befile )
 					std::string action("");
 					std::string param("");
 					float value(-2.0f);
-					
+
 					// timing
 					int repeat(0);
 					int delay(0);
@@ -156,9 +156,9 @@ bool BeSettingsLoader::load( BeEventSystem* eventsystem, const BeFile* befile )
 								cmdDown = BeCommand(action);
 
 						if ( keystate == "up" )
-							eventsystem->registerEvent( UP,   button+2048, boost::shared_ptr<Event>(new Event(cmdDown, EP_Repeat, delay)) );
+							eventsystem->registerEvent( UP,   button+2048, std::shared_ptr<Event>(new Event(cmdDown, EP_Repeat, delay)) );
 						else if ( keystate == "down" )
-							eventsystem->registerEvent( DOWN, button+2048, boost::shared_ptr<Event>(new Event(cmdDown, EP_Repeat, delay)) );
+							eventsystem->registerEvent( DOWN, button+2048, std::shared_ptr<Event>(new Event(cmdDown, EP_Repeat, delay)) );
 						//TODO log
 					}
 				}
@@ -168,23 +168,23 @@ bool BeSettingsLoader::load( BeEventSystem* eventsystem, const BeFile* befile )
 // 				{
 // 					int axis = 0;
 // 					std::string action = "";
-// 
+//
 // 					int min = 0;
 // 					int max = 0;
-// 					
+//
 // 					BeXmlHelper<4> xmlHelper;
 // 					xmlHelper.addInt("axis", axis);
 // 					xmlHelper.addString("action", action);
 // 					xmlHelper.addInt("min", min);
 // 					xmlHelper.addInt("max", max);
 // 					xmlHelper.parse(element);
-// 					
+//
 // // 					Events::Instance()->registerEvent(axis+4096, action, BeCommand(action, 0), 0, 0, 0 );
-// 
+//
 // // 					axisrangemap[action] = new AxisRange(min, max);
-// 					axisrangemap[action] = boost::shared_ptr<AxisRange>(new AxisRange(min, max));
-// 					
-// // 					boost::shared_ptr<Player>(new Player( m_idcounter++ ));
+// 					axisrangemap[action] = std::shared_ptr<AxisRange>(new AxisRange(min, max));
+//
+// // 					std::shared_ptr<Player>(new Player( m_idcounter++ ));
 // 				}
 				elementPtr=element.NextSiblingElement();
 			}
@@ -225,8 +225,8 @@ void BeSettingsLoader::parseJoystick(BeEventSystem& eventsystem, const TiXmlElem
 			{
 				// never repeat for axis
 				BeCommand cmd = BeCommand( action, 0.0f );
-				boost::shared_ptr<Event> event(new Event(cmd, EVENT_NOREPEAT));
-				boost::shared_ptr<VirtualAxis> virtualaxis(new VirtualAxis(event, min, max, map_min, map_max));
+				std::shared_ptr<Event> event(new Event(cmd, EVENT_NOREPEAT));
+				std::shared_ptr<VirtualAxis> virtualaxis(new VirtualAxis(event, min, max, map_min, map_max));
 
 				eventsystem.registerEvent( axis+6144, virtualaxis );
 			}
@@ -269,11 +269,11 @@ void BeSettingsLoader::parseJoystick(BeEventSystem& eventsystem, const TiXmlElem
 					cmdDown = BeCommand(action);
 
 				if ( keystate == "up" )
-					eventsystem.registerEvent( UP,   button+4096, boost::shared_ptr<Event>(new Event(cmdDown, EP_Repeat, delay)) );
+					eventsystem.registerEvent( UP,   button+4096, std::shared_ptr<Event>(new Event(cmdDown, EP_Repeat, delay)) );
 				else if ( keystate == "down" )
-					eventsystem.registerEvent( DOWN, button+4096, boost::shared_ptr<Event>(new Event(cmdDown, EP_Repeat, delay)) );
+					eventsystem.registerEvent( DOWN, button+4096, std::shared_ptr<Event>(new Event(cmdDown, EP_Repeat, delay)) );
 				//TODO log
-			}		
+			}
 		}
 		elementPtr=element.NextSiblingElement();
 	}

@@ -26,7 +26,7 @@ class Panel : public BeWidgetContainer
 // 				glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 // 				glEnable(GL_BLEND);
 // 			}
-// 
+//
 // 			glPushMatrix();
 // 				glColor4f(0.05f, 0.05f, 0.05f, 0.75f);
 // 			// 	glTranslatef(0.5f, 0.5f, 0.0f); // pixel precision offset
@@ -37,7 +37,7 @@ class Panel : public BeWidgetContainer
 // 					glVertex2i(m_absposition.m_x+m_dimensions.m_x, m_absposition.m_y+m_dimensions.m_y);
 // 				glEnd();
 // 			glPopMatrix();
-// 
+//
 // 			if (isTransparant)
 // 				glDisable(GL_BLEND);
 // 		}
@@ -50,19 +50,19 @@ class Panel : public BeWidgetContainer
 // 				glBegin(GL_LINES);
 // 					glVertex2i(m_absposition.m_x,         m_absposition.m_y+m_dimensions.m_y);
 // 					glVertex2i(m_absposition.m_x,         m_absposition.m_y);
-// 
+//
 // 					glVertex2i(m_absposition.m_x,         m_absposition.m_y);
 // 					glVertex2i(m_absposition.m_x+m_dimensions.m_x, m_absposition.m_y);
-// 
+//
 // 					glVertex2i(m_absposition.m_x+m_dimensions.m_x, m_absposition.m_y);
 // 					glVertex2i(m_absposition.m_x+m_dimensions.m_x, m_absposition.m_y+m_dimensions.m_y);
-// 
+//
 // 					glVertex2i(m_absposition.m_x+m_dimensions.m_x, m_absposition.m_y+m_dimensions.m_y);
 // 					glVertex2i(m_absposition.m_x,         m_absposition.m_y+m_dimensions.m_y);
 // 				glEnd();
 // 			glPopMatrix();
 // 		}
-		
+
 // 		inline void	switch3D();
 // 		inline void	switch2D();
 

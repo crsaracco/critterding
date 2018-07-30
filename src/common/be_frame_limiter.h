@@ -25,7 +25,7 @@ class BeFrameLimiter
 				float depth(0.05f * *m_optimal);
 				if (depth < 2.0f)
 					depth = 2.0f;
-				
+
 				averageValue += m_tracker.process( 0.001f * t->getMilliSeconds(), depth );
 
 				const float difference(1000.0f * averageValue - (1000.0f / *m_optimal));
@@ -48,8 +48,8 @@ class BeFrameLimiter
 
 		const int*		m_optimal;
 		float m_sleeptime;
-		
-		
+
+
 		struct BeFpsTracker
 		{
 			BeFpsTracker()
@@ -66,7 +66,7 @@ class BeFrameLimiter
 			float process( const float timeDelta, const unsigned int depth  )
 			{
 				// calculate new "average" timeDelta smoothed out over depth
-				if ( m_averageCount < depth ) 
+				if ( m_averageCount < depth )
 					m_averageCount++;
 				else
 					m_averageValueTotal -= m_averageValue;
@@ -80,7 +80,7 @@ class BeFrameLimiter
 			float m_averageValue;
 		};
 
-		
+
 		BeFpsTracker m_tracker;
 
 };
@@ -99,7 +99,7 @@ class BeFrameLimiter
 // 		{
 // 		}
 // 		~BeFrameLimiter() {};
-// 
+//
 // 		void mark(BeTimer *t)
 // 		{
 // 			if ( *active == 1 )
@@ -109,17 +109,17 @@ class BeFrameLimiter
 // 				float cpsf;
 // 				if ( t->getMilliSeconds() == 0 ) cpsf=static_cast<float>(cpsi) ;
 // 				else cpsf = 1000.f / t->getMilliSeconds();
-// 		
+//
 // 			// calc sleeptime & sleep
 // 				if ( cpsf > *optimal )
 // 					sleeptime += stepsize;
 // 				else if ( cpsf < *optimal )
 // 					sleeptime -= stepsize;
-// 
+//
 // 				if (sleeptime > 0 ) SDL_Delay(static_cast<Uint32>(0.01f*sleeptime));
 // 			}
 // 		}
-// 
+//
 // 	private:
 // 		Settings*		settings;
 // 		const int*		active;

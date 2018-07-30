@@ -9,9 +9,9 @@ void BeRigidBody::generalSetup( const float weight, const btTransform& transform
     btVector3 localInertia(0,0,0);
 	if (weight != 0.f) // weight of non zero = dynamic
 		m_shape->calculateLocalInertia( weight, localInertia );
-	m_motionState = boost::shared_ptr<btDefaultMotionState>(new btDefaultMotionState( transform ));
+	m_motionState = std::shared_ptr<btDefaultMotionState>(new btDefaultMotionState( transform ));
 	btRigidBody::btRigidBodyConstructionInfo rbInfo( weight, m_motionState.get(), m_shape.get(), localInertia );
-	m_body = boost::shared_ptr<btRigidBody>(new btRigidBody(rbInfo));
+	m_body = std::shared_ptr<btRigidBody>(new btRigidBody(rbInfo));
 	m_body->setDamping(linearDamping, angularDamping);
 	m_body->setDeactivationTime(0.0001f);
 	m_body->setSleepingThresholds(0.36f, 0.05f);

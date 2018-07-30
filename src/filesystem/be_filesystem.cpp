@@ -1,4 +1,4 @@
-// boost::shared_ptr<BeGraphicsModel> m(new BeGraphicsModel( m_fileSystem.getDataRoot(path) ));
+// std::shared_ptr<BeGraphicsModel> m(new BeGraphicsModel( m_fileSystem.getDataRoot(path) ));
 #include "be_filesystem.h"
 
 using namespace boost::filesystem;
@@ -66,7 +66,7 @@ std::string BeFilesystem::getPath( const std::string& file )
 	{
 		std::string fullfilename( berootpaths.list[i] );
 		fullfilename.append( file );
-		
+
 // 		std::cout << "testing " << fullfilename << std::endl;
 		if ( boost::filesystem::exists( fullfilename ) )
 		{
@@ -92,7 +92,7 @@ bool BeFilesystem::save(const std::string &filename, const std::string& content)
 		std::cerr << "  ERROR  ::filename: " << filename << std::endl;
 		return false;
 	}
-	
+
 	if (file_op.is_open())
 	{
 		if (file_op.good())
@@ -117,8 +117,8 @@ bool BeFilesystem::save_bz2(const std::string& filename, const std::string& cont
 // 				}
 // 				catch(boost::iostreams::bzip2_error& error)
 // 				{
-	
-	
+
+
 	std::istringstream uncompressed_string(content);
 	if (uncompressed_string.good())
 	{
@@ -182,13 +182,13 @@ bool BeFilesystem::save_bz2(const std::string& filename, const std::string& cont
 
 	}
 
-	return false;	
+	return false;
 }
 
 void BeFilesystem::rename(const std::string& filename, const std::string& filename_new)
 {
 	boost::filesystem::rename( filename, filename_new );
-	
+
 }
 
 void BeFilesystem::rm(const std::string& filename)

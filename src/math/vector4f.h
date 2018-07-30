@@ -3,7 +3,7 @@
 
 #include <cmath>
 
-class Vector4f 
+class Vector4f
 {
 
 public:
@@ -11,7 +11,7 @@ public:
 	Vector4f()
 	{
 	}
-	
+
 	Vector4f(const Vector4f& v)
 	{
 		m_v[0]=v.m_v[0];
@@ -19,7 +19,7 @@ public:
 		m_v[2]=v.m_v[2];
 		m_v[3]=v.m_v[3];
 	}
-	
+
 	Vector4f(const float x, const float y, const float z, const float w)
 	{
 		m_v[0]=x;
@@ -27,7 +27,7 @@ public:
 		m_v[2]=z;
 		m_v[3]=w;
 	}
-	
+
 	float getX() const { return m_v[0]; }
 	float getY() const { return m_v[1]; }
 	float getZ() const { return m_v[2]; }

@@ -14,14 +14,14 @@ Globalsettingspanel::Globalsettingspanel()
 	addMutator("worldsizeX", BeCommand("dec_worldsizex"), BeCommand("inc_worldsizex"), 0, 0);
 	addMutator("worldsizeY", BeCommand("dec_worldsizey"), BeCommand("inc_worldsizey"), 0, 0);
 	addMutator("worldsizeZ", BeCommand("dec_worldsizez"), BeCommand("inc_worldsizez"), 0, 0);
-	
+
 	addSettingmutator("skybox_rotationX", 0, 0);
 	addSettingmutator("skybox_rotationY", 0, 0);
 	addSettingmutator("skybox_rotationZ", 0, 0);
 // 	addSettingmutator("skybox_scale", 0, 0);
-	
-	
-	
+
+
+
 // 	addSettingmutator("threads", 0, 0);
 	addSettingcheckbox("colormode", 0, 0);
 	addSettingcheckbox("exit_if_empty", 0, 0);
@@ -44,18 +44,18 @@ Globalsettingspanel::Globalsettingspanel()
 	addSettingmutator("critter_autoexchangeinterval", 0, 0);
 	addSettingcheckbox("critter_enableomnivores", 0, 0);
 // 	addSettingcheckbox("critter_raycastvision", 0, 0);
-	
+
 	addSettingmutator("critter_mutate_minenergyproc", 0, 0);
 // 	addSettingmutator("critter_mutate_sightrange", 0, 0);
 	addSettingmutator("critter_mutate_maxlifetime", 0, 0);
-	
-	
+
+
 // 	addSettingmutator("body_percentmutateeffectchangemaxmutations", 0, 0);
 // 	addSettingmutator("body_percentmutateeffectchangemutationrate", 0, 0);
 // 	addSettingmutator("brain_percentmutateeffectchangemaxmutations", 0, 0);
 // 	addSettingmutator("brain_percentmutateeffectchangemutationrate", 0, 0);
-	
-	
+
+
 
 	row+=8; addSection("Food", 0, 0);
 	addMutator("energy", BeCommand("decreaseenergy"), BeCommand("increaseenergy"), 0, 0);
@@ -76,8 +76,8 @@ Globalsettingspanel::Globalsettingspanel()
 	addSettingmutator("killhalf_bodymutationratechange", 0, 0);
 	addSettingmutator("killhalf_bodymutationratemin", 0, 0);
 	addSettingmutator("killhalf_bodymutationratemax", 0, 0);
-	
-	
+
+
 	row+=8; addSection("Divine Doubling", 0, 0);
 	addSettingmutator("critter_doubleat", 0, 0);*/
 

@@ -12,7 +12,7 @@ Settingslightpanel::Settingslightpanel()
 	addSettingmutator("light_ambient_modelR", 0, 0);
 	addSettingmutator("light_ambient_modelG", 0, 0);
 	addSettingmutator("light_ambient_modelB", 0, 0);
-	
+
 	row+=8;
 
 	addSettingmutator("light_ambientR", 0, 0);
@@ -30,7 +30,7 @@ Settingslightpanel::Settingslightpanel()
 	addSettingmutator("light_specularR", 0, 0);
 	addSettingmutator("light_specularG", 0, 0);
 	addSettingmutator("light_specularB", 0, 0);
-	
+
 	row+=8;
 
 	addSettingmutator("light_attenuation_constant", 0, 0);

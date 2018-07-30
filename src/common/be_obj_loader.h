@@ -24,13 +24,13 @@ public:
 	std::string m_imagePath;
 	std::string m_imagePathBump;
 	BeMaterial m_material;
-	boost::shared_ptr<BeTexture2DResource> m_imageTexture2D;
-	boost::shared_ptr<BeTexture2DResource> m_imageTexture2DBump;
-	
+	std::shared_ptr<BeTexture2DResource> m_imageTexture2D;
+	std::shared_ptr<BeTexture2DResource> m_imageTexture2DBump;
+
 	Material()
-	{	
+	{
 	}
-	
+
 	~Material()
 	{
 	}
@@ -57,21 +57,21 @@ class BeObjLoader
 		unsigned int getNumberVIndices() const { return m_numberVIndices; }
 // 		unsigned int m_numberTIndices const { return m_numberTIndices; }
 // 		unsigned int m_numberNIndices const { return m_numberNIndices; }
-		
+
 		btScalar* gVertices;
 		float* gNormals;
 		float* gTexCoor;
 		int* gVIndices;
 		int* gTIndices;
 		int* gNIndices;
-		
+
 		std::unordered_map<std::string, Material> matlist;
 		typedef std::unordered_map <std::string, Material>::const_iterator matlist_iterator;
 		matlist_iterator matit;
 
 		std::vector<Facematerial> facematerials;
 		void loadMaterialfile( BeFilesystem& filesystem, const std::string& mpath, const std::string& file );
-		
+
 	private:
 
 		// FIXME check if all of these are needed

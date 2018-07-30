@@ -116,8 +116,8 @@ class Settings
 
 		int*			winWidth;
 		int*			winHeight;
-		
-		void setLogbuffer( boost::shared_ptr<Logbuffer> logBuffer ) { m_logBuffer = logBuffer; }
+
+		void setLogbuffer( std::shared_ptr<Logbuffer> logBuffer ) { m_logBuffer = logBuffer; }
 	protected:
 		Settings();
 		~Settings();
@@ -133,7 +133,7 @@ class Settings
 		BeParser	parseH;
 		BeFilesystem	m_filesystem;
 		BeLogDebug	m_logDebug;
-		boost::shared_ptr<Logbuffer> m_logBuffer;
+		std::shared_ptr<Logbuffer> m_logBuffer;
 };
 
 #endif

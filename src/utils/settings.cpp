@@ -1,7 +1,7 @@
 #include "settings.h"
 #include "gui/logbuffermessage.h"
 
-Settings* Settings::Instance () 
+Settings* Settings::Instance ()
 {
 	static Settings t;
 	return &t;
@@ -216,7 +216,7 @@ void Settings::saveProfile( const std::string& savedir )
 	std::stringstream s;
 	s << time(0);
 	std::string profileName( s.str() );
-	
+
 // 	std::string fulldir(savedir + "/" + profileName);
 	std::string fulldir(savedir);
 
@@ -225,7 +225,7 @@ void Settings::saveProfile( const std::string& savedir )
 
 	std::string filename(fulldir + "/" + profileName + ".pro");
 	std::stringstream buf;
-	
+
 	for( auto cvarit = cvarlist.begin(); cvarit != cvarlist.end(); ++cvarit )
 	{
 		if ( cvarit->second && !cvarit->second->isLocal() )
@@ -298,7 +298,7 @@ void Settings::checkCommandLineOptions(int argc, char *argv[])
 		}
 		++optind;
 	}
- 
+
 	if ( optind < argc )
 		m_logDebug << "::SETTINGS warning: unknown commandline option: '" << argv[optind] << "'\n";
 }
@@ -310,10 +310,10 @@ void Settings::createHelpInfo()
 	{
 		std::stringstream buf("");
 		buf << "  --" << cvarit->first;
-		
+
 		for ( unsigned int i=buf.str().size(); i < 62; ++i )
 			buf << " ";
-		
+
 		if ( cvarit->second->getType() == T_INT )
 		{
 			buf << cvarit->second->getIntValue();

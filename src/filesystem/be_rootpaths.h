@@ -13,7 +13,7 @@ class BeRootPaths
 		void push( const std::string& directory );
 
 		std::vector<std::string> list; // FIXME private?
-		
+
 	protected:
 	private:
 };

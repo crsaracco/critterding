@@ -29,8 +29,8 @@ BeObjLoader::BeObjLoader( BeFilesystem& filesystem, BeFile& befile, const btVect
 
 // 	cerr << "loading model: " << filename << endl;
 // 	std::cout << "BeObjLoader::scale " << scale.x() << "  " << scale.y() << "  " << scale.z() << std::endl;
-	
-	
+
+
 	std::string line;
 	BeParser parseH;
 	while ( befile.getLine(line) )
@@ -107,7 +107,7 @@ BeObjLoader::BeObjLoader( BeFilesystem& filesystem, BeFile& befile, const btVect
 				{
 
                     btVector3 normal;
-					
+
                     parseH.parseVector3(line, normal);
 
 // 						if ( !xs.empty() && !ys.empty() && !zs.empty() )
@@ -143,7 +143,7 @@ BeObjLoader::BeObjLoader( BeFilesystem& filesystem, BeFile& befile, const btVect
 // 						cerr << line << endl;
 					// 1
 					parseH.trimWhitespaces(line);
-					
+
 					vindex1 = parseH.returnUntillStrip( '/', line );
 					if ( !vindex1.empty() ) vi1 = atoi( vindex1.c_str() );
 					tindex1 = parseH.returnUntillStrip( '/', line );
@@ -188,15 +188,15 @@ BeObjLoader::BeObjLoader( BeFilesystem& filesystem, BeFile& befile, const btVect
 // 						assert(viy);
 // 						assert(viz);
 
-					
+
 // 						string last = parseH.returnUntillStrip( " ", line );
 // 						if ( last.size() > 1 )
 // 						{
 // 							cerr << "4 faces dammit '" << last << "'" << endl;
 // 							exit(1);
 // 						}
-					
-					
+
+
 					if ( vi1 != 0 && vi2 != 0 && vi3 != 0 )
 					{
 						// TODO REMOVE T & N NUMS, unneeded, always the same yo
@@ -301,15 +301,15 @@ void BeObjLoader::loadMaterialfile( BeFilesystem& filesystem, const std::string&
 	fullfilename.append(file);
 
 	BeFile materialbefile;
-	
+
 	if ( filesystem.load( materialbefile, fullfilename ) )
 	{
-		
+
 		Material* material = 0;
 		std::string line;
 		std::string name;
 		BeParser parseH;
-		
+
 		while ( materialbefile.getLine(line) )
 		{
 			parseH.reset();
@@ -380,11 +380,11 @@ void BeObjLoader::loadMaterialfile( BeFilesystem& filesystem, const std::string&
 // 												std::cerr << z << std::endl;
 
 						//GL workaround for ambient set to black in obj materials
-						if( 
+						if(
 							material->m_material.getAmbient().r() == 0.0f
 							&& material->m_material.getAmbient().g() == 0.0f
 							&& material->m_material.getAmbient().b() == 0.0f
-							
+
 						)
 						{
 							material->m_material.setAmbient( material->m_material.getDiffuse() );
@@ -425,23 +425,23 @@ void BeObjLoader::loadMaterialfile( BeFilesystem& filesystem, const std::string&
 						material->m_material.getDiffuse().setA(alpha);
 						material->m_material.getAmbient().setA(alpha);
 						material->m_material.getSpecular().setA(alpha);
-						
+
 // 						std::cout << alpha << std::endl;
-						
+
 	// 						assert( material.d <= 1.0f ); //Ensure its in valid gl range
 					}
 				}
 			}
 		}
-		
+
 		// HACK TODO FIXME TO MAKE THE LAST MATERIAL WORK
 		if ( matlist.size() > 1 )
 		{
 			matlist["cdfixtmaterial"] = Material();
 // 			material = &matlist[name];
 		}
-		
-		
+
+
 	}
 // 		cerr << "loaded" << endl;
 }

@@ -16,7 +16,7 @@ class archConstraint
 
 		unsigned int XYZ1;
 // 		int sign;
-		
+
 		unsigned int id_1;
 		unsigned int id_2;
 

@@ -5,7 +5,7 @@
 
 using namespace std;
 
-Statsbuffer* Statsbuffer::Instance () 
+Statsbuffer* Statsbuffer::Instance ()
 {
 	static Statsbuffer t;
 	return &t;

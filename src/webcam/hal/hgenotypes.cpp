@@ -1,6 +1,6 @@
 #include "hgenotypes.h"
 
-HGenotypes* HGenotypes::Instance () 
+HGenotypes* HGenotypes::Instance ()
 {
 	static HGenotypes t;
 	return &t;
@@ -131,7 +131,7 @@ HGenotype* HGenotypes::copy(HGenotype* gt, bool brainmutant, unsigned int brruns
 		return gt;
 	}
 
-	
+
 // 	cerr << " copied genotype " << list.size() << endl;
 }
 
@@ -175,7 +175,7 @@ HGenotype* HGenotypes::loadHGenotype(string& content)
 		// the rest goes to the body or brain
 			else
 			{
-				if ( 
+				if (
 					Parser::Instance()->beginMatches( "color=", line ) ||
 					Parser::Instance()->beginMatches( "retinasize=", line ) ||
 					Parser::Instance()->beginMatches( "b ", line ) ||
@@ -198,14 +198,14 @@ HGenotype* HGenotypes::loadHGenotype(string& content)
 	}
 
 // 	gt->bodyArch->setArch(&passToBody);
-	
+
 	gt->registerBrainInputOutputs();
 	gt->brainzArch->setArch(&passToBrain);
 
 	gt->count=1;
 // 	gt->speciescolor = colorH.randomColorRGB().getNormalized();
 	list.push_back(gt);
-	
+
 // 	genotype = genotypes->newg(passToBody, passToBrain, retinasize); // FIXME, with a speciesID
 
 // 	genotype->bodyArch->setArch(&passToBody);

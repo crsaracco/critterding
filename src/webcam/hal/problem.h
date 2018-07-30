@@ -18,13 +18,13 @@ using namespace std;
 		public:
 			Problem();
 			~Problem();
-			
+
 // 			void copyTo(Problem& p);
 
 // 			vector<float> image;
 			Img image;
 // 			vector<question> questions;
-			
+
 			question currentquestion;
 
 		private:
