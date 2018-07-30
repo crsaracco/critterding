@@ -1,24 +1,19 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 3.11)
+set(CMAKE_CXX_STANDARD 17)
 
 IF (WIN32)
 	SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
 ENDIF (WIN32)
 
-
-
-
-	# build type
-			# 	set(CMAKE_BUILD_TYPE Release)
-			# 	# compile option (Debug) 
-			# 	set(CMAKE_CXX_FLAGS_DEBUG "-g -Og -Wall -Wextra -std=c++0x")
-			# 	set(CMAKE_C_FLAGS_DEBUG "-g -Og -Wall -Wextra -std=c++0x")
-			# 
-			# 	# compile option (Release)
-			# 	set(CMAKE_CXX_FLAGS_RELEASE "-W -Wall -Wextra -Ofast -std=c++0x")
-			# 	set(CMAKE_C_FLAGS_RELEASE "-W -Wall -Wextra -Ofast -std=c++0x")
-
-
-
+# build type
+# 	set(CMAKE_BUILD_TYPE Release)
+# 	# compile option (Debug) 
+# 	set(CMAKE_CXX_FLAGS_DEBUG "-g -Og -Wall -Wextra -std=c++0x")
+# 	set(CMAKE_C_FLAGS_DEBUG "-g -Og -Wall -Wextra -std=c++0x")
+# 
+# 	# compile option (Release)
+# 	set(CMAKE_CXX_FLAGS_RELEASE "-W -Wall -Wextra -Ofast -std=c++0x")
+# 	set(CMAKE_C_FLAGS_RELEASE "-W -Wall -Wextra -Ofast -std=c++0x")
 
 # 	SET(INSTALL_LIBS ON)
 # 	add_definitions(-DINSTALL_LIBS=OFF)
